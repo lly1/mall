@@ -51,7 +51,7 @@ public class MyShiroRealm extends AuthorizingRealm {
                 Subject currentUser = SecurityUtils.getSubject();
                 Session session = currentUser.getSession();
                 session.setAttribute(Constants.User_Session, user);
-                return new SimpleAuthenticationInfo(username, password,
+                return new SimpleAuthenticationInfo(user, password,
                         getName());
             } else {
                 throw new IncorrectCredentialsException("密码错误！");

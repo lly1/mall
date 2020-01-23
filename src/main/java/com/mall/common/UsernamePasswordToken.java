@@ -1,4 +1,3 @@
-
 package com.mall.common;
 
 import com.mall.constant.ErrorType;
@@ -13,7 +12,7 @@ public class UsernamePasswordToken extends org.apache.shiro.authc.UsernamePasswo
 
 	/**
 	 * 登录来源，新增字段，方便区分登录来源，比如PC端的账号不能登录out端
-	 * lly
+	 * yuerfeng 2018-10-12
 	 */
 	private String loginSrc;
 	/**

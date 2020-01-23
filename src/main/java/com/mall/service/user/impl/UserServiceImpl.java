@@ -3,7 +3,6 @@ package com.mall.service.user.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mall.dao.user.UserMapper;
-import com.mall.entity.domain.Principal;
 import com.mall.entity.user.User;
 import com.mall.service.user.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -12,7 +11,6 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,19 +56,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = new User();
         try {
             Subject subject = SecurityUtils.getSubject();
-            Principal principal = (Principal) subject.getPrincipal();
-            if (principal == null) {
+            user = (User) subject.getPrincipal();
+            if (user == null) {
                 return null;
             }
             try {
                 Session session = getSession();
                 if (session != null) {
-                    principal.setSessionId((String) session.getId());
+                    user.setSessionId((String) session.getId());
                 }
             } catch (Exception e) {
-                principal.setSessionId("");
+                user.setSessionId("");
             }
-            BeanUtils.copyProperties(principal,user);
             return user;
         } catch (Exception e) {
             logger.error("获取当前用户异常", e);

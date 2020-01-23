@@ -1,6 +1,7 @@
 package com.mall.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.mall.entity.user.User;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.session.Session;
@@ -67,7 +68,8 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
             return true;
         }
         Session session = subject.getSession();
-        String username = (String)subject.getPrincipal();
+        User user = (User)subject.getPrincipal();
+        String username = user.getUsername();
         Serializable sessionId = session.getId();
         //读取缓存   没有就存入
         Deque<Serializable> deque = cache.get(username);

@@ -2,7 +2,6 @@ package com.mall.config;
 
 import com.mall.common.MyShiroRealm;
 import com.mall.filter.KickoutSessionControlFilter;
-import com.mall.filter.WebAuthenticationFilter;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -36,8 +35,6 @@ public class ShiroConfig {
         Map<String, Filter> filtersMap = new LinkedHashMap<String, Filter>();
         //限制同一帐号同时在线的个数。
         filtersMap.put("kickout", kickoutSessionControlFilter());
-        filtersMap.put("loginFilter", new WebAuthenticationFilter());
-        //filtersMap.put("wxReq", tokenAuthFilter());
         shiroFilterFactoryBean.setFilters(filtersMap);
         // 权限控制map.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
@@ -53,6 +50,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
+
 
     @Bean
     public MyShiroRealm myShiroRealm(){

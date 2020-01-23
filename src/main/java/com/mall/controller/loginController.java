@@ -1,5 +1,6 @@
 package com.mall.controller;
 
+import com.mall.common.UsernamePasswordToken;
 import com.mall.constant.Constants;
 import com.mall.common.BaseController;
 import com.mall.entity.user.User;
@@ -49,11 +50,14 @@ public class loginController extends BaseController {
         this.logAllRequestParams();
         this.getRequest().setCharacterEncoding("utf-8");
         this.getResponse().setContentType("text/html;charset=utf-8");
+        String loginSrc = request.getParameter("loginSrc");
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username,password.toCharArray(),false,null,null,loginSrc);
+        Subject subject = SecurityUtils.getSubject();
         try {
+            subject.login(usernamePasswordToken);
             User currentUser = userService.getCurrentUser();
             if (currentUser != null) {
-                User user = (User) session.getAttribute(Constants.User_Session);
-                model.addAttribute("user",user);
+                model.addAttribute("user",currentUser);
                 System.out.println("用户[" + username + "]登录认证通过");
                 return "oliveIndex";
             }
