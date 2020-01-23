@@ -35,22 +35,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public User getCurrentUser() {
         return getLoginUser();
     }
-    private Session getSession() {
-        try {
-            Subject subject = SecurityUtils.getSubject();
-            Session session = subject.getSession(false);
-            if (session == null) {
-                session = subject.getSession();
-            }
-            if (session != null) {
-                return session;
-            }
-        } catch (InvalidSessionException e) {
-
-        }
-        return null;
-    }
-
 
     private User getLoginUser() {
         User user = new User();
@@ -59,14 +43,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             user = (User) subject.getPrincipal();
             if (user == null) {
                 return null;
-            }
-            try {
-                Session session = getSession();
-                if (session != null) {
-                    user.setSessionId((String) session.getId());
-                }
-            } catch (Exception e) {
-                user.setSessionId("");
             }
             return user;
         } catch (Exception e) {

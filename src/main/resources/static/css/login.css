@@ -34,6 +34,7 @@ input::-ms-clear {
 	position:relative;
 }
 .header {
+	text-align: center;
 	height:50px;
 	border-bottom:1px solid #e2e2e2;
 	position:relative;
@@ -43,13 +44,9 @@ input::-ms-clear {
 }
 .header .switch {
 	height:45px;
-	position:absolute;
 	left:60px;
 	bottom:0;
 	font-size:16px;
-}
-.header .switch #switch_qlogin {
-	margin-right:85px;
 }
 .header .switch .switch_btn {
 	color:#999;
@@ -234,5 +231,7 @@ input.button_blue:hover
 a.zcxy {text-decoration: underline;line-height:58px;margin-left:15px;color: #959ca8;}
 .web_login .uinArea {
 height: 60px;}
-.header .switch{left:70px;}
+.header .switch{
+	width: 100%;
+}
 

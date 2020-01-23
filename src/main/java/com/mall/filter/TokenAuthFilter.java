@@ -1,3 +1,4 @@
+/*
 package com.mall.filter;
 
 import com.mall.utils.cache.RedisUtils;
@@ -17,10 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
+*/
 /**
  * @author lly
  * 自定义拦截器
- */
+ *//*
+
 @Component
 public class TokenAuthFilter extends OncePerRequestFilter {
 
@@ -64,4 +67,4 @@ public class TokenAuthFilter extends OncePerRequestFilter {
             chain.doFilter(request,response);
         }
     }
-}
+}*/

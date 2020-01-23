@@ -1,6 +1,6 @@
 package com.mall.controller;
 
-import com.mall.common.UsernamePasswordToken;
+import com.mall.shiro.WebToken;
 import com.mall.constant.Constants;
 import com.mall.common.BaseController;
 import com.mall.entity.user.User;
@@ -25,8 +25,8 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping(value = "/auth")
-public class loginController extends BaseController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(loginController.class);
+public class LoginController extends BaseController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private UserService userService;
@@ -51,10 +51,10 @@ public class loginController extends BaseController {
         this.getRequest().setCharacterEncoding("utf-8");
         this.getResponse().setContentType("text/html;charset=utf-8");
         String loginSrc = request.getParameter("loginSrc");
-        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username,password.toCharArray(),false,null,null,loginSrc);
+        WebToken webToken = new WebToken(username,password.toCharArray(),false,null,null,loginSrc);
         Subject subject = SecurityUtils.getSubject();
         try {
-            subject.login(usernamePasswordToken);
+            subject.login(webToken);
             User currentUser = userService.getCurrentUser();
             if (currentUser != null) {
                 model.addAttribute("user",currentUser);

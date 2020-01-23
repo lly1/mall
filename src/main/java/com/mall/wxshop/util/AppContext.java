@@ -1,5 +1,8 @@
 package com.mall.wxshop.util;
 
+/**
+ * @author lly
+ */
 public class AppContext implements AutoCloseable {
 
     private static final ThreadLocal<String> CURRENT_CONSUMER_WECHAT_OPENID = new ThreadLocal<>();

@@ -1,6 +1,7 @@
-package com.mall.common;
+package com.mall.shiro.realm;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.mall.shiro.WebToken;
 import com.mall.constant.Constants;
 import com.mall.entity.user.User;
 import com.mall.service.user.UserService;
@@ -17,8 +18,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 //实现AuthorizingRealm接口用户用户认证
-public class MyShiroRealm extends AuthorizingRealm {
-    private Logger logger = LoggerFactory.getLogger(MyShiroRealm.class);
+public class WebShiroRealm extends AuthorizingRealm {
+    private Logger logger = LoggerFactory.getLogger(WebShiroRealm.class);
 
     //用于用户查询
     @Autowired
@@ -39,7 +40,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         logger.info("---------------- 执行 Shiro 凭证认证 ----------------------");
-        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+        WebToken token = (WebToken) authenticationToken;
         //获取登录用户名
         String username= token.getUsername();
         // 得到密码

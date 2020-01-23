@@ -1,8 +1,13 @@
 package com.mall.config;
 
-import com.mall.common.MyShiroRealm;
-import com.mall.filter.KickoutSessionControlFilter;
+import com.mall.filter.ShiroUserFilter;
+import com.mall.filter.WxAuthenticationFilter;
+import com.mall.shiro.realm.WebShiroRealm;
+import com.mall.shiro.realm.WxShiroRealm;
+import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
+import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -16,7 +21,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
@@ -33,40 +40,66 @@ public class ShiroConfig {
         //shiroFilterFactoryBean.setUnauthorizedUrl("/auth/403");
         //自定义拦截器
         Map<String, Filter> filtersMap = new LinkedHashMap<String, Filter>();
-        //限制同一帐号同时在线的个数。
-        filtersMap.put("kickout", kickoutSessionControlFilter());
+        filtersMap.put("user", new ShiroUserFilter());
         shiroFilterFactoryBean.setFilters(filtersMap);
         // 权限控制map.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         //可以匿名使用
         filterChainDefinitionMap.put("/static/**","anon");
         //让小程序通过
-        filterChainDefinitionMap.put("/api/**", "anon");
+        filterChainDefinitionMap.put("/wxAuth/login", "anon");
         filterChainDefinitionMap.put("/auth/login", "anon");
         filterChainDefinitionMap.put("/auth/login/main","anon");
         filterChainDefinitionMap.put("/auth/kickout", "anon");
         filterChainDefinitionMap.put("/auth/logout","authc");
-        filterChainDefinitionMap.put("/**", "authc,kickout");
+        filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/api/**", "user");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
 
+    @Bean
+    public WxAuthenticationFilter createFilter() {
+        return new WxAuthenticationFilter();
+    }
 
     @Bean
-    public MyShiroRealm myShiroRealm(){
-        return new MyShiroRealm();
+    public WebShiroRealm WebShiroRealm(){
+        return new WebShiroRealm();
     }
+
+    @Bean
+    public WxShiroRealm WxShiroRealm(){
+        return new WxShiroRealm();
+    }
+
     @Bean
     public SecurityManager securityManager(){
         DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
-        securityManager.setRealm(myShiroRealm());
+        List<Realm> realms = new ArrayList<>();
+        //添加多个Realm
+        realms.add(WebShiroRealm());
+        realms.add(WxShiroRealm());
+        securityManager.setAuthenticator(modularRealmAuthenticator());
+        securityManager.setRealms(realms);
         return securityManager;
+    }
+
+    /**
+     * 系统自带的Realm管理，主要针对多realm 认证
+     */
+    @Bean
+    public ModularRealmAuthenticator modularRealmAuthenticator() {
+        ModularRealmAuthenticator  modularRealmAuthenticator = new ModularRealmAuthenticator ();
+        //至少一个realm认证成功
+        modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
+        return modularRealmAuthenticator;
     }
     /**
      * cacheManager 缓存 redis实现
      * 使用的是shiro-redis开源插件
      */
-    public RedisCacheManager cacheManager() {
+    private RedisCacheManager cacheManager() {
         RedisCacheManager redisCacheManager = new RedisCacheManager();
         redisCacheManager.setRedisManager(redisManager());
         return redisCacheManager;
@@ -78,11 +111,12 @@ public class ShiroConfig {
      *
      * @return
      */
-    public RedisManager redisManager() {
+    private RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
         redisManager.setHost("localhost");
         redisManager.setPort(6379);
-        redisManager.setExpire(1800);// 配置缓存过期时间
+        // 配置缓存过期时间
+        redisManager.setExpire(1800);
         redisManager.setTimeout(0);
         // redisManager.setPassword(password);
         return redisManager;
@@ -107,21 +141,6 @@ public class ShiroConfig {
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
         redisSessionDAO.setRedisManager(redisManager());
         return redisSessionDAO;
-    }
-    /**
-     * 限制同一账号登录同时登录人数控制
-     *
-     * @return
-     */
-    @Bean
-    public KickoutSessionControlFilter kickoutSessionControlFilter() {
-        KickoutSessionControlFilter kickoutSessionControlFilter = new KickoutSessionControlFilter();
-        kickoutSessionControlFilter.setCacheManager(cacheManager());
-        kickoutSessionControlFilter.setSessionManager(sessionManager());
-        kickoutSessionControlFilter.setKickoutAfter(false);
-        kickoutSessionControlFilter.setMaxSession(1);
-        kickoutSessionControlFilter.setKickoutUrl("/auth/login");
-        return kickoutSessionControlFilter;
     }
     /**
      * 保证实现了Shiro内部lifecycle函数的bean执行

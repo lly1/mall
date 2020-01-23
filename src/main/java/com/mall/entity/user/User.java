@@ -26,7 +26,5 @@ public class User {
      */
     @TableField(value = "delFlag")
     protected Boolean delFlag;
-    @TableField(exist = false)
-    private String sessionId;
 
 }

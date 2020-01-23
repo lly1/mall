@@ -18,7 +18,7 @@ public interface WxUserService extends IService<WxUserInfo> {
      * @param wxUserInfo
      * 注册或登录
      */
-    String loginOrRegisterConsumer(WxUserInfo wxUserInfo);
+    WxUserInfo loginOrRegisterConsumer(WxUserInfo wxUserInfo);
     /**
      * 获取当前请求的微信用户
      */

@@ -14,18 +14,17 @@
 </head>
 <body>
 
-<h1 style="margin-top: 50px">商城后台登录<sup>V2019</sup></h1>
+<h1 style="margin-top: 50px">商城后台登录<sup>V2020</sup></h1>
 
 <div class="login" style="margin-top:50px;">
 
     <div class="header">
-        <div class="switch" id="switch"><a class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7">快速登录</a>
-            <a class="switch_btn" id="switch_login" href="javascript:void(0);" tabindex="8">快速注册</a><div class="switch_bottom" id="switch_bottom" style="position: absolute; width: 64px; left: 0px;"></div>
+        <div class="switch" id="switch">
+            <a class="switch_btn_focus" id="switch_qlogin">快速登录</a>
         </div>
     </div>
 
     <div class="web_qr_login" id="web_qr_login" style="display: block; height: 255px;">
-
         <!--登录-->
         <div class="web_login" id="web_login">
             <div class="login-box">
@@ -58,60 +57,6 @@
         </div>
         <!--登录end-->
     </div>
-
-    <!--注册-->
-    <div class="qlogin" id="qlogin" style="display: none; ">
-        <div class="web_login">
-            <form name="form2" id="regUser" accept-charset="utf-8"  action="/auth/register" method="post">
-            <input type="hidden" name="to" value="reg"/>
-            <input type="hidden" name="did" value="0"/>
-            <ul class="reg_form" id="reg-ul">
-                <div id="userCue" class="cue">快速注册请注意格式</div>
-                <li>
-                    <label for="user"  class="input-tips2">用户名：</label>
-                    <div class="inputOuter2">
-                        <input type="text" id="user" name="username" maxlength="16" class="inputstyle2"/>
-                    </div>
-                </li>
-                <li>
-                    <label for="passwd" class="input-tips2">密码：</label>
-                    <div class="inputOuter2">
-                        <input type="password" id="passwd"  name="password" maxlength="16" class="inputstyle2"/>
-                    </div>
-                </li>
-
-                <li>
-                    <label for="qq" class="input-tips2">电话：</label>
-                    <div class="inputOuter2">
-                        <input type="text" id="qq" name="user.qq" maxlength="10" class="inputstyle2"/>
-                    </div>
-
-                </li>
-                <li>
-                    <label for="age" class="input-tips2">年龄：</label>
-                    <div class="inputOuter2">
-                        <input type="text" id="age" name="user.age" maxlength="10" class="inputstyle2"/>
-                    </div>
-
-                </li>
-                <li>
-                    <label for="address" class="input-tips2">地址：</label>
-                    <div class="inputOuter2">
-                        <input type="text" id="address" name="user.address" maxlength="10" class="inputstyle2"/>
-                    </div>
-
-                </li>
-                <li>
-                    <div class="inputArea">
-                        <input type="button" id="reg"  style="margin-top:10px;margin-left:85px;" class="button_blue" value="同意协议并注册"/> <a href="javascript:void(0);" class="zcxy" target="_blank">注册协议</a>
-                    </div>
-
-                </li><div class="cl"></div>
-            </ul>
-        </form>
-        </div>
-    </div>
 </div>
-    <!--注册end-->
 </body>
 </html>

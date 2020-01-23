@@ -1,10 +1,11 @@
-package com.mall.common;
+package com.mall.shiro;
 
 import com.mall.constant.ErrorType;
 import lombok.Data;
+import org.apache.shiro.authc.UsernamePasswordToken;
 
 @Data
-public class UsernamePasswordToken extends org.apache.shiro.authc.UsernamePasswordToken {
+public class WebToken extends UsernamePasswordToken {
 
 	private static final long serialVersionUID = 1L;
 
@@ -20,12 +21,12 @@ public class UsernamePasswordToken extends org.apache.shiro.authc.UsernamePasswo
 	*/
 	private ErrorType failCode;
 	
-	public UsernamePasswordToken() {
+	public WebToken() {
 		super();
 	}
 
-	public UsernamePasswordToken(String username, char[] password,
-                                 boolean rememberMe, String host, String captcha, String loginSrc) {
+	public WebToken(String username, char[] password,
+					boolean rememberMe, String host, String captcha, String loginSrc) {
 		super(username, password, rememberMe, host);
 		this.captcha = captcha;
 		this.loginSrc = loginSrc;
