@@ -5,18 +5,16 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mall.constant.Constants;
 import com.mall.dao.user.WxUserMapper;
-import com.mall.service.user.UserService;
-import com.mall.utils.UUIDGenerator;
+import com.mall.entity.user.User;
 import com.mall.utils.cache.RedisUtils;
+import com.mall.utils.cache.SpringContextUtil;
 import com.mall.wxshop.entity.WxUserInfo;
 import com.mall.wxshop.service.user.WxUserService;
-import com.mall.wxshop.util.AppContext;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.InvalidSessionException;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,20 +35,19 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUserInfo> imp
     RedisUtils redisUtils;
 
     @Override
-    public void updateWxUserInfo(WxUserInfo wxUserInfo) {
+    public WxUserInfo updateWxUserInfo(WxUserInfo wxUserInfo) {
         WxUserInfo currentWxUser = wxUserService.getCurrentWxUser();
-        WxUserInfo wxUserInfoExist = this.getOne(new QueryWrapper<>(currentWxUser));
-        wxUserInfo.setOpenId(wxUserInfoExist.getOpenId());
-        wxUserInfo.setRoleId(wxUserInfoExist.getRoleId());
-        wxUserInfo.setId(wxUserInfoExist.getId());
-        this.saveOrUpdate(wxUserInfo);
+        SpringContextUtil.copyPropertiesIgnoreNull(wxUserInfo,currentWxUser);
+        currentWxUser.preUpdate(new User("admin"));
+        this.saveOrUpdate(currentWxUser);
+        return currentWxUser;
     }
 
     @Override
     public WxUserInfo loginOrRegisterConsumer(WxUserInfo wxUserInfo) {
         WxUserInfo newWxUserInfo = this.getOne(new QueryWrapper<>(wxUserInfo));
         if (null == newWxUserInfo) {
-            wxUserInfo.setId(UUIDGenerator.generate());
+            wxUserInfo.preInsert(new User("admin"));
             wxUserInfo.setRoleId(Constants.Role.customer);
             boolean success = this.save(wxUserInfo);
             if(success){
