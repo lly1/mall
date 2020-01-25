@@ -36,10 +36,10 @@ public class WxShiroRealm extends AuthorizingRealm {
     public String getName() {
         return getClass().getName();
     }
-    //用户认证
+
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        logger.info("---------------- 执行 Shiro 凭证认证 ----------------------");
+        logger.info("---------------- 执行 WxShiro 凭证认证 ----------------------");
         WxToken token = (WxToken) authenticationToken;
         //获取openId
         String openId = (String)token.getPrincipal();

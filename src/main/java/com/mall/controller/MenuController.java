@@ -10,11 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
 @RequestMapping(value = {"role","roleWX"})
-public class RoleController extends BaseController {
+public class MenuController extends BaseController {
     @Autowired
     private MenuService menuService;
     /**
@@ -26,8 +27,13 @@ public class RoleController extends BaseController {
     @ResponseBody
     public List<SidebarMenu> showSidebarMenu(String roleId) {
         this.logAllRequestParams();
-        List<Menu> resourceList = this.menuService.getMenuByRole(roleId);
-        List<SidebarMenu> tree = ResourceUtil.convertToSidebarMenuVo(resourceList);
-        return tree;
+        List<Menu> resourceList = new LinkedList<>();
+        String[] arg = roleId.split(",");
+        if(arg.length > 1){
+            for (String s : arg) {
+                resourceList.addAll(this.menuService.getMenuByRole(s));
+            }
+        }
+        return ResourceUtil.convertToSidebarMenuVo(resourceList);
     }
 }

@@ -6,6 +6,7 @@ import com.mall.common.BaseController;
 import com.mall.entity.user.User;
 import com.mall.exception.ServiceException;
 import com.mall.service.user.UserService;
+import com.mall.utils.CommonUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -38,7 +39,6 @@ public class LoginController extends BaseController {
         LOGGER.info("是否记住登录--->"+s.isRemembered()+"<-----是否有权限登录----->"+s.isAuthenticated()+"<----");
         if(s.isAuthenticated()){
             User user = (User) session.getAttribute(Constants.User_Session);
-            user.setPassword("");
             model.addAttribute("user",user);
             return "oliveIndex";
         }else {
@@ -46,10 +46,11 @@ public class LoginController extends BaseController {
         }
     }
     @RequestMapping(value = "/login/main")
-    public String login(String username, String password, Model model, HttpSession session) throws Exception {
+    public String login(String username, String password, Model model){
         this.logAllRequestParams();
-        this.getRequest().setCharacterEncoding("utf-8");
-        this.getResponse().setContentType("text/html;charset=utf-8");
+        if(CommonUtil.isBlank(username) || CommonUtil.isBlank(password)){
+            return "redirect:/auth/login";
+        }
         String loginSrc = request.getParameter("loginSrc");
         WebToken webToken = new WebToken(username,password.toCharArray(),false,null,null,loginSrc);
         Subject subject = SecurityUtils.getSubject();
@@ -59,20 +60,14 @@ public class LoginController extends BaseController {
             if (currentUser != null) {
                 model.addAttribute("user",currentUser);
                 System.out.println("用户[" + username + "]登录认证通过");
-                return "oliveIndex";
+                return "redirect:/auth/login";
             }
-        } catch (ServiceException ex) {
+        } catch (Exception ex) {
             final String message = ex.getMessage();
             this.getSession().setAttribute("message", message);
-            return "login";
-        } catch (UnknownAccountException e) {
-            this.getSession().setAttribute("message", e.getMessage());
-            return "login";
-        } catch (IncorrectCredentialsException e) {
-            this.getSession().setAttribute("message", e.getMessage());
-            return "login";
+            return "redirect:/auth/login";
         }
-        return "login";
+        return "redirect:/auth/login";
     }
 
     //被踢出后跳转的页面

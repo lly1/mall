@@ -12,7 +12,7 @@ public interface WxUserService extends IService<WxUserInfo> {
      * @param wxUserInfo
      * 更新用户信息
      */
-    void updateWxUserInfo(WxUserInfo wxUserInfo);
+    WxUserInfo updateWxUserInfo(WxUserInfo wxUserInfo);
 
     /**
      * @param wxUserInfo

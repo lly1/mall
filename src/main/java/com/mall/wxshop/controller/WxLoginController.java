@@ -35,10 +35,6 @@ public class WxLoginController extends BaseController {
 
     @Resource
     private WxAuthenticationFilter wxAuthenticationFilter;
-    @Resource
-    private WxUserService wxUserService;
-    @Resource
-    private RedisUtils redisUtils;
 
     @RequestMapping("login")
     @ResponseBody

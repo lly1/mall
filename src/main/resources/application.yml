@@ -83,6 +83,8 @@ mybatis-plus:
       table-underline: true
       #id类型
       id-type: auto
+      #全局逻辑删除字段值
+      logic-delete-field: delFlag
 
 
 

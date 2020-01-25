@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mall.entity.domain.BaseEntity;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,11 +17,8 @@ import java.io.Serializable;
  */
 @Data
 @TableName("sys_wx_user")
-public class WxUserInfo implements Serializable {
+public class WxUserInfo extends BaseEntity implements Serializable {
     private static final long serialVersionUID = -5671613769786329491L;
-    //主键
-    @TableId(value = "id",type = IdType.UUID)
-    private String id;
     //用户唯一编码
     @TableField("unionId")
     private String unionId;
@@ -48,4 +46,5 @@ public class WxUserInfo implements Serializable {
     // 用户角色
     @TableField("roleId")
     private String roleId;
+
 }

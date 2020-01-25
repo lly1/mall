@@ -10,14 +10,11 @@ import lombok.Data;
 @TableName("sys_role")
 public class Role {
     @TableId(value = "id",type = IdType.AUTO)
-    private Integer id;
+    private String id;
     @TableField("roleName")
     private String roleName;
     @TableField("roleId")
     private String roleId;
     @TableField(value = "delFlag")
     private Boolean delFlag;
-    public Integer getId() {
-        return id;
-    }
 }

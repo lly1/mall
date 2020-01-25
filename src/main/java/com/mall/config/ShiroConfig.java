@@ -1,6 +1,5 @@
 package com.mall.config;
 
-import com.mall.filter.ShiroUserFilter;
 import com.mall.filter.WxAuthenticationFilter;
 import com.mall.shiro.realm.WebShiroRealm;
 import com.mall.shiro.realm.WxShiroRealm;
@@ -28,6 +27,7 @@ import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
+
     @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -36,11 +36,9 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setLoginUrl("/auth/login");
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/auth/index");
-        // 未授权界面
-        //shiroFilterFactoryBean.setUnauthorizedUrl("/auth/403");
         //自定义拦截器
         Map<String, Filter> filtersMap = new LinkedHashMap<String, Filter>();
-        filtersMap.put("user", new ShiroUserFilter());
+        filtersMap.put("user", new WxAuthenticationFilter());
         shiroFilterFactoryBean.setFilters(filtersMap);
         // 权限控制map.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
@@ -52,14 +50,14 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/auth/login/main","anon");
         filterChainDefinitionMap.put("/auth/kickout", "anon");
         filterChainDefinitionMap.put("/auth/logout","authc");
-        filterChainDefinitionMap.put("/**", "authc");
         filterChainDefinitionMap.put("/api/**", "user");
+        filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
 
     @Bean
-    public WxAuthenticationFilter createFilter() {
+    public WxAuthenticationFilter WxAuthenticationFilter() {
         return new WxAuthenticationFilter();
     }
 
@@ -151,6 +149,13 @@ public class ShiroConfig {
         return new LifecycleBeanPostProcessor();
     }
 
+    /**
+     * 开启shiro aop注解支持.
+     * 使用代理方式;所以需要开启代码支持;否则@RequiresRoles等注解无法生效
+     *
+     * @param securityManager
+     * @return
+     */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
@@ -167,4 +172,5 @@ public class ShiroConfig {
         creator.setProxyTargetClass(true);
         return creator;
     }
+
 }

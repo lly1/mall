@@ -5,6 +5,7 @@ import com.mall.common.RtnMessage;
 import com.mall.constant.ErrorType;
 import com.mall.shiro.WxToken;
 import com.mall.utils.RtnMessageUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author lly
@@ -36,6 +38,13 @@ public class WxAuthenticationFilter extends AuthenticatingFilter{
         servletResponse.setCharacterEncoding("utf-8");
         servletResponse.setContentType("application/json;charset=utf-8");
         servletResponse.getWriter().println(JSON.toJSONString(rtn));
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        String param = "";
+        if(!StringUtils.isBlank(request.getQueryString())){
+            param = "?" + request.getQueryString();
+        }
+        logger.info("url= " + request.getRequestURL() + param);
+        logger.error("onAccessDenied,{}", JSON.toJSONString(rtn));
         //;如果返回true表示需要继续处理;如果返回false表示该拦截器实例已经处理了,将直接返回即可
         return false;
     }
