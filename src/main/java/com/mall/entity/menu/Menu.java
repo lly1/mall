@@ -5,15 +5,14 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mall.entity.domain.BaseEntity;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
 @TableName("sys_menu")
-public class Menu {
-    @TableId(value = "id",type = IdType.AUTO)
-    private String id;
+public class Menu extends BaseEntity {
     //编号
     @TableField("code")
     private String code;
@@ -32,9 +31,7 @@ public class Menu {
     //子菜单序列号
     @TableField("seqNo")
     private Integer seqNo;
-    //删除标志
-    @TableField(value = "delFlag")
-    protected Boolean delFlag;
+
     @TableField(exist = false)
     private List<Menu> children;
 }

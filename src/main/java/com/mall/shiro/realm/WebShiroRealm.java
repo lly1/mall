@@ -8,6 +8,7 @@ import com.mall.constant.Constants;
 import com.mall.entity.user.User;
 import com.mall.service.user.UserService;
 import com.mall.utils.CommonUtil;
+import com.mall.utils.cache.SpringContextUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -18,22 +19,20 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
+/**
+ * @author lly
+ */
 public class WebShiroRealm extends AuthorizingRealm {
     private Logger logger = LoggerFactory.getLogger(WebShiroRealm.class);
-
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private RoleService roleService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         logger.info("shiro授权");
+        RoleService roleService = (RoleService) SpringContextUtil.getBean("RoleService");
         User user = (User)principalCollection;
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         // 给该用户设置角色，角色信息存在 t_role 表中取
@@ -54,6 +53,8 @@ public class WebShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         logger.info("---------------- 执行 WebShiro 凭证认证 ----------------------");
+        UserService userService = (UserService) SpringContextUtil.getBean("UserService");
+        RoleService roleService = (RoleService) SpringContextUtil.getBean("RoleService");
         WebToken token = (WebToken) authenticationToken;
         //获取登录用户名
         String username= token.getUsername();
@@ -74,7 +75,7 @@ public class WebShiroRealm extends AuthorizingRealm {
                 user.setRoleId(roleId.toString());
                 Subject currentUser = SecurityUtils.getSubject();
                 Session session = currentUser.getSession();
-                session.setAttribute(Constants.User_Session, user);
+                session.setAttribute(Constants.USER_SESSION, user);
                 return new SimpleAuthenticationInfo(user, password,
                         getName());
             } else {

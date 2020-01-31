@@ -4,16 +4,20 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @author lly
+ */
+@Component
 public class SpringContextUtil implements ApplicationContextAware {
 
-	private static ApplicationContext applicationContext;
+	private static ApplicationContext context;
 	/**  
 	 * 实现ApplicationContextAware接口的回调方法，设置上下文环境
 	 * 实现该接口的setApplicationContext(ApplicationContext context)方法，并保存ApplicationContext 对象。Spring初始化时，会通过该方法将ApplicationContext对象注入。
@@ -21,16 +25,17 @@ public class SpringContextUtil implements ApplicationContextAware {
 	 * @throws BeansException
 	 */
 	@Override
-	public void setApplicationContext(ApplicationContext applicationContext)
-			throws BeansException {
-		SpringContextUtil.applicationContext = applicationContext;
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		if(context == null){
+			context = applicationContext;
+		}
 	}
 
 	/**  
 	 * @return ApplicationContext  
 	 */
 	public static ApplicationContext getApplicationContext() {
-		return applicationContext;
+		return context;
 	}
 
 	/**  
@@ -40,75 +45,18 @@ public class SpringContextUtil implements ApplicationContextAware {
 	 * @throws BeansException
 	 */
 	public static Object getBean(String name) throws BeansException {
-		return applicationContext.getBean(name);
+		return context.getBean(name);
 	}
 
-	/**  
-	 * 获取类型为requiredType的对象  
-	 * 如果bean不能被类型转换，相应的异常将会被抛出（BeanNotOfRequiredTypeException）  
-	 * @param name       bean注册名  
-	 * @param requiredType 返回对象类型  
-	 * @return Object 返回requiredType类型对象  
-	 * @throws BeansException
-	 */
-	@SuppressWarnings("unchecked")
-	public static Object getBean(String name, @SuppressWarnings("rawtypes") Class requiredType)
-			throws BeansException {
-		return applicationContext.getBean(name, requiredType);
-	}
-	
-	/**
-	 * 获取符合请求类型的所有类实例
-	 */
-	@SuppressWarnings("rawtypes")
-	public static String[] getBeanNamesForType(Class requiredType) {
-		return applicationContext.getBeanNamesForType(requiredType);
+	public static <T> T getBean(Class<T> clazz) {
+			return getApplicationContext().getBean(clazz);
 	}
 
-	/**  
-	 * 如果BeanFactory包含一个与所给名称匹配的bean定义，则返回true   
-	 * @param name  
-	 * @return boolean  
-	 */
-	public static boolean containsBean(String name) {
-		return applicationContext.containsBean(name);
+	public static <T> T getBean(String name,Class<T> clazz) {
+		return getApplicationContext().getBean(name,clazz);
 	}
 
-	/**  
-	 * 判断以给定名字注册的bean定义是一个singleton还是一个prototype。  
-	 * 如果与给定名字相应的bean定义没有被找到，将会抛出一个异常（NoSuchBeanDefinitionException）     
-	 * @param name  
-	 * @return boolean  
-	 * @throws NoSuchBeanDefinitionException
-	 */
-	public static boolean isSingleton(String name)
-			throws NoSuchBeanDefinitionException {
-		return applicationContext.isSingleton(name);
-	}
-
-	/**  
-	 * @param name  
-	 * @return Class 注册对象的类型  
-	 * @throws NoSuchBeanDefinitionException
-	 */
-	@SuppressWarnings("rawtypes")
-	public static Class getType(String name)
-			throws NoSuchBeanDefinitionException {
-		return applicationContext.getType(name);
-	}
-
-	/**  
-	 * 如果给定的bean名字在bean定义中有别名，则返回这些别名     
-	 * @param name  
-	 * @return  
-	 * @throws NoSuchBeanDefinitionException
-	 */
-	public static String[] getAliases(String name)
-			throws NoSuchBeanDefinitionException {
-		return applicationContext.getAliases(name);
-	}
-
-	public static String[] getNullPropertyNames (Object source) {
+	private static String[] getNullPropertyNames (Object source) {
 		final BeanWrapper src = new BeanWrapperImpl(source);
 		java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
 

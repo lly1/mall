@@ -19,7 +19,7 @@ import java.util.Date;
  **/
 @Data
 public abstract class BaseEntity implements IPage, Serializable {
-    private static final long serialVersionUID = 3762973387914490900L;
+    private static final long serialVersionUID = 1L;
 
     @TableField(exist = false)
     protected Integer pageNo;

@@ -25,6 +25,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author lly
+ */
 @Configuration
 public class ShiroConfig {
 
@@ -50,6 +53,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/auth/login/main","anon");
         filterChainDefinitionMap.put("/auth/kickout", "anon");
         filterChainDefinitionMap.put("/auth/logout","authc");
+        //顺序不能错
         filterChainDefinitionMap.put("/api/**", "user");
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

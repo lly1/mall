@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping(value = "/auth")
@@ -38,7 +37,7 @@ public class LoginController extends BaseController {
         Subject s = SecurityUtils.getSubject();
         LOGGER.info("是否记住登录--->"+s.isRemembered()+"<-----是否有权限登录----->"+s.isAuthenticated()+"<----");
         if(s.isAuthenticated()){
-            User user = (User) session.getAttribute(Constants.User_Session);
+            User user = (User) session.getAttribute(Constants.USER_SESSION);
             model.addAttribute("user",user);
             return "oliveIndex";
         }else {

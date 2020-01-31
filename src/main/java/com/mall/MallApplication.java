@@ -3,13 +3,18 @@ package com.mall;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * @author lly
+ */
 @SpringBootApplication
+@EnableTransactionManagement
 @MapperScan(value = "com.mall.dao")
-public class FruitsmallApplication {
+public class MallApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FruitsmallApplication.class, args);
+        SpringApplication.run(MallApplication.class, args);
     }
 
 }

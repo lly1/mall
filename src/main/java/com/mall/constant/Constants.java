@@ -38,13 +38,13 @@ public class Constants {
 	/**
 	 * userSession
 	 */
-	public final static String User_Session = "userSession";
+	public final static String USER_SESSION = "userSession";
 	/**
 	 * userPermission
 	 */
 	public static class Role{
-        public final static String admin = "0";
-        public final static String customer = "1";
-        public final static String businessShop = "2";
+        public final static String ADMIN = "0";
+		public final static String BUSINESS_SHOP = "1";
+		public final static String CUSTOMER = "2";
     }
 }

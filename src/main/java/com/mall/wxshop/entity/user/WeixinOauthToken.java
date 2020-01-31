@@ -1,4 +1,4 @@
-package com.mall.wxshop.entity;
+package com.mall.wxshop.entity.user;
 
 import lombok.Data;
 

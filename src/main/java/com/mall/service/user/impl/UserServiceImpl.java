@@ -16,7 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
+/**
+ * @author lly
+ */
+@Service("UserService")
 @Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);

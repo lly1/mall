@@ -1,4 +1,4 @@
-package com.mall.wxshop.entity;
+package com.mall.wxshop.entity.user;
 
 
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -6,9 +6,11 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mall.entity.domain.BaseEntity;
+import com.mall.entity.user.UserRole;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -43,8 +45,14 @@ public class WxUserInfo extends BaseEntity implements Serializable {
     // 用户头像链接
     @TableField("avatarUrl")
     private String avatarUrl;
+    @TableField("phone")
+    private String phone;
     // 用户角色
-    @TableField("roleId")
+    @TableField(exist = false)
+    private List<UserRole> roles;
+
+    // 用户最大角色
+    @TableField(exist = false)
     private String roleId;
 
 }

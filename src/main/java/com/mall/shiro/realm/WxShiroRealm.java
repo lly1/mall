@@ -1,10 +1,9 @@
 package com.mall.shiro.realm;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mall.constant.Constants;
 import com.mall.shiro.WxToken;
-import com.mall.utils.CommonUtil;
-import com.mall.wxshop.entity.WxUserInfo;
+import com.mall.utils.cache.SpringContextUtil;
+import com.mall.wxshop.entity.user.WxUserInfo;
 import com.mall.wxshop.service.user.WxUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -15,15 +14,12 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
-//实现AuthorizingRealm接口用户用户认证
+/**
+ * @author lly
+ */
 public class WxShiroRealm extends AuthorizingRealm {
     private Logger logger = LoggerFactory.getLogger(WxShiroRealm.class);
-
-    //用于用户查询
-    @Autowired
-    private WxUserService wxUserService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(
@@ -40,16 +36,22 @@ public class WxShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         logger.info("---------------- 执行 WxShiro 凭证认证 ----------------------");
+        WxUserService wxUserService = (WxUserService) SpringContextUtil.getBean("WxUserService");
         WxToken token = (WxToken) authenticationToken;
         //获取openId
         String openId = (String)token.getPrincipal();
         WxUserInfo wxUserInfo = new WxUserInfo();
         wxUserInfo.setOpenId(openId);
         //查询用户，不存在就插入
-        WxUserInfo user = wxUserService.loginOrRegisterConsumer(wxUserInfo);
+        WxUserInfo user = null;
+        try {
+            user = wxUserService.loginOrRegisterCustomer(wxUserInfo);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+        }
         Subject currentUser = SecurityUtils.getSubject();
         Session session = currentUser.getSession();
-        session.setAttribute(Constants.User_Session, user);
+        session.setAttribute(Constants.USER_SESSION, user);
         return new SimpleAuthenticationInfo(user, "ok",
                 getName());
     }

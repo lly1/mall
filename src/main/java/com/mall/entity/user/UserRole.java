@@ -8,8 +8,8 @@ import lombok.Data;
  * @author lly
  */
 @Data
-@TableName("sys_role")
-public class Role extends BaseEntity {
-    private String roleName;
+@TableName("sys_user_role")
+public class UserRole extends BaseEntity {
+    private String userId;
     private String roleId;
 }

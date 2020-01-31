@@ -16,8 +16,6 @@ public class User extends BaseEntity {
     private String password;
     @TableField("phone")
     private String phone;
-
-
     /**
      * 所有权限id
      */
