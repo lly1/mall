@@ -34,7 +34,7 @@ public class MenuController extends BaseController {
                 resourceList.addAll(this.menuService.getMenuByRole(s));
             }
         }else {
-            resourceList.addAll(this.menuService.getMenuByRole(roleId));
+            resourceList.addAll(this.menuService.getMenuByRole(arg[0]));
         }
         return ResourceUtil.convertToSidebarMenuVo(resourceList);
     }
