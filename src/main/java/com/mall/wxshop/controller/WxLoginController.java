@@ -32,7 +32,7 @@ public class WxLoginController extends BaseController {
     @ResponseBody
     public RtnMessage<WeixinOauthToken> wxLogin(HttpServletRequest request, HttpServletResponse response){
         String js_code = request.getParameter("js_code");
-        WeixinOauthToken weixinOauthToken  =  AdvancedUtil.wxLogin(WxConfig.APP_ID,WxConfig.APP_SECRET,js_code);
+        WeixinOauthToken weixinOauthToken = AdvancedUtil.wxLogin(WxConfig.APP_ID,WxConfig.APP_SECRET,js_code);
         // 用户标识
         String openId = weixinOauthToken.getOpenId();
         request.setAttribute("openId",openId);
