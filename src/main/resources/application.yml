@@ -12,7 +12,7 @@ spring:
       driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=UTC
       username: root
-      password: 852020
+      password: 123456
       type: com.alibaba.druid.pool.DruidDataSource
       druid:
         # 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
@@ -67,6 +67,7 @@ spring:
     content-type: text/html
     cache: false
     mode: LEGACYHTML5
+    suffix: .html
 #mybatis
 mybatis-plus:
   mapper-locations: classpath:/mapper/*/*Mapper.xml
