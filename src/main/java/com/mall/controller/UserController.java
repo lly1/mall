@@ -7,6 +7,7 @@ import com.mall.common.FrontPage;
 import com.mall.common.RtnPageInfo;
 import com.mall.dao.user.UserMapper;
 import com.mall.entity.user.User;
+import com.mall.service.user.UserService;
 import com.mall.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ import java.util.List;
 public class UserController extends BaseController {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @RequestMapping("/index.WS")
     public String index() {
@@ -34,20 +35,14 @@ public class UserController extends BaseController {
     @RequestMapping("/page")
     @ResponseBody
     public RtnPageInfo<User> findPage(FrontPage<User> page) throws Exception {
-
-        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
-        userQueryWrapper.eq("delFlag","0");
-        Page<User> userPage = userMapper.selectPage(page.getPagePlus(), userQueryWrapper);
-
+        Page<User> userPage = userService.page(page.getPagePlus());
         return new RtnPageInfo<>(userPage);
     }
 
     @RequestMapping(value = {"/list","/listWS"})
     @ResponseBody
     public List<User> list() throws Exception {
-        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
-        userQueryWrapper.eq("delFlag","0");
-        List<User> users = userMapper.selectList(userQueryWrapper);
+        List<User> users = userService.list();
         if (CommonUtil.isNotBlank(users)) {
             return users;
         }

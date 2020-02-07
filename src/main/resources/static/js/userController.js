@@ -1,4 +1,3 @@
-
 var searchUrl;
 var pageType;
 $(function(){
