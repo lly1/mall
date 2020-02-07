@@ -16,6 +16,8 @@ public class TShop extends BaseEntity {
     private Double shopStar;
     private String shopState;
     private String openTime;
+    //经度
     private String longitude;
+    //纬度
     private String latitude;
 }

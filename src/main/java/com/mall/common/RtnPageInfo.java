@@ -14,6 +14,7 @@ import java.util.List;
 @Data
 public class RtnPageInfo<T> implements Serializable{
 
+    private static final long serialVersionUID = 821580315768760951L;
     //当前页数
     private int page;
 
