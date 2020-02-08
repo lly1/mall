@@ -1,7 +1,12 @@
 package com.mall.wxshop.entity.shop;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.mall.entity.domain.BaseEntity;
 import lombok.Data;
+
+import java.util.List;
 
 
 /**
@@ -20,4 +25,13 @@ public class TShop extends BaseEntity {
     private String longitude;
     //纬度
     private String latitude;
+
+    @TableField(exist = false)
+    //显示null的json
+    @JSONField(serialzeFeatures = SerializerFeature.WriteMapNullValue)
+    private List<TShopCategory> tShopCategory;
+
+    @TableField(exist = false)
+    @JSONField(serialzeFeatures = SerializerFeature.WriteMapNullValue)
+    private List<TShopProduct> tShopProduct;
 }

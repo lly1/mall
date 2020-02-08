@@ -1,5 +1,7 @@
 package com.mall.wxshop.entity.shop;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.mall.entity.domain.BaseEntity;
 import lombok.Data;
 
@@ -9,6 +11,7 @@ import lombok.Data;
 @Data
 public class TShopCategory extends BaseEntity {
     private String shopId;
-    private Integer categoryType;
     private String categoryName;
+    @JSONField(serialzeFeatures = SerializerFeature.WriteMapNullValue)
+    private String isTouchMove;
 }

@@ -7,5 +7,5 @@ import com.mall.wxshop.entity.shop.TShop;
  * @author lly
  */
 public interface TShopService extends IService<TShop> {
-
+    TShop getShop(String userId);
 }
