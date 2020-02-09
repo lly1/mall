@@ -66,6 +66,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
                 SerializerFeature.WriteNullNumberAsZero, SerializerFeature.WriteNullBooleanAsFalse, SerializerFeature.WriteMapNullValue,
                 SerializerFeature.WriteNullStringAsEmpty, SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteDateUseDateFormat,
                 SerializerFeature.BrowserCompatible, SerializerFeature.WriteNonStringKeyAsString);
+        fastJsonHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
         converters.add(fastJsonHttpMessageConverter);
         converters.add(responseBodyConverter());
     }

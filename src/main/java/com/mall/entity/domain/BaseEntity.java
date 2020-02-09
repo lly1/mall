@@ -30,11 +30,9 @@ public abstract class BaseEntity implements IPage, Serializable {
     @TableId(value = "id",type = IdType.ASSIGN_UUID)
     protected String id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField("create_time")
     protected Date createTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField("update_time")
     protected Date updateTime;
     protected String createBy;
