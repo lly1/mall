@@ -8,7 +8,6 @@ import com.mall.utils.RtnMessageUtils;
 import com.mall.utils.StringUtilsEx;
 import com.mall.wxshop.entity.shop.TShop;
 import com.mall.wxshop.entity.shop.TShopCategory;
-import com.mall.wxshop.entity.user.WxUserInfo;
 import com.mall.wxshop.service.shop.TShopCategoryService;
 import com.mall.wxshop.service.shop.TShopService;
 import com.mall.wxshop.service.user.WxUserService;
