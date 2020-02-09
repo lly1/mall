@@ -70,7 +70,7 @@ public class ResourceUtil {
 
     private static SidebarMenu wrapSidebarMenu(Menu resource, boolean isParent) {
         SidebarMenu node = new SidebarMenu();
-        node.setId(resource.getCode());
+        node.setId(resource.getId());
         node.setText(resource.getMName());
         node.setUrl(resource.getMPath());
         node.setIcon(resource.getIconCls());
@@ -91,15 +91,6 @@ class MenuComparator implements Comparator<Menu> {
 		int i1 = res1.getSeqNo()!=null ? res1.getSeqNo():-1;
 		int i2 = res2.getSeqNo()!=null ? res2.getSeqNo():-1;
 		return i1-i2;
-	}
-}
-
-class MenuIdComparator implements Comparator<Menu> {
-
-	@Override
-	public int compare(Menu res1, Menu res2) {
-		return res1.getCode().compareTo(res2.getCode());
-
 	}
 }
 
