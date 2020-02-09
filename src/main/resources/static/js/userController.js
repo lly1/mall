@@ -32,55 +32,55 @@ function initGrid(){
 		datatype: "json",
 		mtype:"POST",
         colModel: [
-            {name: 'src', label: '来源',editable:true, width: 100,
-                formatter: function (cellValue, options, rowObject) {
-                    var html = "";
-                    switch(cellValue) {
-                        case "01":
-                            html = '<span class="label label-sm label-success">系统</span>';
-                            break;
-                        case "02":
-                            html = '<span class="label label-sm label-inverse">同步</span>';
-                            break;
-                        case "03":
-                            html = '<span class="label label-sm label-warning">导入</span>';
-                            break;
-                        default:
-                            html = '<span class="label label-sm label-inverse">系统</span>';
-                    }
-                    return html;
-                }},
-            {name: 'name', label: '姓名', editable:true,width: 200,frozen:true},
+            // {name: 'src', label: '来源',editable:true, width: 100,
+            //     formatter: function (cellValue, options, rowObject) {
+            //         var html = "";
+            //         switch(cellValue) {
+            //             case "01":
+            //                 html = '<span class="label label-sm label-success">系统</span>';
+            //                 break;
+            //             case "02":
+            //                 html = '<span class="label label-sm label-inverse">同步</span>';
+            //                 break;
+            //             case "03":
+            //                 html = '<span class="label label-sm label-warning">导入</span>';
+            //                 break;
+            //             default:
+            //                 html = '<span class="label label-sm label-inverse">系统</span>';
+            //         }
+            //         return html;
+            //     }},
+            {name: 'username', label: '姓名', editable:true,width: 200,frozen:true},
             {name: 'id', label: 'id',hidden:true, width: 40},
-            {name: 'type', label: '类型',editable:true, width: 100,formatter:function(cellValue) {
-                var html = "";
-                switch(cellValue) {
-                    case 0:
-                        html = '<span class="label label-sm label-info">普通</span>';
-                        break;
-                    case 4:
-                        html = '<span class="label label-sm label-success">营业员</span>';
-                        break;
-                    case 1:
-                        html = '<span class="label label-sm label-warning">系统</span>';
-                        break;
-                    case 2:
-                        html = '<span class="label label-sm label-inverse">会员</span>';
-                        break;
-                    default:
-                        html = '<span class="label label-sm label-info">普通</span>';
-                }
-                return html;
-            }},
+            // {name: 'type', label: '类型',editable:true, width: 100,formatter:function(cellValue) {
+            //     var html = "";
+            //     switch(cellValue) {
+            //         case 0:
+            //             html = '<span class="label label-sm label-info">普通</span>';
+            //             break;
+            //         case 4:
+            //             html = '<span class="label label-sm label-success">营业员</span>';
+            //             break;
+            //         case 1:
+            //             html = '<span class="label label-sm label-warning">系统</span>';
+            //             break;
+            //         case 2:
+            //             html = '<span class="label label-sm label-inverse">会员</span>';
+            //             break;
+            //         default:
+            //             html = '<span class="label label-sm label-info">普通</span>';
+            //     }
+            //     return html;
+            // }},
 
-            {name: 'code', label: '登录名', editable:true,width: 200},
+            // {name: 'code', label: '登录名', editable:true,width: 200},
             {name: 'phone', label: '手机号码', editable:true,width: 200},
             {name: 'password', label: '密码',hidden:true, editable:true,width: 200},
-            {name: 'ownerId', label: '所属方', editable:true,width: 200},
-            {name:'unitName',label:"所属方名称",editable:true,width:200},
-            {name: 'createDate', label: '创建时间', editable:true,width: 200},
+            // {name: 'ownerId', label: '所属方', editable:true,width: 200},
+            // {name:'unitName',label:"所属方名称",editable:true,width:200},
+            {name: 'createTime', label: '创建时间', editable:true,width: 200},
             {name: 'roleId', label: '角色',editable:true, width: 200},
-            {name: 'isAdmin', label: '管理员',editable:true, width: 100,formatter:isAdmin,hidden:true}
+            // {name: 'isAdmin', label: '管理员',editable:true, width: 100,formatter:isAdmin,hidden:true}
 
         ],
         viewrecords: true,
@@ -92,7 +92,7 @@ function initGrid(){
         pager: "#grid-pager",
         multiselect: false,
         shrinkToFit: false,
-        sortname : 'createDate',
+        sortname : 'createTime',
         sortorder : "desc",
         autoScroll:false
 
