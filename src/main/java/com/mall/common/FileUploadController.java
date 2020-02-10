@@ -1,5 +1,6 @@
 package com.mall.common;
 
+import com.mall.utils.UploadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,25 +25,17 @@ public class FileUploadController {
      * @return 上传状态或图片名称
      */
     @PostMapping("/upPic")
-    public String getFile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+    public String getFile(@RequestParam("file") MultipartFile file) {
         logger.info("收到上传图片请求");
         if (file.isEmpty()) {
             return "上传失败，请选择文件";
         }
         String fileName = file.getOriginalFilename();
-        String relativePath = "/static/upload/";
-        String filePath = "src/main/resources" + relativePath;
-        //如果目录不存在，自动创建目录
-        File dir = new File(filePath);
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
-        logger.info("filePath = " + dir.getAbsolutePath());
-        File dest = new File(dir.getAbsolutePath() + File.separator + fileName);
+        File dest = new File(UploadUtils.getImgDirFile().getAbsolutePath() + File.separator + fileName);
         try {
             file.transferTo(dest);
             logger.info("上传成功");
-            String rtnPath = relativePath +fileName;
+            String rtnPath = UploadUtils.IMG_PATH_PREFIX +fileName;
             logger.info("图片请求地址:"+rtnPath);
             return rtnPath;
         } catch (IOException e) {

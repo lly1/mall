@@ -19,4 +19,7 @@ public class TShopProduct extends BaseEntity {
      * 0正常1下架
      */
     private String productStatus;
+    private Integer saleTotal;
+    private Integer starTotal;
+    private String isTouchMove;
 }

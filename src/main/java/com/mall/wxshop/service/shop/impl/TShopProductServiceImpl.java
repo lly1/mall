@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 微信api实现类
@@ -25,4 +26,8 @@ public class TShopProductServiceImpl extends ServiceImpl<TShopCategoryMapper, TS
     @Resource
     RedisUtils redisUtils;
 
+    @Override
+    public List<TShopCategory> getShopCategory(String shopId) {
+        return baseMapper.getShopCategory(shopId);
+    }
 }

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.mall.common.MyHandlerInterceptor;
+import com.mall.utils.UploadUtils;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +37,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/static/upload/**").addResourceLocations("file:" + UploadUtils.getImgDirFile().getAbsolutePath() + "/");
         super.addResourceHandlers(registry);
     }
 
@@ -50,7 +52,6 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
     /**
      *  fastjson序列化
-     *
      * */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -62,10 +63,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         // 自定义时间格式
         fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
-        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect,
-                SerializerFeature.WriteNullNumberAsZero, SerializerFeature.WriteNullBooleanAsFalse, SerializerFeature.WriteMapNullValue,
-                SerializerFeature.WriteNullStringAsEmpty, SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteDateUseDateFormat,
-                SerializerFeature.BrowserCompatible, SerializerFeature.WriteNonStringKeyAsString);
+        fastJsonConfig.setSerializerFeatures( SerializerFeature.WriteMapNullValue);
         fastJsonHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
         converters.add(fastJsonHttpMessageConverter);
         converters.add(responseBodyConverter());

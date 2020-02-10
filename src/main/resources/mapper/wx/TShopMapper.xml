@@ -18,7 +18,6 @@
         <result column="update_time" property="updateTime"/>
         <result column="update_by" property="updateBy"/>
         <collection property="tShopCategory" column="id" select="findCategoryById"/>
-        <collection property="tShopProduct" column="id" select="findProductById"/>
     </resultMap>
 
     <select id="getShop" resultMap="TShopMap" parameterType="java.lang.String">
@@ -28,11 +27,6 @@
     <select id="findCategoryById" resultType="com.mall.wxshop.entity.shop.TShopCategory" parameterType="java.lang.String">
         select * from t_shop_category a where a.shop_id = #{id} and delFlag = '0'
     </select>
-
-    <select id="findProductById" resultType="com.mall.wxshop.entity.shop.TShopProduct" parameterType="java.lang.String">
-        select * from t_shop_product a where a.shop_id = #{id} and delFlag = '0'
-    </select>
-
 </mapper>
 
 

@@ -8,7 +8,9 @@ import com.mall.utils.RtnMessageUtils;
 import com.mall.utils.StringUtilsEx;
 import com.mall.wxshop.entity.shop.TShop;
 import com.mall.wxshop.entity.shop.TShopCategory;
+import com.mall.wxshop.entity.shop.TShopProduct;
 import com.mall.wxshop.service.shop.TShopCategoryService;
+import com.mall.wxshop.service.shop.TShopProductService;
 import com.mall.wxshop.service.shop.TShopService;
 import com.mall.wxshop.service.user.WxUserService;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,8 @@ public class WxShopController extends BaseController {
     private TShopService tShopService;
     @Resource
     private TShopCategoryService tShopCategoryService;
+    @Resource
+    private TShopProductService tShopProductService;
 
 
     /**
@@ -69,7 +73,7 @@ public class WxShopController extends BaseController {
     @RequestMapping("getShopCategory")
     @ResponseBody
     public RtnMessage<List<TShopCategory>> getShopCategory(String shopId){
-        List<TShopCategory> categoryList = tShopCategoryService.list(new QueryWrapper<TShopCategory>().eq("shop_id",shopId));
+        List<TShopCategory> categoryList = tShopCategoryService.getShopCategory(shopId);
         return RtnMessageUtils.buildSuccess(categoryList);
     }
     /**
@@ -92,6 +96,38 @@ public class WxShopController extends BaseController {
     public RtnMessage<List<TShopCategory>> delShopCategory(String id){
         tShopCategoryService.removeById(id);
         return RtnMessageUtils.buildSuccess(tShopCategoryService.list());
+    }
+    /**
+     * 店铺商品信息
+     * */
+    @RequestMapping("getShopProduct")
+    @ResponseBody
+    public RtnMessage<TShopProduct> getShopProduct(String productId){
+        TShopProduct shopProduct= tShopProductService.getById(productId);
+        return RtnMessageUtils.buildSuccess(shopProduct);
+    }
+    /**
+     * 店铺商品信息
+     * */
+    @RequestMapping("saveShopProduct")
+    @ResponseBody
+    public RtnMessage<List<TShopProduct>> saveShopProduct(@RequestBody TShopProduct tShopProduct){
+        logAllRequestParams();
+        if(StringUtilsEx.isBlank(tShopProduct.getId())){
+            tShopProduct.preInsert(new User(wxUserService.getCurrentWxUser().getNickName()));
+            tShopProduct.setSaleTotal(0);
+            tShopProduct.setStarTotal(0);
+        }else {
+            tShopProduct.preUpdate(new User(wxUserService.getCurrentWxUser().getNickName()));
+        }
+        tShopProductService.saveOrUpdate(tShopProduct);
+        return RtnMessageUtils.buildSuccess(tShopProductService.list());
+    }
+    @RequestMapping("delShopProduct")
+    @ResponseBody
+    public RtnMessage<List<TShopCategory>> delShopProduct(String id,String shopId){
+        tShopProductService.removeById(id);
+        return RtnMessageUtils.buildSuccess(tShopCategoryService.getShopCategory(shopId));
     }
 
 }
