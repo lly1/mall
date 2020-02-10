@@ -89,13 +89,14 @@ public class WxShopController extends BaseController {
             tShopCategory.preUpdate(new User(wxUserService.getCurrentWxUser().getNickName()));
         }
         tShopCategoryService.saveOrUpdate(tShopCategory);
-        return RtnMessageUtils.buildSuccess(tShopCategoryService.list());
+        return RtnMessageUtils.buildSuccess(tShopCategoryService.list(new QueryWrapper<TShopCategory>().eq("shop_id",tShopCategory.getShopId())));
     }
     @RequestMapping("delShopCategory")
     @ResponseBody
     public RtnMessage<List<TShopCategory>> delShopCategory(String id){
+        TShopCategory tShopCategory = tShopCategoryService.getById(id);
         tShopCategoryService.removeById(id);
-        return RtnMessageUtils.buildSuccess(tShopCategoryService.list());
+        return RtnMessageUtils.buildSuccess(tShopCategoryService.list(new QueryWrapper<TShopCategory>().eq("shop_id",tShopCategory.getShopId())));
     }
     /**
      * 店铺商品信息
@@ -121,7 +122,7 @@ public class WxShopController extends BaseController {
             tShopProduct.preUpdate(new User(wxUserService.getCurrentWxUser().getNickName()));
         }
         tShopProductService.saveOrUpdate(tShopProduct);
-        return RtnMessageUtils.buildSuccess(tShopProductService.list());
+        return RtnMessageUtils.buildSuccess(tShopProductService.list(new QueryWrapper<TShopProduct>().eq("shop_id",tShopProduct.getShopId())));
     }
     @RequestMapping("delShopProduct")
     @ResponseBody

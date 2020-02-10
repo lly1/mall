@@ -10,7 +10,7 @@ spring:
       enabled: true  #设置开启热部署
   datasource:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://139.9.73.191:3306/mall?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=UTC&useSSL=false
+      url: jdbc:mysql://139.9.73.191:3306/mall?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&useSSL=false
       username: root
       password: you+me=love
       type: com.alibaba.druid.pool.DruidDataSource
