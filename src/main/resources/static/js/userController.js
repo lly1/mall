@@ -11,14 +11,14 @@ function refresh(){
 }
 function initadd(){
         $.ajax({
-            url :  basePath+"/sys/user/list",
+            url :  basePath+"/sys/role/list",
             cache : false,
             async : false,
             type : "POST",
             success : function (data,textStatus){
                 var json= data;
                 for(var i=0;i<json.length;i++){
-                    $("#form_roleId").append("<option value='"+json[i].code+"'>"+json[i].name+"</option>");
+                    $("#form_roleId").append("<option value='"+json[i].roleId+"'>"+json[i].roleName+"</option>");
                     $("#form_roleId").trigger('chosen:updated');
                 }
             }

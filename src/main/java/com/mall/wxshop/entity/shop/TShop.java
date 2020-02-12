@@ -27,6 +27,9 @@ public class TShop extends BaseEntity {
     private String latitude;
 
     @TableField(exist = false)
+    private String distance;
+
+    @TableField(exist = false)
     //显示null的json
     @JSONField(serialzeFeatures = SerializerFeature.WriteMapNullValue)
     private List<TShopCategory> tShopCategory;

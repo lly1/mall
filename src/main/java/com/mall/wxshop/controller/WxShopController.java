@@ -1,6 +1,7 @@
 package com.mall.wxshop.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mall.common.BaseController;
 import com.mall.common.RtnMessage;
 import com.mall.entity.user.User;
@@ -13,6 +14,7 @@ import com.mall.wxshop.service.shop.TShopCategoryService;
 import com.mall.wxshop.service.shop.TShopProductService;
 import com.mall.wxshop.service.shop.TShopService;
 import com.mall.wxshop.service.user.WxUserService;
+import com.mall.wxshop.util.DistanceUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -129,6 +131,26 @@ public class WxShopController extends BaseController {
     public RtnMessage<List<TShopCategory>> delShopProduct(String id,String shopId){
         tShopProductService.removeById(id);
         return RtnMessageUtils.buildSuccess(tShopCategoryService.getShopCategory(shopId));
+    }
+
+    @RequestMapping("getShopByDistance")
+    @ResponseBody
+    public RtnMessage<Page<TShop>> getShopByDistance(TShop tShop){
+        Page<TShop> shopPage = tShopService.page(tShop.buildPage());
+        List<TShop> shopList = shopPage.getRecords();
+        shopList.forEach(shop ->{
+            shop.setDistance(DistanceUtil.getDistance(Double.parseDouble(tShop.getLatitude()),
+                Double.parseDouble(tShop.getLongitude()),
+                Double.parseDouble(shop.getLatitude()),
+                Double.parseDouble(shop.getLongitude())));
+        });
+        shopList.sort((shop1, shop2) -> {
+            String distance1 = shop1.getDistance();
+            String distance2 = shop2.getDistance();
+            return distance2.compareTo(distance1);
+        });
+        shopPage.setRecords(shopList);
+        return RtnMessageUtils.buildSuccess(shopPage);
     }
 
 }

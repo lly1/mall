@@ -67,7 +67,7 @@ public class UserController extends BaseController {
         if (CommonUtil.isNotBlank(users)) {
             return users;
         }
-        return new ArrayList<>();
+        return null;
     }
 
     @RequestMapping(value = "/save")
