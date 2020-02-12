@@ -22,6 +22,12 @@ public class User extends BaseEntity {
     @TableField(exist = false)
     private String roleId;
 
+    /**
+     * 角色名
+     */
+    @TableField(exist = false)
+    private String roleName;
+
     public User(){
 
     }

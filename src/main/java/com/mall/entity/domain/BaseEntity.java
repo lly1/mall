@@ -1,6 +1,7 @@
 package com.mall.entity.domain;
 
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -30,12 +31,16 @@ public abstract class BaseEntity implements IPage, Serializable {
     @TableId(value = "id",type = IdType.ASSIGN_UUID)
     protected String id;
 
-    @TableField("create_time")
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     protected Date createTime;
 
-    @TableField("update_time")
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     protected Date updateTime;
+
+    @TableField(value = "create_by", fill = FieldFill.INSERT)
     protected String createBy;
+
+    @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
     protected String updateBy;
     /**
      * 删除标记（0：正常；1：删除；A：审核；）

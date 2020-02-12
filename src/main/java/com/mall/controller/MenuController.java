@@ -1,6 +1,9 @@
 package com.mall.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mall.common.BaseController;
+import com.mall.common.FrontPage;
+import com.mall.common.RtnPageInfo;
 import com.mall.entity.menu.Menu;
 import com.mall.entity.menu.SidebarMenu;
 import com.mall.service.menu.MenuService;
@@ -14,7 +17,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = {"role","roleWX"})
 public class MenuController extends BaseController {
     @Autowired
     private MenuService menuService;
@@ -23,7 +25,7 @@ public class MenuController extends BaseController {
      *
      * @return
      */
-    @RequestMapping(value="/showSidebarMenu")
+    @RequestMapping(value="role/showSidebarMenu")
     @ResponseBody
     public List<SidebarMenu> showSidebarMenu(String roleId) {
         this.logAllRequestParams();
@@ -38,4 +40,22 @@ public class MenuController extends BaseController {
         }
         return ResourceUtil.convertToSidebarMenuVo(resourceList);
     }
+
+
+
+    @RequestMapping("/sys/menu/index.WS")
+    public String index() {
+        return "views/sys/menu";
+    }
+
+    @RequestMapping("/sys/menu/page")
+    @ResponseBody
+    public RtnPageInfo<Menu> findPage(FrontPage<Menu> page) throws Exception {
+        Page<Menu> userPage = menuService.page(page.getPagePlus());
+
+        return new RtnPageInfo<>(userPage);
+    }
+
+
+
 }

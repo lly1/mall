@@ -10,9 +10,9 @@ spring:
       enabled: true  #设置开启热部署
   datasource:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://139.9.73.191:3306/mall?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&useSSL=false
-      username: root
-      password: you+me=love
+      url: jdbc:mysql://wakakaljh.mysql.rds.aliyuncs.com/mall?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=UTC&useSSL=false
+      username: wakakaljh
+      password: 954291079Ljh
       type: com.alibaba.druid.pool.DruidDataSource
       druid:
         # 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时

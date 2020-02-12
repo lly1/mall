@@ -3,8 +3,13 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:include="views/baseView :: copy"></div>
+    <script type="text/javascript" th:inline="javascript">
+
+        var pageType = [[${pageType}]];
+        var rowId = [[${rowId}]];
+    </script>
 </head>
-<body class="no-skin">
+<body>
 <div class="main-container" id="main-container">
     <script type="text/javascript">
         try {
@@ -95,7 +100,6 @@
     </div>
 </div>
 <div th:include="views/layout/footer_js :: copy"></div>
-<div th:include="views/sys/user_edit :: copy"></div>
-<script type="text/javascript" src="/static/js/userController.js"></script>
+<script type="text/javascript" src="/static/js/menuController.js"></script>
 </body>
 </html>
