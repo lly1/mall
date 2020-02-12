@@ -18,6 +18,7 @@ public class TShop extends BaseEntity {
     private String shopName;
     private String shopLogo;
     private String shopInfo;
+    private Integer shopSale;
     private Double shopStar;
     private String shopState;
     private String openTime;

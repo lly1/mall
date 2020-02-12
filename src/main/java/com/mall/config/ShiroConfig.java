@@ -49,6 +49,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/static/**","anon");
         //让小程序通过
         filterChainDefinitionMap.put("/wxAuth/login", "anon");
+        filterChainDefinitionMap.put("/sale/shop/**", "anon");
         filterChainDefinitionMap.put("/auth/login", "anon");
         filterChainDefinitionMap.put("/auth/login/main","anon");
         filterChainDefinitionMap.put("/auth/kickout", "anon");
