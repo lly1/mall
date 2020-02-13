@@ -34,10 +34,11 @@ function initGrid(){
         colModel: [
             {name: 'id', label: 'id',hidden:true, width: 40},
             {name: 'mName', label: '菜单名称', editable:true,width: 200,frozen:true},
-            {name: 'mPath', label: '菜单映射路径',hidden:true, width: 40},
+            {name: 'mPath', label: '菜单映射路径', width: 200},
             {name: 'parentId', label: '父菜单ID', editable:true,width: 200},
-            {name: 'iconCls', label: '图标名',hidden:true, editable:true,width: 200},
+            {name: 'iconCls', label: '图标名', editable:true,width: 200},
             {name: 'seqNo', label: '子菜单序列号', editable:true,width: 200},
+            {name: 'createTime', label: '创建时间', editable:true,width: 200}
         ],
         viewrecords: true,
         autowidth: true,
@@ -96,7 +97,7 @@ function add(){
     $("#edit-dialog").modal('show');
 }
 function edit(){
-    pageType="edit"
+    pageType="edit";
     $("#editForm").resetForm();
     $("#form_code").attr("readOnly",true);
     var rowId = $("#grid").jqGrid("getGridParam", "selrow");
@@ -131,7 +132,7 @@ function save(){
     var progressDialog = bootbox.dialog({
         message: '<p><i class="fa fa-spin fa-spinner"></i> 数据上传中...</p>'
     });
-    $.post(basePath+"/sys/user/save?pageType="+pageType,
+    $.post(basePath+"/sys/menu/save?pageType="+pageType,
         $("#editForm").serialize(),
         function(result) {
             if(result.success == true || result.success == 'true') {

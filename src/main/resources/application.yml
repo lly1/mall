@@ -86,6 +86,8 @@ mybatis-plus:
       id-type: auto
       #全局逻辑删除字段值
       logic-delete-field: delFlag
+      #sql查询时忽略空字符串条件
+      select-strategy: not_empty
 
 
 

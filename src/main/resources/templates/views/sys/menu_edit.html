@@ -19,41 +19,39 @@
                     <input type="hidden" id="form_creatorId" name='createBy' hidden="true">
                     <input type="hidden" id="form_creatorTime" name='createTime' hidden="true">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label no-padding-right" for="form_name">姓名</label>
+                        <label class="col-sm-2 control-label no-padding-right" for="form_mName">菜单名称</label>
 
                         <div class="col-xs-14 col-sm-7">
-                            <input class="form-control" id="form_name" name="username" type="text"
+                            <input class="form-control" id="form_mName" name="mName" type="text"
                                    placeholder=""/>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label no-padding-right" for="form_password">密码</label>
+                        <label class="col-sm-2 control-label no-padding-right" for="form_mPath">菜单映射路径</label>
 
                         <div class="col-xs-14 col-sm-7">
-                            <input class="form-control" id="form_password" name="password"
-                                   type="password" placeholder=""/>
-                        </div>
-                    </div>
-
-                    <!-- #section:elements.form -->
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label no-padding-right" for="form_roleId">角色</label>
-
-                        <div class="col-xs-14 col-sm-7">
-                            <select class="chosen-select form-control" id="form_roleId" name="roleId" value="0" >
-
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label no-padding-right" for="form_phone">电话</label>
-
-                        <div class="col-xs-14 col-sm-7">
-                            <input class="form-control" id="form_phone" name="phone"
+                            <input class="form-control" id="form_mPath" name="mPath"
                                    placeholder=""/>
                         </div>
+                    </div>
 
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right" for="form_parentId">父菜单ID</label>
+
+                        <div class="col-xs-14 col-sm-7">
+                            <input class="form-control" id="form_parentId" name="parentId"
+                                   placeholder=""/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right" for="form_seqNo">子菜单序列号</label>
+
+                        <div class="col-xs-14 col-sm-7">
+                            <input class="form-control" id="form_seqNo" name="seqNo"
+                                   placeholder=""/>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -97,40 +95,31 @@
                 }, 'json');
             },
             fields: {
-                username: {
+                mName: {
                     validators: {
                         notEmpty: {
-                            message: '名称不能为空'
+                            message: '菜单名称不能为空'
                         }
                     }
                 },
-                password: {
+                mPath: {
                     validators: {
                         notEmpty: {
-                            message: '密码不能为空'
+                            message: '菜单映射路径不能为空'
                         }
                     }
                 },
-                roleId: {
+                parentId: {
                     validators: {
                         notEmpty: {
-                            message: '请选择角色'
+                            message: '父菜单ID不能为空'
                         }
                     }
-                } ,
-                phone: {
+                },
+                seqNo: {
                     validators: {
                         notEmpty: {
-                            message: '联系电话不能为空'
-                        },
-                        stringLength: {
-                            min: 11,
-                            max: 11,
-                            message: '请输入11位手机号码'
-                        },
-                        regexp: {
-                            regexp: /^1[2|3|4|5|6|7|8]{1}[0-9]{9}$/,
-                            message: '请输入正确的手机号码'
+                            message: '子菜单序列号不能为空'
                         }
                     }
                 }
