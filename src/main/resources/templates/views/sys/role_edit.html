@@ -59,7 +59,7 @@
                                             <label class="col-sm-3 control-label no-padding-right" for="editForm-code"> 角色编号 </label>
 
                                             <div class="col-sm-9">
-                                                <input type="text" id="editForm-code" name="code" onkeyup="this.value=this.value.toUpperCase()"
+                                                <input type="text" id="editForm-code" name="roleId" onkeyup="this.value=this.value.toUpperCase()"
                                                        placeholder="" class="col-xs-10 col-sm-5" th:value="${role.roleId}" />
                                             </div>
                                         </div>
@@ -68,7 +68,7 @@
                                             <label class="col-sm-3 control-label no-padding-right" for="editForm-code"> 角色名称 </label>
 
                                             <div class="col-sm-9">
-                                                <input type="text" id="editForm-name" name="name" placeholder="" class="col-xs-10 col-sm-5"
+                                                <input type="text" id="editForm-name" name="roleName" placeholder="" class="col-xs-10 col-sm-5"
                                                        th:value="${role.roleName}"/>
                                             </div>
                                         </div>
@@ -137,11 +137,11 @@
         function saveRole() {
             $('#editForm').data('bootstrapValidator').validate();
 
-            var code = $("#editForm input[name='code']").val();
-            if(code != null && code != ""){
-                $('#editForm').bootstrapValidator('enableFieldValidators', 'code', false);
+            var roleId = $("#editForm input[name='roleId']").val();
+            if(roleId != null && roleId != ""){
+                $('#editForm').bootstrapValidator('enableFieldValidators', 'roleId', false);
             } else {
-                $('#editForm').bootstrapValidator('enableFieldValidators', 'code', true);
+                $('#editForm').bootstrapValidator('enableFieldValidators', 'roleId', true);
             }
 
             if(!$('#editForm').data('bootstrapValidator').isValid()){
@@ -185,68 +185,17 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    code: {
+                    roleId: {
                         validators: {
-                            stringLength: {
-                                min: 5,
-                                max: 20,
-                                message: '用户名长度必须在5到20之间'
-                            },
-                            threshold :  5 , //有5字符以上才发送ajax请求，（input中输入一个字符，插件会向服务器发送一次，设置限制，6字符以上才开始）
-                            remote: {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}
-                                url: basePath+"/sys/role/checkCode.do?pageType=${pageType}",//验证地址
-                                message: '编号已存在',//提示消息
-                                delay : 2000,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
-                                type: 'POST',//请求方式
-                                data: function(validator) {
-                                    return {
-                                        //  password: $('[name="passwordNameAttributeInYourForm"]').val(),
-                                        //  whatever: $('[name="whateverNameAttributeInYourForm"]').val()
-                                    };
-                                }
-
-                            },
-                            regexp: {
-                                regexp: /^[a-zA-Z0-9_]+$/,
-                                message: '编号由数字字母下划线和.组成'
+                            notEmpty: {
+                                message: '编号不能为空'
                             }
                         }
                     },
-                    name: {
+                    roleName: {
                         validators: {
                             notEmpty: {
                                 message: '名称不能为空'
-                            }
-                        }
-                    },
-                    groupId: {
-                        validators: {
-                        }
-                    },
-                    ownerId: {
-                        validators: {
-                            notEmpty: {
-                                message: '所属方不能为空'
-                            }
-                        }
-                    },
-                    tel: {
-                        validators: {
-                            stringLength: {
-                                min: 11,
-                                max: 11,
-                                message: '请输入11位手机号码'
-                            },
-                            regexp: {
-                                regexp: /^1[2|3|4|5|6|7|8]{1}[0-9]{9}$/,
-                                message: '请输入正确的手机号码'
-                            }
-                        }
-                    } ,
-                    linkman: {
-                        validators: {
-                            notEmpty: {
-                                message: '联系人不能为空'
                             }
                         }
                     }
@@ -280,7 +229,7 @@
                             return '<input id="ckbox_' + rowObject.code + '" name="' + rowObject.code + '" class="inputcheckbox" type="checkbox" />';
                         }
                     }
-                    },
+                    }
                     // {
                     //     name: '',
                     //     label: '按钮配置细则',
