@@ -1,0 +1,192 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<footer th:fragment="copy">
+<div id="edit_roleDiv_dialog" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-header no-padding">
+            <div class="table-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <span class="white">&times;</span>
+                </button>
+                详细信息
+            </div>
+        </div>
+        <div class="modal-content">
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" id="editRoleDivForm">
+                    <input  id="divCode" name="code" type="hidden"/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right"><span class="text-danger"></span>表单字段名称</label>
+                        <div class="col-xs-10 col-sm-5">
+                            <input class="form-control" id="divName" name="privilegeName"
+                                   type="text"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right"><span class="text-danger"></span>表单字段divId</label>
+                        <div class="col-xs-10 col-sm-5">
+                            <input class="form-control" id="divId" name="privilegeId"
+                                   type="text"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" onclick="closeEditDivDialog()">关闭</a>
+            <button type="button"  class="btn btn-primary" onclick="saveDiv()">保存</button>
+        </div>
+    </div>
+</div>
+<script>
+    function addDiv() {
+        $("#editRoleDivForm").resetForm();
+        rowId = $("#resourceGrid").jqGrid("getGridParam", "selrow");
+        if (rowId) {
+            var row = $("#resourceGrid").jqGrid('getRowData', rowId);
+            $("#edit_roleDiv_dialog").modal("show");
+        } else {
+            bootbox.alert("请选择父菜单！");
+        }
+        //选择父菜单，赋值code
+        var so=rowId;
+        if (so==""){
+            so="01";
+        }
+        $("#divCode").val(so);
+        initEditDivFormValid();
+    }
+
+    function closeEditDivDialog() {
+        closeDivDialog();
+    }
+
+    function closeDivDialog() {
+        $("#edit_roleDiv_dialog").modal('hide');
+        $("#editRoleDivForm").resetForm();
+        $("#editRoleDivForm").data('bootstrapValidator').destroy();
+        $('#editRoleDivForm').data('bootstrapValidator', null);
+
+    }
+
+
+
+    function saveDiv() {
+
+        checkDivId(checkBackDiv);
+
+    }
+    function checkBackDiv(isok) {
+        var isok=isok;
+        if(!isok){
+            return;
+        }
+        $('#editRoleDivForm').data('bootstrapValidator').validate();
+        if(!$('#editRoleDivForm').data('bootstrapValidator').isValid()){
+            return ;
+        }
+        /*if($("#divName").val()==""||$("#divName").val()==undefined){
+            $.gritter.add({
+                text: "表单名称不能为空",
+                class_name: 'gritter-success  gritter-light'
+            });
+            return
+        }
+        if($("#divId").val()==""||$("#divId").val()==undefined){
+            $.gritter.add({
+                text: "表单ID不能为空",
+                class_name: 'gritter-success  gritter-light'
+            });
+            return
+        }*/
+        cs.showProgressBar();
+        $.ajax({
+            dataType:"json",
+            url: basePath + "/sys/role/saveResourceDiv.do",
+            data:{
+                roleStr:JSON.stringify(array2obj($("#editRoleDivForm").serializeArray()))
+            },
+            type:"POST",
+            success:function(result) {
+                cs.closeProgressBar();
+                if(result.success == true || result.success == 'true') {
+                    $.gritter.add({
+                        text: result.msg,
+                        class_name: 'gritter-success  gritter-light'
+                    });
+                    closeDivDialog();
+                } else {
+                    cs.showAlertMsgBox(result.msg);
+                }
+            }
+        });
+    }
+    function checkDivId(checkBackDiv) {
+        cs.showProgressBar();
+        $.ajax({
+            dataType:"json",
+            async: true,
+            url: basePath + "/sys/role/checkPrivilegeId.do",
+            data:{
+                code:$("#code").val(),
+                privilegeId:$("#privilegeId").val()
+            },
+            type:"POST",
+            success:function(result) {
+                cs.closeProgressBar();
+                if(result.success == true || result.success == 'true') {
+                    $.gritter.add({
+                        text: result.msg,
+                        class_name: 'gritter-success  gritter-light'
+                    });
+                    checkBackDiv(true)
+                } else {
+                    cs.showAlertMsgBox(result.msg);
+                    checkBackDiv(false)
+                }
+            }
+        });
+    }
+    function initEditDivFormValid() {
+        $('#editRoleDivForm').bootstrapValidator({
+            message: '输入值无效',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            submitHandler: function(validator, form, submitButton) {
+                $.post(form.attr('action'), form.serialize(), function(result) {
+                    if (result.success == true || result.success == 'true') {
+                    } else {
+                        $('#editRoleButtonForm').bootstrapValidator('disableSubmitButtons', false);
+                    }
+                }, 'json');
+            },
+            fields: {
+                ownerId: {
+                    validators: {
+                        notEmpty: {
+                            message: '父菜单不能为空'
+                        }
+                    }
+                },
+                privilegeName: {
+                    validators: {
+                        notEmpty: {
+                            message: '表单字段不能为空'
+                        }
+                    }
+                },
+                privilegeId: {
+                    validators: {
+                        notEmpty: {
+                            message: '表单字段不能为空'
+                        }
+                    }
+                }
+            }
+        });
+    }
+</script>
+</footer>

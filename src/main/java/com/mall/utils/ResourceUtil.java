@@ -94,3 +94,12 @@ class MenuComparator implements Comparator<Menu> {
 	}
 }
 
+class MenuIdComparator implements Comparator<Menu> {
+
+	@Override
+	public int compare(Menu res1, Menu res2) {
+		return res1.getCode().compareTo(res2.getCode());
+
+	}
+}
+

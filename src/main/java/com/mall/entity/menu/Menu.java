@@ -26,6 +26,9 @@ public class Menu extends BaseEntity {
     //子菜单序列号
     @TableField("seqNo")
     private Integer seqNo;
+    //编号
+    @TableField("code")
+    private String code;
 
     @TableField(exist = false)
     private List<Menu> children;

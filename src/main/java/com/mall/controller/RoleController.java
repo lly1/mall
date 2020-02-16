@@ -19,10 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -60,6 +62,22 @@ public class RoleController extends BaseController{
 
         return new RtnPageInfo<>(userPage);
     }
+
+    @RequestMapping(value="/findResource")
+    @ResponseBody
+    public List<Menu> findResource(String roleId,String pageType) throws Exception {
+        List<Menu> menuList = menuService.getAll();
+        return menuList;
+    }
+
+    @RequestMapping(value = "/searchByOwnerId")
+    @ResponseBody
+    public List<Menu> searchByOwnerId(String ownerId)throws Exception{
+        this.logAllRequestParams();
+        List<Menu> resourceList = menuService.list(new QueryWrapper<Menu>().eq("parentId", ownerId));
+        return resourceList;
+    }
+
     @RequestMapping("/list")
     @ResponseBody
     public List<Role> list() throws Exception {
@@ -72,43 +90,43 @@ public class RoleController extends BaseController{
 
     @RequestMapping("/save")
     @ResponseBody
-    public RtnMessage save(Role role, String pageType, HttpSession session) throws Exception {
-        Role r = this.roleService.getOne(new QueryWrapper<Role>().eq("role_name", role.getRoleName()));
-        try {
-            if (pageType.equals("add")) {
-                if (CommonUtil.isBlank(r)) {
-                    r = new Role();
-                    r.setRoleName(role.getRoleName());
-                    r.setRoleId(role.getRoleId());
-                } else {
-                    return RtnMessageUtils.buildFailed("角色名已存在，请重新输入");
-                }
-            } else {
-                r.setRoleName(role.getRoleName());
-                r.setRoleId(role.getRoleId());
-            }
-            roleService.saveOrUpdate(r);
-            //获取入参中的菜单列表字符串并更新roleMenu表
-            List<String> menulist = Arrays.asList(role.getAuthNames().split(","));
-            //先删除roleMenu表中此角色的所有权限再新增
-            roleMenuService.remove(new QueryWrapper<RoleMenu>().eq("role_id",role.getRoleId()));
-            for (String mName: menulist){
-                QueryWrapper<Menu> menuQueryWrapper = new QueryWrapper<>();
-                menuQueryWrapper.eq("mName", mName);
-                Menu menu = menuService.getOne(menuQueryWrapper);
-                if (null != menu){
-                    RoleMenu roleMenu = new RoleMenu();
-                    roleMenu.setRoleId(role.getRoleId());
-                    roleMenu.setMenuId(menu.getId());
-                    roleMenuService.save(roleMenu);
-                }
-            }
-            return RtnMessageUtils.buildSuccess("保存成功");
-        }catch (Exception e){
-            /*将异常打印到日志*/
-            this.logger.error(e.getMessage());
-            e.printStackTrace();
-            return RtnMessageUtils.buildFailed("保存失败");
-        }
+    public RtnMessage save(Role role) throws Exception {
+        //不做操作
+	    return RtnMessageUtils.buildSuccess(role);
+    }
+
+
+    @RequestMapping(value ="/editPage")
+    public ModelAndView editPage(String roleId) throws Exception {
+        this.logAllRequestParams();
+        Role role = roleService.getOne(new QueryWrapper<Role>().eq("role_id",roleId));
+        ModelAndView mv = new ModelAndView("/views/sys/role_edit");
+        mv.addObject("pageType","edit");
+        mv.addObject("role",role);
+        return mv;
+    }
+
+    @RequestMapping(value ="/addPage")
+    public ModelAndView addPage() throws Exception {
+        ModelAndView mv = new ModelAndView("/views/sys/role_edit");
+        mv.addObject("pageType","add");
+        mv.addObject("role",new Role());
+        return mv;
+    }
+
+    @RequestMapping(value="/addAuth")
+    @ResponseBody
+    public RtnMessage addAuth(RoleMenu roleMenu) throws Exception {
+        this.logAllRequestParams();
+        roleMenuService.save(roleMenu);
+        return RtnMessageUtils.buildSuccess("保存成功");
+
+    }
+
+    @RequestMapping(value="/deleteAuth")
+    @ResponseBody
+    public RtnMessage deleteAuth(RoleMenu roleMenu) throws Exception {
+        roleMenuService.remove(new QueryWrapper<RoleMenu>(roleMenu));
+        return RtnMessageUtils.buildSuccess("删除成功");
     }
 }
