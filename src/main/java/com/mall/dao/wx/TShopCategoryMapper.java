@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TShopCategoryMapper extends BaseMapper<TShopCategory> {
     List<TShopCategory> getShopCategory(String shopId);
+    List<TShopCategory> getShopCategorySale(String shopId);
 }

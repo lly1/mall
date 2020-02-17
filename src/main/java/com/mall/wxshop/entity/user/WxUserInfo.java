@@ -1,12 +1,11 @@
 package com.mall.wxshop.entity.user;
 
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.mall.entity.domain.BaseEntity;
 import com.mall.entity.user.UserRole;
+import com.mall.wxshop.entity.base.WxBaseEntity;
+import com.mall.wxshop.entity.shop.TShop;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,7 +18,7 @@ import java.util.List;
  */
 @Data
 @TableName("sys_wx_user")
-public class WxUserInfo extends BaseEntity implements Serializable {
+public class WxUserInfo extends WxBaseEntity implements Serializable {
     private static final long serialVersionUID = -5671613769786329491L;
     //用户唯一编码
     @TableField("unionId")
@@ -54,5 +53,12 @@ public class WxUserInfo extends BaseEntity implements Serializable {
     // 用户最大角色
     @TableField(exist = false)
     private String roleId;
+    /**
+     * 未处理订单
+     */
+    @TableField(exist = false)
+    private Integer newOrder;
 
+    @TableField(exist = false)
+    private TShop shop;
 }

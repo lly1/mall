@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface TShopCategoryService extends IService<TShopCategory> {
    List<TShopCategory> getShopCategory(String shopId);
+   List<TShopCategory> getShopCategorySale(String shopId);
 }

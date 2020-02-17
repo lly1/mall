@@ -3,6 +3,7 @@ package com.mall.config;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.mall.entity.user.User;
 import com.mall.service.user.UserService;
+import com.mall.wxshop.entity.user.WxUserInfo;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

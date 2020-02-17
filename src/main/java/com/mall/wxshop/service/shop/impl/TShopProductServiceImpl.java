@@ -30,4 +30,9 @@ public class TShopProductServiceImpl extends ServiceImpl<TShopCategoryMapper, TS
     public List<TShopCategory> getShopCategory(String shopId) {
         return baseMapper.getShopCategory(shopId);
     }
+
+    @Override
+    public List<TShopCategory> getShopCategorySale(String shopId) {
+        return baseMapper.getShopCategorySale(shopId);
+    }
 }

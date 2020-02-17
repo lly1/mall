@@ -5,16 +5,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mall.common.BaseController;
 import com.mall.common.RtnMessage;
 import com.mall.entity.user.User;
+import com.mall.utils.CommonUtil;
 import com.mall.utils.RtnMessageUtils;
 import com.mall.utils.StringUtilsEx;
 import com.mall.wxshop.entity.shop.TShop;
 import com.mall.wxshop.entity.shop.TShopCategory;
 import com.mall.wxshop.entity.shop.TShopProduct;
+import com.mall.wxshop.service.sale.TCartService;
 import com.mall.wxshop.service.shop.TShopCategoryService;
 import com.mall.wxshop.service.shop.TShopProductService;
 import com.mall.wxshop.service.shop.TShopService;
 import com.mall.wxshop.service.user.WxUserService;
-import com.mall.wxshop.util.DistanceUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +55,15 @@ public class WxShopController extends BaseController {
     /**
      * 店铺基本信息
      * */
+    @RequestMapping("getShopInfoById")
+    @ResponseBody
+    public RtnMessage<TShop> getShopInfoById(String id){
+        TShop tShop = tShopService.getById(id);
+        return RtnMessageUtils.buildSuccess(tShop);
+    }
+    /**
+     * 店铺基本信息
+     * */
     @RequestMapping("saveShopInfo")
     @ResponseBody
     public RtnMessage<TShop> saveShopInfo(@RequestBody TShop tShop){
@@ -68,15 +79,27 @@ public class WxShopController extends BaseController {
             tShop.preUpdate(new User(wxUserService.getCurrentWxUser().getNickName()));
         }
         tShopService.saveOrUpdate(tShop);
-        return RtnMessageUtils.buildSuccess(tShop);
+        return RtnMessageUtils.buildSuccess(tShopService.getShop(tShop.getUserId()));
     }
     /**
      * 店铺类目信息
      * */
     @RequestMapping("getShopCategory")
     @ResponseBody
-    public RtnMessage<List<TShopCategory>> getShopCategory(String shopId){
-        List<TShopCategory> categoryList = tShopCategoryService.getShopCategory(shopId);
+    public RtnMessage<List<TShopCategory>> getShopCategory(String shopId,String isSale,String userId){
+        List<TShopCategory> categoryList = null;
+        //非售卖页面显示所有商品
+        if("0".equals(isSale)){
+            categoryList = tShopCategoryService.getShopCategory(shopId);
+        }else {
+            categoryList = tShopCategoryService.getShopCategorySale(shopId);
+            //查询此人在店铺里的商品有没有购物车
+            if(CommonUtil.isNotBlank(userId) && CollectionUtils.isNotEmpty(categoryList)){
+                categoryList.forEach(tShopCategory -> {
+                    tShopCategory.setShopProducts(tShopProductService.getProductUserCart(userId,tShopCategory.getId()));
+                });
+            }
+        }
         return RtnMessageUtils.buildSuccess(categoryList);
     }
     /**

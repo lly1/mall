@@ -6,7 +6,6 @@ import com.mall.common.RtnMessage;
 import com.mall.utils.RtnMessageUtils;
 import com.mall.wxshop.entity.shop.TShop;
 import com.mall.wxshop.service.shop.TShopService;
-import com.mall.wxshop.service.user.WxUserService;
 import com.mall.wxshop.util.DistanceUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,9 +34,40 @@ public class WxSaleController extends BaseController {
     @ResponseBody
     public RtnMessage<Page<TShop>> getShopList(TShop tShop){
         Page<TShop> shopPage = tShopService.page(tShop.buildPage());
+        List<TShop> shopList = shopPage.getRecords();
+        shopList.forEach(shop ->{
+            shop.setDistance(DistanceUtil.getDistance(Double.parseDouble(tShop.getLatitude()),
+                    Double.parseDouble(tShop.getLongitude()),
+                    Double.parseDouble(shop.getLatitude()),
+                    Double.parseDouble(shop.getLongitude())));
+        });
+        shopList.sort((shop1, shop2) -> {
+            Integer sale1 = shop1.getShopSale();
+            Integer sale2 = shop2.getShopSale();
+            return sale1.compareTo(sale2);
+        });
+        shopPage.setRecords(shopList);
         return RtnMessageUtils.buildSuccess(shopPage);
     }
-
+    /**
+     * @param tShop
+     * 销量排序
+     * @return
+     */
+    @RequestMapping("getShopList1")
+    @ResponseBody
+    public RtnMessage<Page<TShop>> getShopList1(TShop tShop){
+        Page<TShop> shopPage = tShopService.page(tShop.buildPage());
+        List<TShop> shopList = shopPage.getRecords();
+        shopList.forEach(shop ->{
+            shop.setDistance(DistanceUtil.getDistance(Double.parseDouble(tShop.getLatitude()),
+                    Double.parseDouble(tShop.getLongitude()),
+                    Double.parseDouble(shop.getLatitude()),
+                    Double.parseDouble(shop.getLongitude())));
+        });
+        shopPage.setRecords(shopList);
+        return RtnMessageUtils.buildSuccess(shopPage);
+    }
     /**
      * @param tShop
      * 根据距离
@@ -55,12 +85,35 @@ public class WxSaleController extends BaseController {
                     Double.parseDouble(shop.getLongitude())));
         });
         shopList.sort((shop1, shop2) -> {
-            String distance1 = shop1.getDistance();
-            String distance2 = shop2.getDistance();
+            Double distance1 = Double.parseDouble(shop1.getDistance());
+            Double distance2 = Double.parseDouble(shop2.getDistance());
             return distance1.compareTo(distance2);
         });
         shopPage.setRecords(shopList);
         return RtnMessageUtils.buildSuccess(shopPage);
     }
-
+    /**
+     * @param tShop
+     * 根据评分
+     * @return
+     */
+    @RequestMapping("getShopList3")
+    @ResponseBody
+    public RtnMessage<Page<TShop>> getShopList3(TShop tShop){
+        Page<TShop> shopPage = tShopService.page(tShop.buildPage());
+        List<TShop> shopList = shopPage.getRecords();
+        shopList.forEach(shop ->{
+            shop.setDistance(DistanceUtil.getDistance(Double.parseDouble(tShop.getLatitude()),
+                    Double.parseDouble(tShop.getLongitude()),
+                    Double.parseDouble(shop.getLatitude()),
+                    Double.parseDouble(shop.getLongitude())));
+        });
+        shopList.sort((shop1, shop2) -> {
+            Double star1 = shop1.getShopStar();
+            Double star2 = shop2.getShopStar();
+            return star1.compareTo(star2);
+        });
+        shopPage.setRecords(shopList);
+        return RtnMessageUtils.buildSuccess(shopPage);
+    }
 }

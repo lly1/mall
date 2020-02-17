@@ -1,7 +1,6 @@
 package com.mall.service.role.impl;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mall.dao.user.RoleMapper;
 import com.mall.entity.user.Role;

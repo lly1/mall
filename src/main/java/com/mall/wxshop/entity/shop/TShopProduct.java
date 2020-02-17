@@ -1,13 +1,15 @@
 package com.mall.wxshop.entity.shop;
 
-import com.mall.entity.domain.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.mall.wxshop.entity.base.WxBaseEntity;
+import com.mall.wxshop.entity.sale.TCart;
 import lombok.Data;
 
 /**
  * @author lly
  */
 @Data
-public class TShopProduct extends BaseEntity {
+public class TShopProduct extends WxBaseEntity {
     private String categoryId;
     private String shopId;
     private String productName;
@@ -21,5 +23,11 @@ public class TShopProduct extends BaseEntity {
     private String productStatus;
     private Integer saleTotal;
     private Integer starTotal;
+    @TableField(exist = false)
     private String isTouchMove;
+    /**
+     * 跟商品有关的购物车
+     */
+    @TableField(exist = false)
+    private TCart cart;
 }
