@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface TOrderDetailService extends IService<TOrderDetail> {
     List<TOrderDetail> findDetailByOrderId(String id);
+    List<TOrderDetail> findShopDetailByOrderId(String id);
 }

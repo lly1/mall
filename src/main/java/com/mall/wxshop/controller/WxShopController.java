@@ -1,17 +1,18 @@
 package com.mall.wxshop.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mall.common.BaseController;
 import com.mall.common.RtnMessage;
 import com.mall.entity.user.User;
 import com.mall.utils.CommonUtil;
 import com.mall.utils.RtnMessageUtils;
 import com.mall.utils.StringUtilsEx;
+import com.mall.wxshop.entity.shop.TCode;
 import com.mall.wxshop.entity.shop.TShop;
 import com.mall.wxshop.entity.shop.TShopCategory;
 import com.mall.wxshop.entity.shop.TShopProduct;
-import com.mall.wxshop.service.sale.TCartService;
+import com.mall.wxshop.entity.user.WxUserInfo;
+import com.mall.wxshop.service.shop.TCodeService;
 import com.mall.wxshop.service.shop.TShopCategoryService;
 import com.mall.wxshop.service.shop.TShopProductService;
 import com.mall.wxshop.service.shop.TShopService;
@@ -41,6 +42,8 @@ public class WxShopController extends BaseController {
     private TShopCategoryService tShopCategoryService;
     @Resource
     private TShopProductService tShopProductService;
+    @Resource
+    private TCodeService tCodeService;
 
 
     /**
@@ -68,15 +71,22 @@ public class WxShopController extends BaseController {
     @ResponseBody
     public RtnMessage<TShop> saveShopInfo(@RequestBody TShop tShop){
         logAllRequestParams();
+        WxUserInfo wxUserInfo = wxUserService.getCurrentWxUser();
         if(StringUtilsEx.isBlank(tShop.getId())){
-            tShop.preInsert(new User(wxUserService.getCurrentWxUser().getNickName()));
+            tShop.preInsert(new User(wxUserInfo.getNickName()));
             //默认闭店，信息填写完成开店
             tShop.setShopState("0");
             //默认满分
             tShop.setShopStar(5.0);
-            //默认
+            tShop.setPhone(wxUserInfo.getPhone());
+            //插入取货码表
+            TCode code = new TCode();
+            code.preInsert(new User(wxUserInfo.getNickName()));
+            code.setCode(1);
+            code.setShopId(tShop.getId());
+            tCodeService.save(code);
         }else {
-            tShop.preUpdate(new User(wxUserService.getCurrentWxUser().getNickName()));
+            tShop.preUpdate(new User(wxUserInfo.getNickName()));
         }
         tShopService.saveOrUpdate(tShop);
         return RtnMessageUtils.buildSuccess(tShopService.getShop(tShop.getUserId()));
@@ -140,6 +150,12 @@ public class WxShopController extends BaseController {
     @ResponseBody
     public RtnMessage<List<TShopProduct>> saveShopProduct(@RequestBody TShopProduct tShopProduct){
         logAllRequestParams();
+        //信息填写到商品时开店
+        TShop tShop = tShopService.getById(tShopProduct.getShopId());
+        if("0".equals(tShop.getShopState())){
+            tShop.setShopState("0");
+            tShopService.saveOrUpdate(tShop);
+        }
         if(StringUtilsEx.isBlank(tShopProduct.getId())){
             tShopProduct.preInsert(new User(wxUserService.getCurrentWxUser().getNickName()));
             tShopProduct.setSaleTotal(0);

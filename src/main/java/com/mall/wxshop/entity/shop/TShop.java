@@ -24,6 +24,8 @@ public class TShop extends WxBaseEntity {
     private Double shopStar;
     private String shopState;
     private String openTime;
+    private String sellTime;
+    private String phone;
     //经度
     private String longitude;
     //纬度

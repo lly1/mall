@@ -2,11 +2,11 @@ package com.mall.wxshop.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.mall.common.BaseController;
 import com.mall.common.RtnMessage;
 import com.mall.entity.user.User;
 import com.mall.utils.RtnMessageUtils;
-import com.mall.utils.StringUtilsEx;
 import com.mall.wxshop.entity.order.TOrder;
 import com.mall.wxshop.entity.order.TOrderDetail;
 import com.mall.wxshop.entity.sale.TCart;
@@ -14,6 +14,7 @@ import com.mall.wxshop.entity.user.WxUserInfo;
 import com.mall.wxshop.service.order.TOrderDetailService;
 import com.mall.wxshop.service.order.TOrderService;
 import com.mall.wxshop.service.sale.TCartService;
+import com.mall.wxshop.service.shop.TCodeService;
 import com.mall.wxshop.service.user.WxUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.*;
 
 /**
  * Created by lly on 2019/12/2
@@ -30,6 +32,12 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/api/order")
 public class WxOrderController extends BaseController {
+
+    private static ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
+            .setNameFormat("order-pool-%d").build();
+    private static ExecutorService pool = new ThreadPoolExecutor(1, 5,
+            0L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<Runnable>(20), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
 
     @Resource
     private WxUserService wxUserService;
@@ -39,6 +47,8 @@ public class WxOrderController extends BaseController {
     private TOrderService tOrderService;
     @Resource
     private TOrderDetailService tOrderDetailService;
+    @Resource
+    private TCodeService tCodeService;
 
     @RequestMapping("/getOrderById")
     @ResponseBody
@@ -46,6 +56,17 @@ public class WxOrderController extends BaseController {
         TOrder tOrder = tOrderService.findOrderById(id);
         tOrder.setDetailList(tOrderDetailService.findDetailByOrderId(tOrder.getId()));
         return RtnMessageUtils.buildSuccess(tOrder);
+    }
+
+    @RequestMapping("/getShopPayOrder")
+    @ResponseBody
+    public RtnMessage<WxUserInfo> getShopPayOrder(String shopId) {
+        WxUserInfo wxUserInfo = wxUserService.getCurrentWxUser();
+        List<TOrder> orderList = tOrderService.list(new QueryWrapper<TOrder>()
+                .eq("shop_id",shopId)
+                .eq("order_status",1));
+        wxUserInfo.setNewOrder(orderList.size());
+        return RtnMessageUtils.buildSuccess(wxUserInfo);
     }
 
     @RequestMapping("/getUserOrder0")
@@ -85,9 +106,9 @@ public class WxOrderController extends BaseController {
     @ResponseBody
     public RtnMessage<Page<TOrder>> getShopOrder0(TOrder tOrder) {
         Page<TOrder> orderPage = tOrder.buildPage();
-        List<TOrder> orderList = tOrderService.findOrderByShopId0(tOrder.getUserId(),orderPage);
+        List<TOrder> orderList = tOrderService.findOrderByShopId0(tOrder.getShopId(),orderPage);
         orderList.forEach(order ->{
-            order.setDetailList(tOrderDetailService.findDetailByOrderId(order.getId()));
+            order.setDetailList(tOrderDetailService.findShopDetailByOrderId(order.getId()));
         });
         orderPage.setRecords(orderList);
         return RtnMessageUtils.buildSuccess(orderPage);
@@ -96,21 +117,43 @@ public class WxOrderController extends BaseController {
     @ResponseBody
     public RtnMessage<Page<TOrder>> getShopOrder1(TOrder tOrder) {
         Page<TOrder> orderPage = tOrder.buildPage();
-        List<TOrder> orderList = tOrderService.findOrderByShopId1(tOrder.getUserId(),orderPage);
+        List<TOrder> orderList = tOrderService.findOrderByShopId1(tOrder.getShopId(),orderPage);
         orderList.forEach(order ->{
-            order.setDetailList(tOrderDetailService.findDetailByOrderId(order.getId()));
+            order.setDetailList(tOrderDetailService.findShopDetailByOrderId(order.getId()));
         });
         orderPage.setRecords(orderList);
         return RtnMessageUtils.buildSuccess(orderPage);
     }
+    @RequestMapping("acceptOrder")
+    @ResponseBody
+    public RtnMessage<String> acceptOrder(String id){
+        TOrder tOrder = tOrderService.getById(id);
+        int code =  tCodeService.getCodeByShopId(tOrder.getShopId());
+        int success = tCodeService.updateCode(code);
+        if(success == 1){
+            tOrder.setOrderStatus(2);
+            tOrder.setRtnCode(code);
+            boolean flag = tOrderService.saveOrUpdate(tOrder);
+            if(!flag){
+                return RtnMessageUtils.buildFailed("接单失败");
+            }
+        }
+        return RtnMessageUtils.buildSuccess("接单成功");
+    }
+
     @RequestMapping("delOrder")
     @ResponseBody
     public RtnMessage<String> delShopProduct(String id){
-        boolean flag = tOrderService.removeById(id);
-        if(flag){
-            tOrderDetailService.remove(new QueryWrapper<TOrderDetail>().eq("order_id",id));
+        TOrder tOrder = tOrderService.getById(id);
+        if(tOrder.getOrderStatus() < 3){
+            return RtnMessageUtils.buildFailed("只能删除已完成的订单！");
         }else {
-            RtnMessageUtils.buildFailed("删除失败");
+            boolean flag = tOrderService.removeById(id);
+            if(flag){
+                tOrderDetailService.remove(new QueryWrapper<TOrderDetail>().eq("order_id",id));
+            }else {
+                RtnMessageUtils.buildFailed("删除失败");
+            }
         }
         return RtnMessageUtils.buildSuccess("success");
     }
@@ -177,6 +220,18 @@ public class WxOrderController extends BaseController {
             tCart.setBuyNum(item.getBuyNum());
             tCartService.save(tCart);
         });
+        return RtnMessageUtils.buildSuccess("success");
+    }
+
+    @RequestMapping("/confirm")
+    @ResponseBody
+    public RtnMessage<String> confirm(String orderId) {
+        TOrder tOrder = tOrderService.getById(orderId);
+        tOrder.setOrderStatus(3);
+        boolean flag  = tOrderService.saveOrUpdate(tOrder);
+        if(flag){
+            //异步操作，添加店铺销量和
+        }
         return RtnMessageUtils.buildSuccess("success");
     }
 

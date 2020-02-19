@@ -18,6 +18,10 @@
         select * from t_order_detail a where a.order_id = #{id} and delFlag = '0'
     </select>
 
+    <select id="findShopDetailByOrderId" resultMap="TOrderDetailMap">
+        select * from t_order_detail a where a.order_id = #{id}
+    </select>
+
     <select id="findProductById" resultType="com.mall.wxshop.entity.shop.TShopProduct" parameterType="java.lang.String">
         select * from t_shop_product a where a.id = #{id} and delFlag = '0'
     </select>

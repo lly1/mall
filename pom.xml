@@ -155,6 +155,12 @@
             <version>2.4</version>
             <classifier>jdk15</classifier>
         </dependency>
+        <!--线程池-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>27.0.1-jre</version>
+        </dependency>
     </dependencies>
 
     <build>

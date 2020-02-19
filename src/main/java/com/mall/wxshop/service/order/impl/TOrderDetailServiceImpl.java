@@ -30,4 +30,9 @@ public class TOrderDetailServiceImpl extends ServiceImpl<TOrderDetailMapper, TOr
     public List<TOrderDetail> findDetailByOrderId(String id) {
         return baseMapper.findDetailByOrderId(id);
     }
+
+    @Override
+    public List<TOrderDetail> findShopDetailByOrderId(String id) {
+        return baseMapper.findShopDetailByOrderId(id);
+    }
 }

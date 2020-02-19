@@ -22,23 +22,23 @@
     </select>
 
     <select id="findOrderByUserId0" resultMap="TOrderMap">
-        select * from t_order a where a.user_id = #{userId} and delFlag = '0' and order_status > 0
+        select * from t_order a where a.user_id = #{userId} and delFlag = '0' order by order_status asc
     </select>
 
     <select id="findOrderByUserId1" resultMap="TOrderMap">
-        select * from t_order a where a.user_id = #{userId} and delFlag = '0' and order_status = 0
+        select * from t_order a where a.user_id = #{userId} and delFlag = '0' and order_status = 0 order by order_status asc
     </select>
 
     <select id="findOrderByUserId2" resultMap="TOrderMap">
-        select * from t_order a where a.user_id = #{userId} and delFlag = '0' and order_status = 3 and is_rate = '0'
+        select * from t_order a where a.user_id = #{userId} and delFlag = '0' and order_status = 3 and is_rate = '0' order by order_status asc
     </select>
 
     <select id="findOrderByShopId0" resultMap="TOrderMap">
-        select * from t_order a where a.user_id = #{shopId} and delFlag = '0' and order_status = 1
+        select * from t_order a where a.shop_id = #{shopId} and order_status in (1,2)
     </select>
 
     <select id="findOrderByShopId1" resultMap="TOrderMap">
-        select * from t_order a where a.shop_id = #{shopId} and delFlag = '0' and order_status = 3
+        select * from t_order a where a.shop_id = #{shopId} and order_status = 3
     </select>
 
     <select id="findShopById" resultType="com.mall.wxshop.entity.shop.TShop" parameterType="java.lang.String">

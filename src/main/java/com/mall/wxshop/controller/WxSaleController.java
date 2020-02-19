@@ -1,5 +1,6 @@
 package com.mall.wxshop.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mall.common.BaseController;
 import com.mall.common.RtnMessage;
@@ -33,7 +34,7 @@ public class WxSaleController extends BaseController {
     @RequestMapping("getShopList0")
     @ResponseBody
     public RtnMessage<Page<TShop>> getShopList(TShop tShop){
-        Page<TShop> shopPage = tShopService.page(tShop.buildPage());
+        Page<TShop> shopPage = tShopService.page(tShop.buildPage(),new QueryWrapper<TShop>().eq("shop_state","0"));
         List<TShop> shopList = shopPage.getRecords();
         shopList.forEach(shop ->{
             shop.setDistance(DistanceUtil.getDistance(Double.parseDouble(tShop.getLatitude()),
@@ -57,7 +58,7 @@ public class WxSaleController extends BaseController {
     @RequestMapping("getShopList1")
     @ResponseBody
     public RtnMessage<Page<TShop>> getShopList1(TShop tShop){
-        Page<TShop> shopPage = tShopService.page(tShop.buildPage());
+        Page<TShop> shopPage = tShopService.page(tShop.buildPage(),new QueryWrapper<TShop>().eq("shop_state","0"));
         List<TShop> shopList = shopPage.getRecords();
         shopList.forEach(shop ->{
             shop.setDistance(DistanceUtil.getDistance(Double.parseDouble(tShop.getLatitude()),
@@ -76,7 +77,7 @@ public class WxSaleController extends BaseController {
     @RequestMapping("getShopList2")
     @ResponseBody
     public RtnMessage<Page<TShop>> getShopByDistance(TShop tShop){
-        Page<TShop> shopPage = tShopService.page(tShop.buildPage());
+        Page<TShop> shopPage = tShopService.page(tShop.buildPage(),new QueryWrapper<TShop>().eq("shop_state","0"));
         List<TShop> shopList = shopPage.getRecords();
         shopList.forEach(shop ->{
             shop.setDistance(DistanceUtil.getDistance(Double.parseDouble(tShop.getLatitude()),
@@ -100,7 +101,7 @@ public class WxSaleController extends BaseController {
     @RequestMapping("getShopList3")
     @ResponseBody
     public RtnMessage<Page<TShop>> getShopList3(TShop tShop){
-        Page<TShop> shopPage = tShopService.page(tShop.buildPage());
+        Page<TShop> shopPage = tShopService.page(tShop.buildPage(),new QueryWrapper<TShop>().eq("shop_state","0"));
         List<TShop> shopList = shopPage.getRecords();
         shopList.forEach(shop ->{
             shop.setDistance(DistanceUtil.getDistance(Double.parseDouble(tShop.getLatitude()),

@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface TOrderDetailMapper extends BaseMapper<TOrderDetail> {
     List<TOrderDetail> findDetailByOrderId(String id);
+    List<TOrderDetail> findShopDetailByOrderId(String id);
 }
