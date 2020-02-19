@@ -179,16 +179,18 @@ public class WxOrderController extends BaseController {
         tOrder.setIsRate("0");
         //查出这个人在这个人的购物车，然后创建订单明细
         List<TCart> cartList = tCartService.findCartById(tCart);
-        cartList.parallelStream().forEach(item -> {
+        int count = 0;
+        for (TCart cart : cartList) {
             TOrderDetail tOrderDetail = new TOrderDetail();
-            tOrderDetail.setBuyNum(item.getBuyNum());
+            tOrderDetail.setBuyNum(cart.getBuyNum());
             tOrderDetail.setOrderId(tOrder.getId());
-            tOrderDetail.setProductId(item.getProduct().getId());
+            tOrderDetail.setProductId(cart.getProduct().getId());
             tOrderDetail.preInsert(new User(wxUserService.getCurrentWxUser().getNickName()));
             //总共买多少
-            tOrder.setBuyTotal(tOrder.getBuyTotal() + item.getBuyNum());
+            count += cart.getBuyNum();
             detailList.add(tOrderDetail);
-        });
+        }
+        tOrder.setBuyTotal(count);
         boolean flag = tOrderService.saveOrUpdate(tOrder);
         if(flag){
             tOrderDetailService.saveOrUpdateBatch(detailList);
