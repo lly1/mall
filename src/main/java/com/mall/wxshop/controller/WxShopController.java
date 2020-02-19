@@ -105,7 +105,7 @@ public class WxShopController extends BaseController {
             categoryList = tShopCategoryService.getShopCategorySale(shopId);
             //查询此人在店铺里的商品有没有购物车
             if(CommonUtil.isNotBlank(userId) && CollectionUtils.isNotEmpty(categoryList)){
-                categoryList.forEach(tShopCategory -> {
+                categoryList.parallelStream().forEach(tShopCategory -> {
                     tShopCategory.setShopProducts(tShopProductService.getProductUserCart(userId,tShopCategory.getId()));
                 });
             }

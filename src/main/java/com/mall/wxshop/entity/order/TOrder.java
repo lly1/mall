@@ -15,6 +15,7 @@ public class TOrder extends WxBaseEntity {
     private String userId;
     private Integer rtnCode;
     private Double payTotal;
+    private Integer buyTotal;
     private String remarks;
     /**
      * 是否评价

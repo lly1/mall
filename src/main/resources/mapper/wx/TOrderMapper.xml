@@ -6,6 +6,7 @@
         <result column="user_id" property="userId"/>
         <result column="shop_id" property="shopId"/>
         <result column="rtn_code" property="rtnCode"/>
+        <result column="buy_total" property="buyTotal"/>
         <result column="pay_total" property="payTotal"/>
         <result column="remarks" property="remarks"/>
         <result column="is_rate" property="isRate"/>

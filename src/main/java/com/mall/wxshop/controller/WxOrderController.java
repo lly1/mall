@@ -10,11 +10,15 @@ import com.mall.utils.RtnMessageUtils;
 import com.mall.wxshop.entity.order.TOrder;
 import com.mall.wxshop.entity.order.TOrderDetail;
 import com.mall.wxshop.entity.sale.TCart;
+import com.mall.wxshop.entity.shop.TShop;
+import com.mall.wxshop.entity.shop.TShopProduct;
 import com.mall.wxshop.entity.user.WxUserInfo;
 import com.mall.wxshop.service.order.TOrderDetailService;
 import com.mall.wxshop.service.order.TOrderService;
 import com.mall.wxshop.service.sale.TCartService;
 import com.mall.wxshop.service.shop.TCodeService;
+import com.mall.wxshop.service.shop.TShopProductService;
+import com.mall.wxshop.service.shop.TShopService;
 import com.mall.wxshop.service.user.WxUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,6 +53,10 @@ public class WxOrderController extends BaseController {
     private TOrderDetailService tOrderDetailService;
     @Resource
     private TCodeService tCodeService;
+    @Resource
+    private TShopService tShopService;
+    @Resource
+    private TShopProductService tShopProductService;
 
     @RequestMapping("/getOrderById")
     @ResponseBody
@@ -74,7 +82,7 @@ public class WxOrderController extends BaseController {
     public RtnMessage<Page<TOrder>> getUserOrder0(TOrder tOrder) {
         Page<TOrder> orderPage = tOrder.buildPage();
         List<TOrder> orderList = tOrderService.findOrderByUserId0(tOrder.getUserId(),orderPage);
-        orderList.forEach(order ->{
+        orderList.parallelStream().forEach(order ->{
             order.setDetailList(tOrderDetailService.findDetailByOrderId(order.getId()));
         });
         orderPage.setRecords(orderList);
@@ -85,7 +93,7 @@ public class WxOrderController extends BaseController {
     public RtnMessage<Page<TOrder>> getUserOrder1(TOrder tOrder) {
         Page<TOrder> orderPage = tOrder.buildPage();
         List<TOrder> orderList = tOrderService.findOrderByUserId1(tOrder.getUserId(),orderPage);
-        orderList.forEach(order ->{
+        orderList.parallelStream().forEach(order ->{
             order.setDetailList(tOrderDetailService.findDetailByOrderId(order.getId()));
         });
         orderPage.setRecords(orderList);
@@ -96,7 +104,7 @@ public class WxOrderController extends BaseController {
     public RtnMessage<Page<TOrder>> getUserOrder2(TOrder tOrder) {
         Page<TOrder> orderPage = tOrder.buildPage();
         List<TOrder> orderList = tOrderService.findOrderByUserId2(tOrder.getUserId(),orderPage);
-        orderList.forEach(order ->{
+        orderList.parallelStream().forEach(order ->{
             order.setDetailList(tOrderDetailService.findDetailByOrderId(order.getId()));
         });
         orderPage.setRecords(orderList);
@@ -107,7 +115,7 @@ public class WxOrderController extends BaseController {
     public RtnMessage<Page<TOrder>> getShopOrder0(TOrder tOrder) {
         Page<TOrder> orderPage = tOrder.buildPage();
         List<TOrder> orderList = tOrderService.findOrderByShopId0(tOrder.getShopId(),orderPage);
-        orderList.forEach(order ->{
+        orderList.parallelStream().forEach(order ->{
             order.setDetailList(tOrderDetailService.findShopDetailByOrderId(order.getId()));
         });
         orderPage.setRecords(orderList);
@@ -118,7 +126,7 @@ public class WxOrderController extends BaseController {
     public RtnMessage<Page<TOrder>> getShopOrder1(TOrder tOrder) {
         Page<TOrder> orderPage = tOrder.buildPage();
         List<TOrder> orderList = tOrderService.findOrderByShopId1(tOrder.getShopId(),orderPage);
-        orderList.forEach(order ->{
+        orderList.parallelStream().forEach(order ->{
             order.setDetailList(tOrderDetailService.findShopDetailByOrderId(order.getId()));
         });
         orderPage.setRecords(orderList);
@@ -171,12 +179,14 @@ public class WxOrderController extends BaseController {
         tOrder.setIsRate("0");
         //查出这个人在这个人的购物车，然后创建订单明细
         List<TCart> cartList = tCartService.findCartById(tCart);
-        cartList.forEach(item -> {
+        cartList.parallelStream().forEach(item -> {
             TOrderDetail tOrderDetail = new TOrderDetail();
             tOrderDetail.setBuyNum(item.getBuyNum());
             tOrderDetail.setOrderId(tOrder.getId());
             tOrderDetail.setProductId(item.getProduct().getId());
             tOrderDetail.preInsert(new User(wxUserService.getCurrentWxUser().getNickName()));
+            //总共买多少
+            tOrder.setBuyTotal(tOrder.getBuyTotal() + item.getBuyNum());
             detailList.add(tOrderDetail);
         });
         boolean flag = tOrderService.saveOrUpdate(tOrder);
@@ -211,7 +221,7 @@ public class WxOrderController extends BaseController {
     @ResponseBody
     public RtnMessage<String> buyAgain(@RequestBody List<TOrderDetail> detailList) {
         WxUserInfo userInfo = wxUserService.getCurrentWxUser();
-        detailList.forEach(item->{
+        detailList.parallelStream().forEach(item->{
             TCart tCart = new TCart();
             tCart.preInsert(new User(userInfo.getNickName()));
             tCart.setUserId(userInfo.getId());
@@ -230,9 +240,38 @@ public class WxOrderController extends BaseController {
         tOrder.setOrderStatus(3);
         boolean flag  = tOrderService.saveOrUpdate(tOrder);
         if(flag){
-            //异步操作，添加店铺销量和
+            //异步添加店铺销量，商品减库存
+            pool.execute(new AsyncThread(orderId));
         }
-        return RtnMessageUtils.buildSuccess("success");
+        return RtnMessageUtils.buildSuccess("收货成功!");
     }
 
+    private class AsyncThread implements Runnable{
+        private String orderId;
+        public AsyncThread(String orderId) {
+            this.orderId = orderId;
+        }
+        @Override
+        public void run() {
+            try{
+                Thread.sleep(1000);
+                //把订单查出来
+                TOrder tOrder = tOrderService.findOrderById(orderId);
+                TShop tShop = tShopService.getById(tOrder.getShopId());
+                List<TOrderDetail> detailList = tOrderDetailService.findDetailByOrderId(tOrder.getId());
+                //商品减库存，店铺算总共卖了多少
+                for (TOrderDetail tOrderDetail : detailList) {
+                   TShopProduct tShopProduct = tOrderDetail.getProduct();
+                   tShopProduct.setProductStock(tShopProduct.getProductStock() - tOrderDetail.getBuyNum());
+                   tShopProduct.setSaleTotal(tShopProduct.getSaleTotal() + tOrderDetail.getBuyNum());
+                   tShopProductService.saveOrUpdate(tShopProduct);
+                }
+                tShop.setShopSale(tOrder.getBuyTotal());
+                tShopService.saveOrUpdate(tShop);
+            }catch (Exception e){
+                logger.error("异步操作失败");
+            }
+
+        }
+    }
 }
