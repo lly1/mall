@@ -3,6 +3,7 @@ package com.mall.config;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.mall.entity.user.User;
 import com.mall.service.user.UserService;
+import com.mall.utils.CommonUtil;
 import com.mall.wxshop.entity.user.WxUserInfo;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class MetaHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         User user = userService.getCurrentUser();
+        if(CommonUtil.isBlank(user)){
+            return;
+        }
         this.setFieldValByName("createTime", new Date(), metaObject);
         this.setFieldValByName("updateTime", new Date(), metaObject);
         this.setFieldValByName("createBy", user.getUsername(), metaObject);
@@ -33,6 +37,9 @@ public class MetaHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         User user = userService.getCurrentUser();
+        if(CommonUtil.isBlank(user)){
+            return;
+        }
         this.setFieldValByName("updateTime", new Date(), metaObject);
         this.setFieldValByName("updateBy", user.getUsername(), metaObject);
     }
