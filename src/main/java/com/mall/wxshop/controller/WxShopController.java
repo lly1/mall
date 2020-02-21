@@ -1,22 +1,26 @@
 package com.mall.wxshop.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mall.common.BaseController;
 import com.mall.common.RtnMessage;
 import com.mall.entity.user.User;
 import com.mall.utils.CommonUtil;
 import com.mall.utils.RtnMessageUtils;
 import com.mall.utils.StringUtilsEx;
+import com.mall.wxshop.entity.sale.TComment;
 import com.mall.wxshop.entity.shop.TCode;
 import com.mall.wxshop.entity.shop.TShop;
 import com.mall.wxshop.entity.shop.TShopCategory;
 import com.mall.wxshop.entity.shop.TShopProduct;
 import com.mall.wxshop.entity.user.WxUserInfo;
+import com.mall.wxshop.service.sale.TCommentService;
 import com.mall.wxshop.service.shop.TCodeService;
 import com.mall.wxshop.service.shop.TShopCategoryService;
 import com.mall.wxshop.service.shop.TShopProductService;
 import com.mall.wxshop.service.shop.TShopService;
 import com.mall.wxshop.service.user.WxUserService;
+import com.mall.wxshop.util.DistanceUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,6 +48,8 @@ public class WxShopController extends BaseController {
     private TShopProductService tShopProductService;
     @Resource
     private TCodeService tCodeService;
+    @Resource
+    private TCommentService tCommentService;
 
 
     /**
@@ -56,12 +62,28 @@ public class WxShopController extends BaseController {
         return RtnMessageUtils.buildSuccess(tShop);
     }
     /**
+     * 店铺评价信息
+     * */
+    @RequestMapping("getShopComment")
+    @ResponseBody
+    public RtnMessage<Page<TComment>> getShopComment(TComment tComment){
+        Page<TComment> comments = tCommentService.findCommentByShopId(tComment.getShopId(),tComment.buildPage());
+        return RtnMessageUtils.buildSuccess(comments);
+    }
+    /**
      * 店铺基本信息
      * */
     @RequestMapping("getShopInfoById")
     @ResponseBody
-    public RtnMessage<TShop> getShopInfoById(String id){
-        TShop tShop = tShopService.getById(id);
+    public RtnMessage<TShop> getShopInfoById(TShop shop){
+        TShop tShop = tShopService.getById(shop.getId());
+        //商品详情需要位置
+        if(CommonUtil.isNotBlank(shop.getLatitude())) {
+            tShop.setDistance(DistanceUtil.getDistance(Double.parseDouble(tShop.getLatitude()),
+                    Double.parseDouble(tShop.getLongitude()),
+                    Double.parseDouble(shop.getLatitude()),
+                    Double.parseDouble(shop.getLongitude())));
+        }
         return RtnMessageUtils.buildSuccess(tShop);
     }
     /**

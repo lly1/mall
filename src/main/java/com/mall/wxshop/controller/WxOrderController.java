@@ -10,12 +10,14 @@ import com.mall.utils.RtnMessageUtils;
 import com.mall.wxshop.entity.order.TOrder;
 import com.mall.wxshop.entity.order.TOrderDetail;
 import com.mall.wxshop.entity.sale.TCart;
+import com.mall.wxshop.entity.sale.TComment;
 import com.mall.wxshop.entity.shop.TShop;
 import com.mall.wxshop.entity.shop.TShopProduct;
 import com.mall.wxshop.entity.user.WxUserInfo;
 import com.mall.wxshop.service.order.TOrderDetailService;
 import com.mall.wxshop.service.order.TOrderService;
 import com.mall.wxshop.service.sale.TCartService;
+import com.mall.wxshop.service.sale.TCommentService;
 import com.mall.wxshop.service.shop.TCodeService;
 import com.mall.wxshop.service.shop.TShopProductService;
 import com.mall.wxshop.service.shop.TShopService;
@@ -57,6 +59,8 @@ public class WxOrderController extends BaseController {
     private TShopService tShopService;
     @Resource
     private TShopProductService tShopProductService;
+    @Resource
+    private TCommentService tCommentService;
 
     @RequestMapping("/getOrderById")
     @ResponseBody
@@ -216,6 +220,7 @@ public class WxOrderController extends BaseController {
         }else {
             RtnMessageUtils.buildFailed("支付失败");
         }
+        tOrder.setDetailList(tOrderDetailService.findDetailByOrderId(tOrder.getId()));
         return RtnMessageUtils.buildSuccess(tOrder);
     }
 
@@ -233,6 +238,29 @@ public class WxOrderController extends BaseController {
             tCartService.save(tCart);
         });
         return RtnMessageUtils.buildSuccess("success");
+    }
+    @RequestMapping("/rateOrder")
+    @ResponseBody
+    public RtnMessage<String> rateOrder(TComment comment) {
+        WxUserInfo userInfo = wxUserService.getCurrentWxUser();
+        comment.preInsert(new User(userInfo.getNickName()));
+        boolean flag = tCommentService.save(comment);
+        if(flag) {
+            //更新订单
+            TOrder tOrder = tOrderService.getById(comment.getOrderId());
+            tOrder.preUpdate(new User(userInfo.getNickName()));
+            tOrder.setOrderStatus(4);
+            boolean flag1 =  tOrderService.saveOrUpdate(tOrder);
+            //更新门店评分
+            TShop tShop = tShopService.getById(comment.getShopId());
+            tShop.preUpdate(new User(userInfo.getNickName()));
+            tShop.setShopStar(Double.valueOf(String.format("%.1f",(tShop.getShopStar()+comment.getStar())/2)));
+            boolean flag2 =tShopService.saveOrUpdate(tShop);
+            if(!(flag1&&flag2)){
+                return RtnMessageUtils.buildFailed("评价失败");
+            }
+        }
+        return RtnMessageUtils.buildSuccess("评价成功");
     }
 
     @RequestMapping("/confirm")
@@ -268,7 +296,7 @@ public class WxOrderController extends BaseController {
                    tShopProduct.setSaleTotal(tShopProduct.getSaleTotal() + tOrderDetail.getBuyNum());
                    tShopProductService.saveOrUpdate(tShopProduct);
                 }
-                tShop.setShopSale(tOrder.getBuyTotal());
+                tShop.setShopSale(tShop.getShopSale() + tOrder.getBuyTotal());
                 tShopService.saveOrUpdate(tShop);
             }catch (Exception e){
                 logger.error("异步操作失败");
