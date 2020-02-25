@@ -294,6 +294,10 @@ public class WxOrderController extends BaseController {
                    TShopProduct tShopProduct = tOrderDetail.getProduct();
                    tShopProduct.setProductStock(tShopProduct.getProductStock() - tOrderDetail.getBuyNum());
                    tShopProduct.setSaleTotal(tShopProduct.getSaleTotal() + tOrderDetail.getBuyNum());
+                   //库存为0时自动下架
+                   if(tShopProduct.getProductStock() == 0){
+                       tShopProduct.setProductStatus("0");
+                   }
                    tShopProductService.saveOrUpdate(tShopProduct);
                 }
                 tShop.setShopSale(tShop.getShopSale() + tOrder.getBuyTotal());

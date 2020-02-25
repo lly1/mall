@@ -195,4 +195,22 @@ public class WxShopController extends BaseController {
         return RtnMessageUtils.buildSuccess(tShopCategoryService.getShopCategory(shopId));
     }
 
+    @RequestMapping("productStar")
+    @ResponseBody
+    public RtnMessage<TShopProduct> productStar(String productId){
+        TShopProduct tShopProduct = tShopProductService.getById(productId);
+        tShopProduct.setStarTotal(tShopProduct.getStarTotal() + 1);
+        tShopProductService.saveOrUpdate(tShopProduct);
+        return RtnMessageUtils.buildSuccess(tShopProduct);
+    }
+
+    @RequestMapping("productStarDel")
+    @ResponseBody
+    public RtnMessage<TShopProduct> productStarDel(String productId){
+        TShopProduct tShopProduct = tShopProductService.getById(productId);
+        tShopProduct.setStarTotal(tShopProduct.getStarTotal() - 1);
+        tShopProductService.saveOrUpdate(tShopProduct);
+        return RtnMessageUtils.buildSuccess(tShopProduct);
+    }
+
 }

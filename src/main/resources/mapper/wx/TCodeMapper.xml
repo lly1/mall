@@ -5,7 +5,7 @@
         select code from t_code where shop_id = #{shopId} and delFlag = '0'
     </select>
 
-    <update id="updateCode" parameterType="integer">
+    <update id="updateCode">
         UPDATE t_code set code = code +1 where code = #{code} and shop_id = #{shopId}
     </update>
 

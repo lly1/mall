@@ -18,7 +18,7 @@ public class TShopProduct extends WxBaseEntity {
     private String productInfo;
     private String productIcon;
     /**
-     * 0正常1下架
+     * 0下架1上架
      */
     private String productStatus;
     private Integer saleTotal;

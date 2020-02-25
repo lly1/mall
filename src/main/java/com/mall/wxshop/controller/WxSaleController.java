@@ -112,7 +112,7 @@ public class WxSaleController extends BaseController {
         shopList.sort((shop1, shop2) -> {
             Double star1 = shop1.getShopStar();
             Double star2 = shop2.getShopStar();
-            return star1.compareTo(star2);
+            return star2.compareTo(star1);
         });
         shopPage.setRecords(shopList);
         return RtnMessageUtils.buildSuccess(shopPage);
