@@ -6,7 +6,7 @@
     </select>
 
     <update id="updateCode" parameterType="integer">
-        UPDATE t_code set code = code +1 where code = #{code}
+        UPDATE t_code set code = code +1 where code = #{code} and shop_id = #{shopId}
     </update>
 
 </mapper>

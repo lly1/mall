@@ -34,7 +34,7 @@ public class TCodeServiceImpl extends ServiceImpl<TCodeMapper, TCode> implements
     }
 
     @Override
-    public int updateCode(Integer code) {
-        return baseMapper.updateCode(code);
+    public int updateCode(Integer code,String shopId) {
+        return baseMapper.updateCode(code,shopId);
     }
 }

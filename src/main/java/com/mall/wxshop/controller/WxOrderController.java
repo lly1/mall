@@ -141,7 +141,7 @@ public class WxOrderController extends BaseController {
     public RtnMessage<String> acceptOrder(String id){
         TOrder tOrder = tOrderService.getById(id);
         int code =  tCodeService.getCodeByShopId(tOrder.getShopId());
-        int success = tCodeService.updateCode(code);
+        int success = tCodeService.updateCode(code,tOrder.getShopId());
         if(success == 1){
             tOrder.setOrderStatus(2);
             tOrder.setRtnCode(code);

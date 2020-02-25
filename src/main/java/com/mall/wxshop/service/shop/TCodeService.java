@@ -8,5 +8,5 @@ import com.mall.wxshop.entity.shop.TCode;
  */
 public interface TCodeService extends IService<TCode> {
     Integer getCodeByShopId(String shopId);
-    int updateCode(Integer code);
+    int updateCode(Integer code,String shopId);
 }
