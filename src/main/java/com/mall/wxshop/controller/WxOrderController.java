@@ -249,7 +249,7 @@ public class WxOrderController extends BaseController {
             //更新订单
             TOrder tOrder = tOrderService.getById(comment.getOrderId());
             tOrder.preUpdate(new User(userInfo.getNickName()));
-            tOrder.setOrderStatus(4);
+            tOrder.setIsRate("1");
             boolean flag1 =  tOrderService.saveOrUpdate(tOrder);
             //更新门店评分
             TShop tShop = tShopService.getById(comment.getShopId());
