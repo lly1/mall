@@ -2,7 +2,7 @@ package com.mall.entity.user;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.mall.entity.domain.BaseEntity;
+import com.mall.entity.base.BaseEntity;
 import lombok.Data;
 
 /**

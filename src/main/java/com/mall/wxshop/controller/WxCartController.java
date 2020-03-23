@@ -1,6 +1,5 @@
 package com.mall.wxshop.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mall.common.BaseController;
 import com.mall.common.RtnMessage;
 import com.mall.entity.user.User;

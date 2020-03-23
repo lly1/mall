@@ -1,4 +1,4 @@
-package com.mall.entity.domain;
+package com.mall.entity.base;
 
 /**
  * @Author yuerfeng 14090408

@@ -1,13 +1,12 @@
 package com.mall.wxshop.entity.base;
 
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mall.entity.domain.IPage;
-import com.mall.entity.domain.PageUtils;
+import com.mall.entity.base.IPage;
+import com.mall.entity.base.PageUtils;
 import com.mall.entity.user.User;
 import com.mall.utils.UUIDGenerator;
 import lombok.Data;

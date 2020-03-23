@@ -1,4 +1,4 @@
-package com.mall.entity.domain;
+package com.mall.entity.base;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
