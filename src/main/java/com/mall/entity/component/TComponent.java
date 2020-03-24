@@ -1,5 +1,8 @@
 package com.mall.entity.component;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 /**
@@ -7,7 +10,8 @@ import lombok.Data;
  */
 @Data
 public class TComponent{
-    private String id;
+    @TableId(value = "id",type = IdType.ASSIGN_UUID)
+    protected String id;
     private String name;
     private String categoryId;
     private Double protein;
@@ -18,5 +22,6 @@ public class TComponent{
     private Double calcium;
     private Double phosphorus;
     private Double icon;
+    @TableField(value = "delFlag")
     private String delFlag;
 }

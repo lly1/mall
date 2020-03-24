@@ -4,10 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mall.common.BaseController;
 import com.mall.common.RtnMessage;
+import com.mall.entity.component.TProductComponent;
 import com.mall.entity.user.User;
+import com.mall.service.component.TProductComponentService;
 import com.mall.utils.CommonUtil;
 import com.mall.utils.RtnMessageUtils;
 import com.mall.utils.StringUtilsEx;
+import com.mall.utils.UUIDGenerator;
 import com.mall.wxshop.entity.sale.TComment;
 import com.mall.wxshop.entity.shop.TCode;
 import com.mall.wxshop.entity.shop.TShop;
@@ -50,6 +53,8 @@ public class WxShopController extends BaseController {
     private TCodeService tCodeService;
     @Resource
     private TCommentService tCommentService;
+    @Resource
+    private TProductComponentService tProductComponentService;
 
 
     /**
@@ -182,10 +187,38 @@ public class WxShopController extends BaseController {
             tShopProduct.preInsert(new User(wxUserService.getCurrentWxUser().getNickName()));
             tShopProduct.setSaleTotal(0);
             tShopProduct.setStarTotal(0);
+
         }else {
             tShopProduct.preUpdate(new User(wxUserService.getCurrentWxUser().getNickName()));
         }
         tShopProductService.saveOrUpdate(tShopProduct);
+        //保存商品成分
+        List<TProductComponent> oldList = tProductComponentService.findByProductId(tShopProduct.getId());
+        List<TProductComponent> newList = tShopProduct.getComponentList();
+        //判断删除
+        int count = 0;
+        for (TProductComponent oldComponent : oldList) {
+            if(CollectionUtils.isNotEmpty(newList)){
+                for (TProductComponent newComponent : newList) {
+                    if(!oldComponent.getId().equals(newComponent.getId())){
+                        count++;
+                    }
+                }
+            }else {
+                tProductComponentService.removeById(oldComponent.getId());
+            }
+            if(count == newList.size()){
+                tProductComponentService.removeById(oldComponent.getId());
+            }
+            count = 0;
+        }
+        for (TProductComponent tProductComponent : newList) {
+            if(StringUtilsEx.isBlank(tProductComponent.getId())){
+                tProductComponent.setId(UUIDGenerator.generate());
+                tProductComponent.setDelFlag("0");
+            }
+        }
+        tProductComponentService.saveOrUpdateBatch(newList);
         return RtnMessageUtils.buildSuccess(tShopProductService.list(new QueryWrapper<TShopProduct>().eq("shop_id",tShopProduct.getShopId())));
     }
     @RequestMapping("delShopProduct")

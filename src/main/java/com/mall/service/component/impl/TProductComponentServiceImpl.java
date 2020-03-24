@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 /**
  * @author lly
@@ -18,4 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class TProductComponentServiceImpl extends ServiceImpl<TProductComponentMapper, TProductComponent> implements TProductComponentService {
     private static Logger logger = LoggerFactory.getLogger(TProductComponentServiceImpl.class);
 
+    @Override
+    public List<TProductComponent> findByProductId(String productId) {
+        return baseMapper.findByProductId(productId);
+    }
 }

@@ -226,9 +226,9 @@ public class WxOrderController extends BaseController {
 
     @RequestMapping("/buyAgain")
     @ResponseBody
-    public RtnMessage<String> buyAgain(@RequestBody List<TOrderDetail> detailList) {
+    public RtnMessage<String> buyAgain(List<TOrderDetail> detailList) {
         WxUserInfo userInfo = wxUserService.getCurrentWxUser();
-        detailList.parallelStream().forEach(item->{
+        detailList.parallelStream().forEach(item ->{
             TCart tCart = new TCart();
             tCart.preInsert(new User(userInfo.getNickName()));
             tCart.setUserId(userInfo.getId());

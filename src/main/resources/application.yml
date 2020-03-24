@@ -5,9 +5,6 @@ server:
   servlet-path: /
 # druid 配置：
 spring:
-  devtools:
-    restart:
-      enabled: true  #设置开启热部署
   datasource:
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://wakakaljh.mysql.rds.aliyuncs.com/mall?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&useSSL=false
