@@ -24,6 +24,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -63,12 +67,16 @@ public class WxComponentController extends BaseController {
 
     @RequestMapping("getUserComponent")
     @ResponseBody
-    public RtnMessage<List<RtnComponent>> getUserComponent(){
+    public RtnMessage<List<RtnComponent>> getUserComponent(String type){
         //进方法清空list
         rtnComponents.clear();
         WxUserInfo userInfo = wxUserService.getCurrentWxUser();
         //查询用户的订单
-        List<TOrder> orderList = tOrderService.list(new QueryWrapper<TOrder>().eq("user_id",userInfo.getId()).eq("order_status",3));
+        List<TOrder> orderList = tOrderService.list(new QueryWrapper<TOrder>()
+                .eq("user_id",userInfo.getId())
+                .eq("order_status",3)
+                .ge("create_time",switchType(type)
+        ));
         orderList.parallelStream().forEach(order -> tOrderDetailService.findDetailByOrderId(order.getId()).parallelStream().forEach(tOrderDetail -> {
                 //查询成分表运算
                 tProductComponentService.findByProductId(tOrderDetail.getProductId()).parallelStream().forEach(tProductComponent -> {
@@ -82,9 +90,10 @@ public class WxComponentController extends BaseController {
                     }
                 });
             }));
-        return RtnMessageUtils.buildSuccess(rtnComponents);
+        return RtnMessageUtils.buildSuccess(format(rtnComponents));
     }
     private void calculate(TComponent tComponent, TProductComponent tProductComponent, TOrderDetail tOrderDetail){
+        double total = tProductComponent.getTotal()/100;
         Field[] fields = tComponent.getClass().getDeclaredFields();
         for (Field field : fields) {
             RtnComponent rtnComponent = new RtnComponent();
@@ -93,49 +102,49 @@ public class WxComponentController extends BaseController {
                     continue;
                 case "protein":{
                     rtnComponent.setName("蛋白质");
-                    rtnComponent.setValue((tProductComponent.getTotal()/100)* tComponent.getProtein() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(total * tComponent.getProtein() * tOrderDetail.getBuyNum());
                     rtnComponents.add(rtnComponent);
                     break;
                 }
                 case "fat":{
                     rtnComponent.setName("脂肪");
-                    rtnComponent.setValue((tProductComponent.getTotal()/100)* tComponent.getFat() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(total * tComponent.getFat() * tOrderDetail.getBuyNum());
                     rtnComponents.add(rtnComponent);
                     break;
                 }
                 case "carbohydrate":{
                     rtnComponent.setName("碳水化合物");
-                    rtnComponent.setValue((tProductComponent.getTotal()/100)* tComponent.getCarbohydrate() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(total * tComponent.getCarbohydrate() * tOrderDetail.getBuyNum());
                     rtnComponents.add(rtnComponent);
                     break;
                 }
                 case "calorie":{
                     rtnComponent.setName("卡路里");
-                    rtnComponent.setValue((tProductComponent.getTotal()/100)* tComponent.getCalorie() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(total * tComponent.getCalorie() * tOrderDetail.getBuyNum());
                     rtnComponents.add(rtnComponent);
                     break;
                 }
                 case "salt":{
                     rtnComponent.setName("无机盐");
-                    rtnComponent.setValue((tProductComponent.getTotal()/100)* tComponent.getSalt() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(total * tComponent.getSalt() * tOrderDetail.getBuyNum());
                     rtnComponents.add(rtnComponent);
                     break;
                 }
                 case "calcium":{
                     rtnComponent.setName("钙");
-                    rtnComponent.setValue((tProductComponent.getTotal()/100)* tComponent.getCalcium() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(total * tComponent.getCalcium() * tOrderDetail.getBuyNum());
                     rtnComponents.add(rtnComponent);
                     break;
                 }
                 case "phosphorus":{
                     rtnComponent.setName("磷");
-                    rtnComponent.setValue((tProductComponent.getTotal()/100)* tComponent.getPhosphorus() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(total * tComponent.getPhosphorus() * tOrderDetail.getBuyNum());
                     rtnComponents.add(rtnComponent);
                     break;
                 }
                 case "iron":{
                     rtnComponent.setName("铁");
-                    rtnComponent.setValue((tProductComponent.getTotal()/100)* tComponent.getIron() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(total * tComponent.getIron() * tOrderDetail.getBuyNum());
                     rtnComponents.add(rtnComponent);
                     break;
                 }
@@ -144,44 +153,72 @@ public class WxComponentController extends BaseController {
     }
 
     private void calculateAdd(TComponent tComponent, TProductComponent tProductComponent, TOrderDetail tOrderDetail){
+        double total = tProductComponent.getTotal()/100;
         for (RtnComponent rtnComponent : rtnComponents) {
             switch (rtnComponent.getName()){
                 case "蛋白质":{
-                    rtnComponent.setValue(rtnComponent.getValue() + (tProductComponent.getTotal()/100)* tComponent.getProtein() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(rtnComponent.getValue() + total* tComponent.getProtein() * tOrderDetail.getBuyNum());
                     break;
                 }
                 case "脂肪":{
-                    rtnComponent.setValue(rtnComponent.getValue() + (tProductComponent.getTotal()/100)* tComponent.getFat() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(rtnComponent.getValue() + total* tComponent.getFat() * tOrderDetail.getBuyNum());
                     break;
                 }
                 case "碳水化合物":{
-                    rtnComponent.setValue(rtnComponent.getValue() + (tProductComponent.getTotal()/100)* tComponent.getCarbohydrate() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(rtnComponent.getValue() + total* tComponent.getCarbohydrate() * tOrderDetail.getBuyNum());
                     break;
                 }
                 case "卡路里":{
-                    rtnComponent.setValue(rtnComponent.getValue() + (tProductComponent.getTotal()/100)* tComponent.getCalorie() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(rtnComponent.getValue() + total* tComponent.getCalorie() * tOrderDetail.getBuyNum());
                     break;
                 }
                 case "无机盐":{
-                    rtnComponent.setValue(rtnComponent.getValue() + (tProductComponent.getTotal()/100)* tComponent.getSalt() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(rtnComponent.getValue() + total* tComponent.getSalt() * tOrderDetail.getBuyNum());
                     break;
                 }
                 case "钙":{
-                    rtnComponent.setValue(rtnComponent.getValue() + (tProductComponent.getTotal()/100)* tComponent.getCalcium() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(rtnComponent.getValue() + total* tComponent.getCalcium() * tOrderDetail.getBuyNum());
                     break;
                 }
                 case "磷":{
-                    rtnComponent.setValue(rtnComponent.getValue() + (tProductComponent.getTotal()/100)* tComponent.getPhosphorus() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(rtnComponent.getValue() + total* tComponent.getPhosphorus() * tOrderDetail.getBuyNum());
                     break;
                 }
                 case "铁":{
-                    rtnComponent.setValue(rtnComponent.getValue() + (tProductComponent.getTotal()/100)* tComponent.getIron() * tOrderDetail.getBuyNum());
+                    rtnComponent.setValue(rtnComponent.getValue() + total* tComponent.getIron() * tOrderDetail.getBuyNum());
                     break;
                 }default:{
                     logger.error("没有",rtnComponent.getName());
                 }
             }
         }
+    }
+    private List<RtnComponent> format(List<RtnComponent> rtnComponents){
+        DecimalFormat df = new DecimalFormat("#.00");
+        for (RtnComponent rtnComponent : rtnComponents) {
+            rtnComponent.setValue(Double.valueOf(df.format(rtnComponent.getValue())));
+        }
+        return rtnComponents;
+    }
+    private String switchType(String type){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date time;
+        Calendar c = Calendar.getInstance();
+        switch (type){
+            default:
+                time = c.getTime();
+                break;
+            case "1":
+                c.add(Calendar.DATE, - 7);
+                time = c.getTime();
+                break;
+            case "2":
+                c.add(Calendar.DATE, - 30);
+                time = c.getTime();
+                break;
+        }
+
+        return sdf.format(time);
     }
 
 }
