@@ -69,8 +69,7 @@ public class WxComponentController extends BaseController {
         WxUserInfo userInfo = wxUserService.getCurrentWxUser();
         //查询用户的订单
         List<TOrder> orderList = tOrderService.list(new QueryWrapper<TOrder>().eq("user_id",userInfo.getId()).eq("order_status",3));
-        orderList.parallelStream().forEach(order -> {
-            tOrderDetailService.findDetailByOrderId(order.getId()).parallelStream().forEach(tOrderDetail -> {
+        orderList.parallelStream().forEach(order -> tOrderDetailService.findDetailByOrderId(order.getId()).parallelStream().forEach(tOrderDetail -> {
                 //查询成分表运算
                 tProductComponentService.findByProductId(tOrderDetail.getProductId()).parallelStream().forEach(tProductComponent -> {
                     TComponent tComponent = tComponentService.getById(tProductComponent.getComponentId());
@@ -82,8 +81,7 @@ public class WxComponentController extends BaseController {
                         }
                     }
                 });
-            });
-        });
+            }));
         return RtnMessageUtils.buildSuccess(rtnComponents);
     }
     private void calculate(TComponent tComponent, TProductComponent tProductComponent, TOrderDetail tOrderDetail){
