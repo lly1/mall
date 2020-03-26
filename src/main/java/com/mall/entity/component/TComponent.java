@@ -21,7 +21,7 @@ public class TComponent{
     private Double salt;
     private Double calcium;
     private Double phosphorus;
-    private Double icon;
+    private Double iron;
     @TableField(value = "delFlag")
     private String delFlag;
 }
