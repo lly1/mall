@@ -217,7 +217,6 @@ public class WxComponentController extends BaseController {
                 time = c.getTime();
                 break;
         }
-
         return sdf.format(time);
     }
 
