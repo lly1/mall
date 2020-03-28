@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.servlet.MultipartConfigElement;
+import java.io.File;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-        registry.addResourceHandler("/static/upload/**").addResourceLocations("file:" + UploadUtils.getImgDirFile().getAbsolutePath() + "/");
+        registry.addResourceHandler("/static/upload/**").addResourceLocations("file:" + UploadUtils.getImgDirFile().getAbsolutePath() + File.separator);
         super.addResourceHandlers(registry);
     }
 

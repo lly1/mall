@@ -35,7 +35,8 @@ public class FileUploadController {
         try {
             file.transferTo(dest);
             logger.info("上传成功");
-            String rtnPath = UploadUtils.IMG_PATH_PREFIX +fileName;
+            String rtnPath = UploadUtils.IMG_PATH_SUFFIX +fileName;
+            logger.info("图片上传地址:"+dest.getAbsolutePath());
             logger.info("图片请求地址:"+rtnPath);
             return rtnPath;
         } catch (IOException e) {
