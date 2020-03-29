@@ -38,6 +38,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        System.out.println(UploadUtils.getImgDirFile().getAbsolutePath() + File.separator);
         registry.addResourceHandler("/static/upload/**").addResourceLocations("file:" + UploadUtils.getImgDirFile().getAbsolutePath() + File.separator);
         super.addResourceHandlers(registry);
     }
