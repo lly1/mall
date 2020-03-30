@@ -4,7 +4,7 @@ import com.mall.constant.ErrorType;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * dubbo接口返回通用类型
+ * 接口返回通用类型
  *
  * @param <T> t 为自定义返回内容根据业务需要自己定义
  * @author yuerfeng
