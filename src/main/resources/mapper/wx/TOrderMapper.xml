@@ -45,6 +45,17 @@
     <select id="findShopById" resultType="com.mall.wxshop.entity.shop.TShop" parameterType="java.lang.String">
         select * from t_shop a where a.id = #{id} and delFlag = '0'
     </select>
+
+    <select id="findOrder" resultType="com.mall.wxshop.entity.order.TOrder">
+        select
+        *,
+        b.shop_logo as "shopLogo",
+        b.shop_name as "shopName",
+        c.nickName as "userName"
+        from t_order a
+        left join t_shop b on a.shop_id = b.id
+        left join sys_wx_user c on a.user_id = c.id
+    </select>
 </mapper>
 
 

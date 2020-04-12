@@ -57,7 +57,7 @@ public class MenuController extends BaseController {
 
     @RequestMapping("/sys/menu/page")
     @ResponseBody
-    public RtnPageInfo<Menu> findPage(FrontPage<Menu> page) throws Exception {
+    public RtnPageInfo<Menu> findPage(FrontPage<Menu> page) {
         Page<Menu> userPage = menuService.page(page.getPagePlus());
 
         return new RtnPageInfo<>(userPage);
@@ -65,7 +65,7 @@ public class MenuController extends BaseController {
 
     @RequestMapping("/sys/menu/save")
     @ResponseBody
-    public RtnMessage save(Menu menu, String pageType, HttpSession session) throws Exception {
+    public RtnMessage save(Menu menu, String pageType, HttpSession session){
         QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("mName", menu.getMName());
         Menu m = this.menuService.getOne(queryWrapper);

@@ -9,10 +9,25 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @author lly
+ */
 @Data
 public class TOrder extends WxBaseEntity {
     private String shopId;
+    /**
+     * pc查询显示用
+     */
+    @TableField(exist = false)
+    private String shopName;
+    @TableField(exist = false)
+    private String shopLogo;
     private String userId;
+    /**
+     * pc查询显示用
+     */
+    @TableField(exist = false)
+    private String userName;
     private Integer rtnCode;
     private Double payTotal;
     private Integer buyTotal;

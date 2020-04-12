@@ -55,4 +55,14 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
     public List<TOrder> findOrderByShopId1(String shopId, Page<TOrder> page) {
         return baseMapper.findOrderByShopId1(shopId,page);
     }
+
+    /**
+     * pc订单查询
+     * @param page
+     * @return
+     */
+    @Override
+    public List<TOrder> findOrder(Page<TOrder> page) {
+        return baseMapper.findOrder(page);
+    }
 }

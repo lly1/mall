@@ -106,7 +106,7 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUserInfo> imp
             if(roles.size() > 1){
                 List<String> roleIds = new LinkedList<>();
                 //获取所有的角色，设置最大的角色为主要角色返回
-                roles.forEach(item ->{
+                roles.parallelStream().forEach(item ->{
                     roleIds.add(item.getRoleId());
                 });
                 user.setRoleId(Collections.min(roleIds));

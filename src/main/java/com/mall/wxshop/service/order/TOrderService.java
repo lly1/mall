@@ -16,4 +16,5 @@ public interface TOrderService extends IService<TOrder> {
     List<TOrder> findOrderByUserId2(String userId, Page<TOrder> page);
     List<TOrder> findOrderByShopId0(String shopId,Page<TOrder> page);
     List<TOrder> findOrderByShopId1(String shopId,Page<TOrder> page);
+    List<TOrder> findOrder(Page<TOrder> page);
 }

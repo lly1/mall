@@ -14,4 +14,5 @@ public interface TOrderMapper extends BaseMapper<TOrder> {
     List<TOrder> findOrderByUserId2(@Param("userId") String userId,Page<TOrder> page);
     List<TOrder> findOrderByShopId0(@Param("shopId") String shopId,Page<TOrder> page);
     List<TOrder> findOrderByShopId1(@Param("shopId") String shopId,Page<TOrder> page);
+    List<TOrder> findOrder(Page<TOrder> page);
 }

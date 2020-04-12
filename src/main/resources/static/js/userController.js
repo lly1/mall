@@ -32,38 +32,39 @@ function initGrid(){
 		datatype: "json",
 		mtype:"POST",
         colModel: [
-            // {name: 'src', label: '来源',editable:true, width: 100,
-            //     formatter: function (cellValue, options, rowObject) {
-            //         var html = "";
-            //         switch(cellValue) {
-            //             case "01":
-            //                 html = '<span class="label label-sm label-success">系统</span>';
-            //                 break;
-            //             case "02":
-            //                 html = '<span class="label label-sm label-inverse">同步</span>';
-            //                 break;
-            //             case "03":
-            //                 html = '<span class="label label-sm label-warning">导入</span>';
-            //                 break;
-            //             default:
-            //                 html = '<span class="label label-sm label-inverse">系统</span>';
-            //         }
-            //         return html;
-            //     }},
-            {name: 'username', label: '姓名', editable:true,width: 200,frozen:true},
+            {name: 'username', label: '姓名', editable:true,width: 300,frozen:true},
             {name: 'id', label: 'id',hidden:true, width: 40},
-            {name: 'phone', label: '手机号码', editable:true,width: 200},
+            {name: 'phone', label: '手机号码', editable:true,width: 300},
             {name: 'password', label: '密码',hidden:true, editable:true,width: 200},
-            {name: 'createTime', label: '创建时间', editable:true,width: 200},
-            {name: 'roleName', label: '角色',editable:true, width: 200},
+            {name: 'createTime', label: '创建时间', editable:true,width: 300},
+            {name: 'updateTime', label: '更新时间', editable:true,width: 300},
+            {name: 'roleName', label: '角色',editable:true, width: 70,
+                formatter: function (cellValue, options, rowObject) {
+                    var html = "";
+                    switch(cellValue) {
+                        case "admin":
+                            html = '<span class="label label-sm label-success">管理员</span>';
+                            break;
+                        case "business":
+                            html = '<span class="label label-sm label-inverse">商家</span>';
+                            break;
+                        case "customer":
+                            html = '<span class="label label-sm label-warning">用户</span>';
+                            break;
+                        default:
+                            break;
+                    }
+                    return html;
+                }
+            },
 
         ],
         viewrecords: true,
-        autowidth: true,
+        autowidth:true,
         rownumbers: true,
         altRows: true,
-        rowNum: 20,
-        rowList: [20, 50, 100],
+        rowNum: 5,
+        rowList: [5, 10, 20],
         pager: "#grid-pager",
         multiselect: false,
         shrinkToFit: false,
@@ -84,7 +85,6 @@ function initGrid(){
 }
 
 function _search() {
-	
     var serializeArray = $("#searchForm").serializeArray();
     console.log(serializeArray);
     var params = array2obj(serializeArray);
@@ -143,10 +143,6 @@ function save(){
     if(!$('#editForm').data('bootstrapValidator').isValid()){
         return ;
     }
-   /* if ($("#form_ownerId").val()==""||$("#form_unitName").val()==""){
-        bootbox.alert("所属方不能为空");
-        return;
-    }*/
     var progressDialog = bootbox.dialog({
         message: '<p><i class="fa fa-spin fa-spinner"></i> 数据上传中...</p>'
     });
