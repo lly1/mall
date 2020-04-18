@@ -27,6 +27,21 @@ public class WxSaleController extends BaseController {
     private TShopService tShopService;
 
     /**
+     * 根据店名模糊查询门店
+     */
+    @RequestMapping("getShopListByName")
+    @ResponseBody
+    public RtnMessage<List<TShop>> getShopListByName(TShop tShop){
+        List<TShop> shopList = tShopService.list(new QueryWrapper<TShop>().like("shop_name",tShop.getShopName()));
+        shopList.parallelStream().forEach(shop ->{
+            shop.setDistance(DistanceUtil.getDistance(Double.parseDouble(tShop.getLatitude()),
+                    Double.parseDouble(tShop.getLongitude()),
+                    Double.parseDouble(shop.getLatitude()),
+                    Double.parseDouble(shop.getLongitude())));
+        });
+        return RtnMessageUtils.buildSuccess(shopList);
+    }
+    /**
      * @param tShop
      * 默认顺序
      * @return
