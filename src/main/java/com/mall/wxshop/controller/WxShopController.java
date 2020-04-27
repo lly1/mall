@@ -119,7 +119,7 @@ public class WxShopController extends BaseController {
         return RtnMessageUtils.buildSuccess(tShopService.getShop(tShop.getUserId()));
     }
     /**
-     * 店铺类目信息
+     * 店铺类目商品信息
      * */
     @RequestMapping("getShopCategory")
     @ResponseBody
@@ -197,24 +197,27 @@ public class WxShopController extends BaseController {
         List<TProductComponent> newList = tShopProduct.getComponentList();
         //判断删除
         int count = 0;
-        for (TProductComponent oldComponent : oldList) {
-            if(CollectionUtils.isNotEmpty(newList)){
-                for (TProductComponent newComponent : newList) {
-                    if(!oldComponent.getId().equals(newComponent.getId())){
-                        count++;
+        if(CollectionUtils.isNotEmpty(oldList)){
+            for (TProductComponent oldComponent : oldList) {
+                if(CollectionUtils.isNotEmpty(newList)){
+                    for (TProductComponent newComponent : newList) {
+                        if(!oldComponent.getId().equals(newComponent.getId())){
+                            count++;
+                        }
                     }
+                }else {
+                    tProductComponentService.removeById(oldComponent.getId());
                 }
-            }else {
-                tProductComponentService.removeById(oldComponent.getId());
+                if(count == newList.size()){
+                    tProductComponentService.removeById(oldComponent.getId());
+                }
+                count = 0;
             }
-            if(count == newList.size()){
-                tProductComponentService.removeById(oldComponent.getId());
-            }
-            count = 0;
         }
         for (TProductComponent tProductComponent : newList) {
             if(StringUtilsEx.isBlank(tProductComponent.getId())){
                 tProductComponent.setId(UUIDGenerator.generate());
+                tProductComponent.setProductId(tShopProduct.getId());
                 tProductComponent.setDelFlag("0");
             }
         }

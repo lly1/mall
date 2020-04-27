@@ -132,6 +132,8 @@ public class ShiroConfig {
     @Bean
     public DefaultWebSessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        // 会话过期时间，单位：毫秒(在无操作时开始计时)
+        sessionManager.setGlobalSessionTimeout(1000 * 10800);
         sessionManager.setSessionDAO(redisSessionDAO());
         return sessionManager;
     }
