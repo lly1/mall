@@ -37,7 +37,7 @@ public class TOrder extends WxBaseEntity {
      */
     private String isRate;
     /**
-     * 0已提交，1已支付 2商家接单，3已完成
+     * -1商家拒单 0已提交，1已支付 2商家接单，3已完成
      */
     private Integer orderStatus;
     @TableField(exist = false)

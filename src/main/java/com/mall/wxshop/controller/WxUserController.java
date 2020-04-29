@@ -54,6 +54,15 @@ public class WxUserController extends BaseController {
         return RtnMessageUtils.buildSuccess(wxUserInfo);
     }
 
+    @RequestMapping("/setPass")
+    @ResponseBody
+    public RtnMessage<WxUserInfo> setPass(String id,String pass) {
+        WxUserInfo wxUserInfo = wxUserService.getById(id);
+        wxUserInfo.setPayPass(pass);
+        wxUserService.saveOrUpdate(wxUserInfo);
+        return RtnMessageUtils.buildSuccess(wxUserInfo);
+    }
+
     @RequestMapping("/decodePhone")
     @ResponseBody
     public RtnMessage<String> decodePhone(String encryptedData ,String sessionKey,String iv) {

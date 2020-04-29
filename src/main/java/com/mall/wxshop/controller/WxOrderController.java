@@ -7,6 +7,7 @@ import com.mall.common.BaseController;
 import com.mall.common.RtnMessage;
 import com.mall.entity.user.User;
 import com.mall.utils.RtnMessageUtils;
+import com.mall.utils.StringUtilsEx;
 import com.mall.wxshop.entity.order.TOrder;
 import com.mall.wxshop.entity.order.TOrderDetail;
 import com.mall.wxshop.entity.sale.TCart;
@@ -152,6 +153,14 @@ public class WxOrderController extends BaseController {
         }
         return RtnMessageUtils.buildSuccess("接单成功");
     }
+    @RequestMapping("refuseOrder")
+    @ResponseBody
+    public RtnMessage<String> refuseOrder(String id){
+        TOrder tOrder = tOrderService.getById(id);
+        tOrder.setOrderStatus(-1);
+        tOrderService.saveOrUpdate(tOrder);
+        return RtnMessageUtils.buildSuccess("取消成功");
+    }
 
     @RequestMapping("delOrder")
     @ResponseBody
@@ -205,7 +214,14 @@ public class WxOrderController extends BaseController {
     }
     @RequestMapping("/UserPay")
     @ResponseBody
-    public RtnMessage<TOrder> UserPay(String id,String remarks) {
+    public RtnMessage UserPay(String id,String remarks,String pass) {
+        if(StringUtilsEx.isBlank(pass)){
+            return RtnMessageUtils.buildFailed("密码不能未空!");
+        }
+        WxUserInfo userInfo = wxUserService.getCurrentWxUser();
+        if(!pass.equals(userInfo.getPayPass())){
+            return RtnMessageUtils.buildFailed("密码错误!");
+        }
         TOrder tOrder = tOrderService.findOrderById(id);
         //已支付
         tOrder.setOrderStatus(1);

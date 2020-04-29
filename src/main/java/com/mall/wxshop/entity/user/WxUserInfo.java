@@ -46,6 +46,9 @@ public class WxUserInfo extends WxBaseEntity implements Serializable {
     private String avatarUrl;
     @TableField("phone")
     private String phone;
+    //支付密码
+    @TableField("payPass")
+    private String payPass;
     // 用户角色
     @TableField(exist = false)
     private List<UserRole> roles;
