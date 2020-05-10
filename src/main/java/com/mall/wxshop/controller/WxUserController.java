@@ -49,8 +49,13 @@ public class WxUserController extends BaseController {
 
     @RequestMapping("/businessRegister")
     @ResponseBody
-    public RtnMessage<WxUserInfo> businessRegister(String id,String phone) {
-        WxUserInfo wxUserInfo = wxUserService.businessRegister(id,phone);
+    public RtnMessage businessRegister(String id,String phone) {
+        WxUserInfo wxUserInfo = null;
+        try {
+            wxUserInfo = wxUserService.businessRegister(id,phone);
+        }catch (Exception e){
+            RtnMessageUtils.buildFailed("手机号已注册");
+        }
         return RtnMessageUtils.buildSuccess(wxUserInfo);
     }
 

@@ -24,23 +24,23 @@ public class MetaHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        User user = userService.getCurrentUser();
+        /*User user = userService.getCurrentUser();
         if(CommonUtil.isBlank(user)){
             return;
         }
         this.setFieldValByName("createTime", new Date(), metaObject);
         this.setFieldValByName("updateTime", new Date(), metaObject);
         this.setFieldValByName("createBy", user.getUsername(), metaObject);
-        this.setFieldValByName("updateBy", user.getUsername(), metaObject);
+        this.setFieldValByName("updateBy", user.getUsername(), metaObject);*/
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        User user = userService.getCurrentUser();
+        /*User user = userService.getCurrentUser();
         if(CommonUtil.isBlank(user)){
             return;
         }
         this.setFieldValByName("updateTime", new Date(), metaObject);
-        this.setFieldValByName("updateBy", user.getUsername(), metaObject);
+        this.setFieldValByName("updateBy", user.getUsername(), metaObject);*/
     }
 }

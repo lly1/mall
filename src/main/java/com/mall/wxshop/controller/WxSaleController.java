@@ -57,11 +57,6 @@ public class WxSaleController extends BaseController {
                     Double.parseDouble(shop.getLatitude()),
                     Double.parseDouble(shop.getLongitude())));
         });
-        shopList.sort((shop1, shop2) -> {
-            Integer sale1 = shop1.getShopSale();
-            Integer sale2 = shop2.getShopSale();
-            return sale1.compareTo(sale2);
-        });
         shopPage.setRecords(shopList);
         return RtnMessageUtils.buildSuccess(shopPage);
     }
@@ -80,6 +75,11 @@ public class WxSaleController extends BaseController {
                     Double.parseDouble(tShop.getLongitude()),
                     Double.parseDouble(shop.getLatitude()),
                     Double.parseDouble(shop.getLongitude())));
+        });
+        shopList.sort((shop1, shop2) -> {
+            Integer sale1 = shop1.getShopSale();
+            Integer sale2 = shop2.getShopSale();
+            return sale2.compareTo(sale1);
         });
         shopPage.setRecords(shopList);
         return RtnMessageUtils.buildSuccess(shopPage);
