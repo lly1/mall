@@ -3,7 +3,7 @@ package com.mall.wxshop.service.shop.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mall.dao.wx.TShopCategoryMapper;
-import com.mall.utils.cache.RedisUtils;
+import com.mall.api.utils.cache.RedisUtils;
 import com.mall.wxshop.entity.shop.TShopCategory;
 import com.mall.wxshop.service.shop.TShopCategoryService;
 import org.slf4j.Logger;

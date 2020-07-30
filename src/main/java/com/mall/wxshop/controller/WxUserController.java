@@ -3,7 +3,7 @@ package com.mall.wxshop.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mall.common.BaseController;
 import com.mall.common.RtnMessage;
-import com.mall.utils.RtnMessageUtils;
+import com.mall.api.utils.RtnMessageUtils;
 import com.mall.wxshop.entity.order.TOrder;
 import com.mall.wxshop.entity.user.WxUserInfo;
 import com.mall.wxshop.service.order.TOrderService;

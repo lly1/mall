@@ -1,7 +1,7 @@
 package com.mall.dao.component;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mall.entity.component.TComponentCategory;
+import com.mall.api.entity.component.TComponentCategory;
 
 import java.util.List;
 

@@ -3,7 +3,7 @@ package com.mall.wxshop.service.order.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mall.dao.wx.TOrderDetailMapper;
-import com.mall.utils.cache.RedisUtils;
+import com.mall.api.utils.cache.RedisUtils;
 import com.mall.wxshop.entity.order.TOrderDetail;
 import com.mall.wxshop.service.order.TOrderDetailService;
 import org.slf4j.Logger;

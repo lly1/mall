@@ -3,12 +3,9 @@ package com.mall.wxshop.service.shop.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mall.dao.wx.TCodeMapper;
-import com.mall.dao.wx.TShopMapper;
-import com.mall.utils.cache.RedisUtils;
+import com.mall.api.utils.cache.RedisUtils;
 import com.mall.wxshop.entity.shop.TCode;
-import com.mall.wxshop.entity.shop.TShop;
 import com.mall.wxshop.service.shop.TCodeService;
-import com.mall.wxshop.service.shop.TShopService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

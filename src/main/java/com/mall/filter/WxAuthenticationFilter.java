@@ -2,9 +2,9 @@ package com.mall.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.mall.common.RtnMessage;
-import com.mall.constant.ErrorType;
+import com.mall.api.constant.ErrorType;
 import com.mall.shiro.WxToken;
-import com.mall.utils.RtnMessageUtils;
+import com.mall.api.utils.RtnMessageUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;

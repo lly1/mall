@@ -3,13 +3,13 @@ package com.mall.wxshop.service.user.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mall.constant.Constants;
+import com.mall.api.constant.Constants;
 import com.mall.dao.user.WxUserMapper;
-import com.mall.entity.user.User;
-import com.mall.entity.user.UserRole;
+import com.mall.api.entity.user.User;
+import com.mall.api.entity.user.UserRole;
 import com.mall.service.role.UserRoleService;
-import com.mall.utils.cache.RedisUtils;
-import com.mall.utils.cache.SpringContextUtil;
+import com.mall.api.utils.cache.RedisUtils;
+import com.mall.api.utils.cache.SpringContextUtil;
 import com.mall.wxshop.entity.user.WxUserInfo;
 import com.mall.wxshop.service.user.WxUserService;
 import org.apache.shiro.SecurityUtils;

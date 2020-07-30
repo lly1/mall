@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mall.dao.user.WxUserMapper" >
-    <resultMap id="WxUserMap" type="com.mall.wxshop.entity.user.WxUserInfo">
+    <resultMap id="WxUserMap" type="com.mall.wxshop.com.mall.api.entity.user.WxUserInfo">
         <id column="id" property="id"/>
         <result column="openId" property="openId"/>
         <result column="nickname" property="nickName"/>
@@ -22,7 +22,7 @@
         select *from sys_wx_user where id = #{id} and delFlag = '0'
     </select>
 
-    <select id="findRolesById" resultType="com.mall.entity.user.UserRole" parameterType="java.lang.String">
+    <select id="findRolesById" resultType="com.mall.api.entity.user.UserRole" parameterType="java.lang.String">
         select * from sys_user_role a where a.user_id = #{id} and delFlag = '0'
     </select>
 

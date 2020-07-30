@@ -2,9 +2,9 @@ package com.mall.wxshop.controller;
 
 import com.mall.common.BaseController;
 import com.mall.common.RtnMessage;
-import com.mall.entity.user.User;
-import com.mall.utils.RtnMessageUtils;
-import com.mall.utils.StringUtilsEx;
+import com.mall.api.entity.user.User;
+import com.mall.api.utils.RtnMessageUtils;
+import com.mall.api.utils.StringUtilsEx;
 import com.mall.wxshop.entity.sale.TCart;
 import com.mall.wxshop.service.sale.TCartService;
 import com.mall.wxshop.service.user.WxUserService;

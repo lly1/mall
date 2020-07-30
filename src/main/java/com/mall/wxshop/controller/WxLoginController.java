@@ -2,7 +2,7 @@ package com.mall.wxshop.controller;
 
 import com.mall.common.RtnMessage;
 import com.mall.filter.WxAuthenticationFilter;
-import com.mall.utils.RtnMessageUtils;
+import com.mall.api.utils.RtnMessageUtils;
 import com.mall.wxshop.config.WxConfig;
 import com.mall.wxshop.entity.user.WeixinOauthToken;
 import com.mall.wxshop.util.AdvancedUtil;

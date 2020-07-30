@@ -3,10 +3,9 @@ package com.mall.wxshop.util;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.mall.utils.HttpUtils;
+import com.mall.api.utils.HttpUtils;
 import com.mall.wxshop.entity.user.WeixinOauthToken;
-import com.mall.wxshop.entity.user.WxUserInfo;
-import com.mall.utils.CommonUtil;
+import com.mall.api.utils.CommonUtil;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.encoders.Base64;

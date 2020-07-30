@@ -1,7 +1,7 @@
 package com.mall.dao.menu;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mall.entity.menu.Menu;
+import com.mall.api.entity.menu.Menu;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

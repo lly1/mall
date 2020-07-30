@@ -3,9 +3,8 @@ package com.mall.wxshop.service.sale.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mall.dao.wx.TCartMapper;
-import com.mall.utils.cache.RedisUtils;
+import com.mall.api.utils.cache.RedisUtils;
 import com.mall.wxshop.entity.sale.TCart;
-import com.mall.wxshop.entity.shop.TShop;
 import com.mall.wxshop.service.sale.TCartService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

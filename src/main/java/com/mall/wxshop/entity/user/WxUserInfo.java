@@ -3,7 +3,7 @@ package com.mall.wxshop.entity.user;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.mall.entity.user.UserRole;
+import com.mall.api.entity.user.UserRole;
 import com.mall.wxshop.entity.base.WxBaseEntity;
 import com.mall.wxshop.entity.shop.TShop;
 import lombok.Data;

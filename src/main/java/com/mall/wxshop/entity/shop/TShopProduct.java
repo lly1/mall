@@ -1,7 +1,7 @@
 package com.mall.wxshop.entity.shop;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.mall.entity.component.TProductComponent;
+import com.mall.api.entity.component.TProductComponent;
 import com.mall.wxshop.entity.base.WxBaseEntity;
 import com.mall.wxshop.entity.sale.TCart;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.mall.dao.user;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mall.entity.user.Role;
+import com.mall.api.entity.user.Role;
 
 import java.util.List;
 

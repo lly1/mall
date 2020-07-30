@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mall.common.BaseController;
 import com.mall.common.RtnMessage;
-import com.mall.utils.RtnMessageUtils;
+import com.mall.api.utils.RtnMessageUtils;
 import com.mall.wxshop.entity.shop.TShop;
 import com.mall.wxshop.service.shop.TShopService;
 import com.mall.wxshop.util.DistanceUtil;
