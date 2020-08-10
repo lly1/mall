@@ -259,8 +259,8 @@
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"></button>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-                filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
-                filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
+                filter: '<li class="multiselect-item com.mall.wx.filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
+                filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-com.mall.wx.filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
                 li: '<li><a href="javascript:void(0);"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
                 liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
@@ -707,11 +707,11 @@
         },
 
         /**
-         * Builds the filter.
+         * Builds the com.mall.wx.filter.
          */
         buildFilter: function() {
 
-            // Build filter if filtering OR case insensitive filtering is enabled and the number of options exceeds (or equals) enableFilterLength.
+            // Build com.mall.wx.filter if filtering OR case insensitive filtering is enabled and the number of options exceeds (or equals) enableFilterLength.
             if (this.options.enableFiltering || this.options.enableCaseInsensitiveFiltering) {
                 var enableFilterLength = Math.max(this.options.enableFiltering, this.options.enableCaseInsensitiveFiltering);
 
@@ -720,13 +720,13 @@
                     this.$filter = $(this.options.templates.filter);
                     $('input', this.$filter).attr('placeholder', this.options.filterPlaceholder);
                     
-                    // Adds optional filter clear button
+                    // Adds optional com.mall.wx.filter clear button
                     if(this.options.includeFilterClearBtn){
                         var clearBtn = $(this.options.templates.filterClearBtn);
                         clearBtn.on('click', $.proxy(function(event){
                             clearTimeout(this.searchTimeout);
                             this.$filter.find('.multiselect-search').val('');
-                            $('li', this.$ul).show().removeClass("filter-hidden");
+                            $('li', this.$ul).show().removeClass("com.mall.wx.filter-hidden");
                             this.updateSelectAll();
                         }, this));
                         this.$filter.find('.input-group').append(clearBtn);
@@ -779,7 +779,7 @@
                                         }
 
                                         // Toggle current element (group or group item) according to showElement boolean.
-                                        $(element).toggle(showElement).toggleClass('filter-hidden', !showElement);
+                                        $(element).toggle(showElement).toggleClass('com.mall.wx.filter-hidden', !showElement);
                                         
                                         // Differentiate groups and group items.
                                         if ($(element).hasClass('multiselect-group')) {
@@ -790,12 +790,12 @@
                                         else {
                                             // Show group name when at least one of its items is visible.
                                             if (showElement) {
-                                                $(currentGroup).show().removeClass('filter-hidden');
+                                                $(currentGroup).show().removeClass('com.mall.wx.filter-hidden');
                                             }
                                             
-                                            // Show all group items when group name satisfies filter.
+                                            // Show all group items when group name satisfies com.mall.wx.filter.
                                             if (!showElement && currentGroupVisible) {
-                                                $(element).show().removeClass('filter-hidden');
+                                                $(element).show().removeClass('com.mall.wx.filter-hidden');
                                             }
                                         }
                                     }
@@ -1040,7 +1040,7 @@
         /**
          * Rebuild the plugin.
          * 
-         * Rebuilds the dropdown, the filter and the select all option.
+         * Rebuilds the dropdown, the com.mall.wx.filter and the select all option.
          */
         rebuild: function() {
             this.$ul.html('');
@@ -1157,7 +1157,7 @@
          */
         updateSelectAll: function() {
             if (this.hasSelectAll()) {
-                var allBoxes = $("li:not(.multiselect-item):not(.filter-hidden) input:enabled", this.$ul);
+                var allBoxes = $("li:not(.multiselect-item):not(.com.mall.wx.filter-hidden) input:enabled", this.$ul);
                 var allBoxesLength = allBoxes.length;
                 var checkedBoxesLength = allBoxes.filter(":checked").length;
                 var selectAllLi  = $("li." + this.options.selectAllValue, this.$ul);

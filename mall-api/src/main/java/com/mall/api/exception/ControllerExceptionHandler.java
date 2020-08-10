@@ -1,6 +1,6 @@
 package com.mall.api.exception;
 
-import com.mall.common.RtnMessage;
+import com.mall.api.entity.base.RtnMessage;
 import com.mall.api.constant.ErrorType;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerExceptionResolver;

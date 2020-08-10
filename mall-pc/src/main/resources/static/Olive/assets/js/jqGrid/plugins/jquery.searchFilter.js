@@ -61,9 +61,9 @@
  *
  * RETURN TYPE: This plugin returns a SearchFilter object, which has additional SearchFilter methods:
  *     Methods
- *         add:    Adds a filter. added to the end of the list unless a jQuery event object or valid row number is passed.
- *         del:    Removes a filter. removed from the end of the list unless a jQuery event object or valid row number is passed.
- *         reset:  resets filters back to original state (only one blank filter), and calls onReset
+ *         add:    Adds a com.mall.wx.filter. added to the end of the list unless a jQuery event object or valid row number is passed.
+ *         del:    Removes a com.mall.wx.filter. removed from the end of the list unless a jQuery event object or valid row number is passed.
+ *         reset:  resets filters back to original state (only one blank com.mall.wx.filter), and calls onReset
  *         search: puts the search rules into an object and calls onSearch with it
  *         close:  calls the onClose event handler
  *
@@ -86,10 +86,10 @@
  *         Methods
  *             initializing: $("#mySearch").searchFilter([{text: "Field 1", value: "field1"},{text: "Field 2", value: "field2"}], {onSearch: myFilterRuleReceiverFn, onReset: myFilterResetFn });
  *         Manual Methods (there's no need to call these methods unless you are trying to manipulate searchFilter with script)
- *             add:          $("#mySearch").searchFilter().add();     // appends a blank filter
- *                           $("#mySearch").searchFilter().add(0);    // copies the first filter as second
- *             del:          $("#mySearch").searchFilter().del();     // removes the bottom filter
- *                           $("#mySearch").searchFilter().del(1);    // removes the second filter
+ *             add:          $("#mySearch").searchFilter().add();     // appends a blank com.mall.wx.filter
+ *                           $("#mySearch").searchFilter().add(0);    // copies the first com.mall.wx.filter as second
+ *             del:          $("#mySearch").searchFilter().del();     // removes the bottom com.mall.wx.filter
+ *                           $("#mySearch").searchFilter().del(1);    // removes the second com.mall.wx.filter
  *             search:       $("#mySearch").searchFilter().search();  // invokes onSearch, passing it a ruleGroup object
  *             reset:        $("#mySearch").searchFilter().reset();   // resets rules and invokes onReset
  *             close:        $("#mySearch").searchFilter().close();   // without an onClose handler, equivalent to $("#mySearch").hide();
@@ -99,9 +99,9 @@
  *         $("#mySearch").searchFilter().add().add().reset().$.hide();
  *     Verbose Example
  *         $("#mySearch")      // gets jQuery object for the HTML element with id="mySearch"
- *             .searchFilter() // gets the SearchFilter object for an existing search filter
- *             .add()          // adds a new filter to the end of the list
- *             .add()          // adds another new filter to the end of the list
+ *             .searchFilter() // gets the SearchFilter object for an existing search com.mall.wx.filter
+ *             .add()          // adds a new com.mall.wx.filter to the end of the list
+ *             .add()          // adds another new com.mall.wx.filter to the end of the list
  *             .reset()        // resets filters back to original state, triggers onReset
  *             .$              // returns jQuery object for $("#mySearch")
  *             .hide();        // equivalent to $("#mySearch").hide();
@@ -374,11 +374,11 @@ jQuery.fn.searchFilter = function(fields, options) {
             });
             jQ.find(".ui-del").click(function(e) {
                 var row = jQuery(e.target).parents(".sf");
-                if (row.siblings(".sf").length > 0) { // doesn't remove if there's only one filter left
+                if (row.siblings(".sf").length > 0) { // doesn't remove if there's only one com.mall.wx.filter left
                     if (opts.datepickerFix === true && jQuery.fn.datepicker !== undefined)
                         row.find(".hasDatepicker").datepicker("destroy"); // clean up datepicker's $.data mess
                     row.remove(); // also unbinds
-                } else { // resets the filter if it's the last one
+                } else { // resets the com.mall.wx.filter if it's the last one
                     row.find("select[name='field']")[0].selectedIndex = 0;
                     row.find("select[name='op']")[0].selectedIndex = 0;
                     row.find(".data input").val(""); // blank all input values
@@ -492,16 +492,16 @@ jQuery.fn.searchFilter = function(fields, options) {
             };
 
             this.setFilter = function(settings) {
-                /* a "setter" for an arbitrary SearchFilter's filter line.
+                /* a "setter" for an arbitrary SearchFilter's com.mall.wx.filter line.
                  * designed to abstract the DOM manipulations required to infer
-                 * a particular filter is a fit to the search box.
+                 * a particular com.mall.wx.filter is a fit to the search box.
                  *
                  * Inputs:
                  *  settings - an "object" (dictionary)
-                 *   index (optional*) (to be implemented in the future) : signed integer index (from top to bottom per DOM) of the filter line to fill.
+                 *   index (optional*) (to be implemented in the future) : signed integer index (from top to bottom per DOM) of the com.mall.wx.filter line to fill.
                  *           Negative integers (rooted in -1 and lower) denote position of the line from the bottom.
                  *   sfref (optional*) : DOM object referencing individual '.sf' (normally a TR element) to be populated. (optional)
-                 *   filter (mandatory) : object (dictionary) of form {'field':'field_value','op':'op_value','data':'data value'}
+                 *   com.mall.wx.filter (mandatory) : object (dictionary) of form {'field':'field_value','op':'op_value','data':'data value'}
                  *
                  * * It is mandatory to have either index or sfref defined.
                  *
@@ -632,7 +632,7 @@ jQuery.fn.searchFilter.defaults = {
      * TYPE:        array of objects, each object has the properties op and text 
      * DESCRIPTION: the selectable operators that are applied between rules
      *              e.g. for {op:"AND", text:"all"}
-     *                  the search filter box will say: match all rules
+     *                  the search com.mall.wx.filter box will say: match all rules
      *                  the server should interpret this as putting the AND op between each rule:
      *                      rule1 AND rule2 AND rule3
      *              text will be the option text, and op will be the option value

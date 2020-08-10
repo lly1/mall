@@ -250,7 +250,7 @@ $.extend(groupview, {
 		var state = $.data(target, 'datagrid');
 		var dc = state.dc;
 		var ht = dc.header2.find('table');
-		var fr = ht.find('tr.datagrid-filter-row').hide();
+		var fr = ht.find('tr.datagrid-com.mall.wx.filter-row').hide();
 		var ww = ht.width();
 		if (groupIndex == undefined){
 			var groupHeader = dc.body2.children('div.datagrid-group');

@@ -7,10 +7,10 @@
 	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
 	<script type="text/javascript" src="../../jquery.min.js"></script>
 	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="datagrid-filter.js"></script>
+	<script type="text/javascript" src="datagrid-com.mall.wx.filter.js"></script>
 	<style>
-		.icon-filter{
-			background:url('filter.png') no-repeat center center;
+		.icon-com.mall.wx.filter{
+			background:url('com.mall.wx.filter.png') no-repeat center center;
 		}
 	</style>
 	<script>
@@ -28,7 +28,7 @@
         ];
 		$(function(){
 			var dg = $('#dg').datagrid({
-				filterBtnIconCls:'icon-filter'
+				filterBtnIconCls:'icon-com.mall.wx.filter'
 			});
 			dg.datagrid('enableFilter', [{
 				field:'listprice',

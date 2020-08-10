@@ -348,7 +348,7 @@
       var drop =
           '<div class="btn-group bootstrap-select' + multiple + inputGroup + '">' +
           '<button type="button" class="btn dropdown-toggle form-control selectpicker" data-toggle="dropdown"' + autofocus + '>' +
-          '<span class="filter-option pull-left"></span>&nbsp;' +
+          '<span class="com.mall.wx.filter-option pull-left"></span>&nbsp;' +
           '<span class="caret"></span>' +
           '</button>' +
           '<div class="dropdown-menu open">' +
@@ -550,7 +550,7 @@
 
       //strip all html-tags and trim the result
       this.$button.attr('title', $.trim(title.replace(/<[^>]*>?/g, '')));
-      this.$newElement.find('.filter-option').html(title);
+      this.$newElement.find('.com.mall.wx.filter-option').html(title);
     },
 
     /**

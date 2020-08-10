@@ -93,7 +93,7 @@
 //          This method parses a JSON text to produce an object or array.
 //          It can throw a SyntaxError exception.
 
-//          The optional reviver parameter is a function that can filter and
+//          The optional reviver parameter is a function that can com.mall.wx.filter and
 //          transform the results. It receives each of the keys and values,
 //          and its return value is used instead of the original value.
 //          If it returns what it received, then the structure is not modified.

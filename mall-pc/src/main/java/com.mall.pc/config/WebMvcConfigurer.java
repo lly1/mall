@@ -3,7 +3,7 @@ package com.mall.config;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.mall.filter.MyHandlerInterceptor;
+import com.mall.wx.filter.MyHandlerInterceptor;
 import com.mall.api.utils.UploadUtils;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;

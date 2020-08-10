@@ -168,7 +168,7 @@
 	function moving(target){
 		var plugin = $(target).datagrid('_getPluginName');
 		var opts = $(target)[plugin]('options');
-		var cells = $(target).datagrid('getPanel').find('div.datagrid-header td[field]:not(:has(.datagrid-filter-c))');
+		var cells = $(target).datagrid('getPanel').find('div.datagrid-header td[field]:not(:has(.datagrid-com.mall.wx.filter-c))');
 		cells.draggable({
 			revert: true,
 			cursor: 'pointer',
@@ -210,7 +210,7 @@
 				return false;
 			}
 		}).droppable({
-			accept: 'td[field]:not(:has(.datagrid-filter-c))',
+			accept: 'td[field]:not(:has(.datagrid-com.mall.wx.filter-c))',
 			onDragOver: function(e, source){
 				$(source).draggable('proxy').removeClass('tree-dnd-no').addClass('tree-dnd-yes');
 				var width = $(this).outerWidth();
@@ -346,7 +346,7 @@
 
 	function dnd(target){
 		var opts = $(target).treegrid('options');
-		var cells = $(target).treegrid('getPanel').find('.datagrid-header td[field]:not(:has(.datagrid-filter-c))');
+		var cells = $(target).treegrid('getPanel').find('.datagrid-header td[field]:not(:has(.datagrid-com.mall.wx.filter-c))');
 		cells.draggable({
 			revert: true,
 			cursor: 'pointer',
@@ -386,7 +386,7 @@
 		});
 		var cc = $(opts.groupHeader);
 		cc.droppable({
-			accept: 'td[field]:not(:has(.datagrid-filter-c))',
+			accept: 'td[field]:not(:has(.datagrid-com.mall.wx.filter-c))',
 			onDragOver: function(e, source){
 				$(source).draggable('proxy').removeClass('tree-dnd-no').addClass('tree-dnd-yes');
 			},

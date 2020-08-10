@@ -34,7 +34,7 @@ public class DruidConfiguration{
         filterRegistrationBean.addInitParameter("profileEnable", "true");
         filterRegistrationBean.addInitParameter("principalCookieName","USER_COOKIE");
         filterRegistrationBean.addInitParameter("principalSessionName","");
-        filterRegistrationBean.addInitParameter("aopPatterns","com.casesoft.mgr.service");
+        filterRegistrationBean.addInitParameter("aopPatterns","com.casesoft.mgr.com.mall.provider.service.wx.service");
         filterRegistrationBean.addUrlPatterns("/*");
         return filterRegistrationBean;
     }

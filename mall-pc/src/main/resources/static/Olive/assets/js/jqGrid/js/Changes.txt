@@ -878,7 +878,7 @@ processData: "",
 Added the following options
 ---------------------------
 
-recreateFilter: false, This option construct the filter every time a search
+recreateFilter: false, This option construct the com.mall.wx.filter every time a search
 button is clicked.
 
 multipleSearch : false, When set to false the behaviour of the search is the
@@ -897,7 +897,7 @@ filters ={
 
 groupOp determines the logical operator that can be used in the where statement
 of the select. The value can be AND or OR. This can be changed used a select box
-which is created at bottom of the search filter.
+which is created at bottom of the search com.mall.wx.filter.
 
 The rules array describes actually which fields and how they are included in the
 where clause The field element describes the name of the field The op element
@@ -1064,7 +1064,7 @@ In the custom module is added new method filterToolbar.
 This method is the same as filterGrid, except that the search input elements are
 placed in the grid just below the header elements. When the header elements are
 resized the input search elements are also resized according to the new width.
-Another difference to the filterGrid is that the filter toolbar uses definitions
+Another difference to the filterGrid is that the com.mall.wx.filter toolbar uses definitions
 from colModel just like the searchGrid
 
 Should be called like this

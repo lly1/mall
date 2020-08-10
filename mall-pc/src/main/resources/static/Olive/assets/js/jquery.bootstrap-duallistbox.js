@@ -15,13 +15,13 @@
       nonSelectedListLabel: false,                                                        // 'string', false
       helperSelectNamePostfix: '_helper',                                                 // 'string_of_postfix' / false
       selectorMinimalHeight: 100,
-      showFilterInputs: true,                                                             // whether to show filter inputs
-      nonSelectedFilter: '',                                                              // string, filter the non selected options
-      selectedFilter: '',                                                                 // string, filter the selected options
+      showFilterInputs: true,                                                             // whether to show com.mall.wx.filter inputs
+      nonSelectedFilter: '',                                                              // string, com.mall.wx.filter the non selected options
+      selectedFilter: '',                                                                 // string, com.mall.wx.filter the selected options
       infoText: 'Showing all {0}',                                                        // text when all options are visible / false for no info text
-      infoTextFiltered: '<span class="label label-warning">Filtered</span> {0} from {1}', // when not all of the options are visible due to the filter
+      infoTextFiltered: '<span class="label label-warning">Filtered</span> {0} from {1}', // when not all of the options are visible due to the com.mall.wx.filter
       infoTextEmpty: 'Empty list',                                                        // when there are no options present in the list
-      filterOnValues: false                                                               // filter by selector's values, boolean
+      filterOnValues: false                                                               // com.mall.wx.filter by selector's values, boolean
 	  , buttonClass: 'btn-white btn-bold'//ACE
     },
     // Selections are invisible on android if the containing select is styled with CSS
@@ -315,7 +315,7 @@
         '     <span class="info"></span>' +
         '     <button type="button" class="btn clear1 pull-right"></button>' +
         '   </span>' +
-        '   <input class="filter" type="text">' +
+        '   <input class="com.mall.wx.filter" type="text">' +
         '   <div class="btn-group buttons">' +
         '     <button type="button" class="btn moveall">' +
         '       <i></i>' +
@@ -333,7 +333,7 @@
         '     <span class="info"></span>' +
         '     <button type="button" class="btn clear2 pull-right"></button>' +
         '   </span>' +
-        '   <input class="filter" type="text">' +
+        '   <input class="com.mall.wx.filter" type="text">' +
         '   <div class="btn-group buttons">' +
         '     <button type="button" class="btn remove">' +
         '       <i></i>' +
@@ -353,8 +353,8 @@
         originalSelect: this.element,
         box1: $('.box1', this.container),
         box2: $('.box2', this.container),
-        filterInput1: $('.box1 .filter', this.container),
-        filterInput2: $('.box2 .filter', this.container),
+        filterInput1: $('.box1 .com.mall.wx.filter', this.container),
+        filterInput2: $('.box2 .com.mall.wx.filter', this.container),
         filterClear1: $('.box1 .clear1', this.container),
         filterClear2: $('.box2 .clear2', this.container),
         label1: $('.box1 > label', this.container),
@@ -367,7 +367,7 @@
         removeButton: $('.box2 .remove', this.container),
         moveAllButton: $('.box1 .moveall', this.container),
         removeAllButton: $('.box2 .removeall', this.container),
-        form: $($('.box1 .filter', this.container)[0].form)
+        form: $($('.box1 .com.mall.wx.filter', this.container)[0].form)
       };
 
       // Set select IDs

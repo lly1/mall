@@ -4259,7 +4259,7 @@ var selectable = $.widget("ui.selectable", $.ui.mouse, {
 
 		this.dragged = false;
 
-		// cache selectee children based on filter
+		// cache selectee children based on com.mall.wx.filter
 		this.refresh = function() {
 			selectees = $(that.options.filter, that.element[0]);
 			selectees.addClass("ui-selectee");

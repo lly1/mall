@@ -9,6 +9,9 @@
     <modules>
         <module>mall-api</module>
         <module>mall-pc</module>
+        <module>mall-wx</module>
+        <module>mall-provider</module>
+        <module>mall-common</module>
     </modules>
     <name>mall</name>
     <description>mall</description>

@@ -65,7 +65,7 @@
 				'.portal-column{padding:10px 0 10px 10px;overflow:hidden;}' +
 				'.portal-column-left{padding-left:10px;}' +
 				'.portal-column-right{padding-right:10px;}' +
-				'.portal-proxy{opacity:0.6;filter:alpha(opacity=60);}' +
+				'.portal-proxy{opacity:0.6;com.mall.wx.filter:alpha(opacity=60);}' +
 				'.portal-spacer{border:3px dashed #eee;margin-bottom:10px;}' +
 				'</style>'
 			);

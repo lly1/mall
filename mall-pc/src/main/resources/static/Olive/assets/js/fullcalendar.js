@@ -5891,7 +5891,7 @@
 
         // Associate each segment (an object) with an element (a jQuery object),
         // by setting each `segment.element`.
-        // Run each element through the `eventRender` filter, which allows developers to
+        // Run each element through the `eventRender` com.mall.wx.filter, which allows developers to
         // modify an existing element, supply a new one, or cancel rendering.
         function resolveElements(segments, elements) {
             for (var i=0; i<segments.length; i++) {

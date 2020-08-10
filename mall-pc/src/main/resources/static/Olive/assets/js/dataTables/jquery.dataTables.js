@@ -1078,7 +1078,7 @@
 	 *  @param {object} settings dataTables settings object
 	 *  @param {int} rowIdx aoData row id
 	 *  @param {int} colIdx Column index
-	 *  @param {string} type data get type ('display', 'type' 'filter' 'sort')
+	 *  @param {string} type data get type ('display', 'type' 'com.mall.wx.filter' 'sort')
 	 *  @returns {*} Cell data
 	 *  @memberof DataTable#oApi
 	 */
@@ -1460,7 +1460,7 @@
 	 * @memberof DataTable#oApi
 	 *
 	 * @todo For the modularisation of v1.11 this will need to become a callback, so
-	 *   the sort and filter methods can subscribe to it. That will required
+	 *   the sort and com.mall.wx.filter methods can subscribe to it. That will required
 	 *   initialisation options for sorting, which is why it is not already baked in
 	 */
 	function _fnInvalidate( settings, rowIdx, src, colIdx )
@@ -2740,11 +2740,11 @@
 			.append( $('<label/>' ).append( str ) );
 	
 		var searchFn = function() {
-			/* Update all other filter input elements for the new display */
+			/* Update all other com.mall.wx.filter input elements for the new display */
 			var n = features.f;
 			var val = !this.value ? "" : this.value; // mental IE8 fix :-(
 	
-			/* Now do the filter */
+			/* Now do the com.mall.wx.filter */
 			if ( val != previousSearch.sSearch ) {
 				_fnFilterComplete( settings, {
 					"sSearch": val,
@@ -2801,7 +2801,7 @@
 	
 	
 	/**
-	 * Filter the table using both the global filter and column based filtering
+	 * Filter the table using both the global com.mall.wx.filter and column based filtering
 	 *  @param {object} oSettings dataTables settings object
 	 *  @param {object} oSearch search information
 	 *  @param {int} [iForce] force a research of the master array (1) or not (undefined or 0)
@@ -2830,11 +2830,11 @@
 		/* In server-side processing all filtering is done by the server, so no point hanging around here */
 		if ( _fnDataSource( oSettings ) != 'ssp' )
 		{
-			/* Global filter */
+			/* Global com.mall.wx.filter */
 			_fnFilter( oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive );
 			fnSaveFilter( oInput );
 	
-			/* Now do the individual column filter */
+			/* Now do the individual column com.mall.wx.filter */
 			for ( var i=0 ; i<aoPrevSearch.length ; i++ )
 			{
 				_fnFilterColumn( oSettings, aoPrevSearch[i].sSearch, i, fnRegex(aoPrevSearch[i]),
@@ -2890,8 +2890,8 @@
 	/**
 	 * Filter the table on a per-column basis
 	 *  @param {object} oSettings dataTables settings object
-	 *  @param {string} sInput string to filter on
-	 *  @param {int} iColumn column to filter
+	 *  @param {string} sInput string to com.mall.wx.filter on
+	 *  @param {int} iColumn column to com.mall.wx.filter
 	 *  @param {bool} bRegex treat search string as a regular expression or not
 	 *  @param {bool} bSmart use smart filtering or not
 	 *  @param {bool} bCaseInsensitive Do case insenstive matching or not
@@ -2920,7 +2920,7 @@
 	/**
 	 * Filter the data table based on user input and draw the table
 	 *  @param {object} settings dataTables settings object
-	 *  @param {string} input string to filter on
+	 *  @param {string} input string to com.mall.wx.filter on
 	 *  @param {int} force optional - force a research of the master array (1) or not (undefined or 0)
 	 *  @param {bool} regex treat as a regular expression or not
 	 *  @param {bool} smart perform smart filtering or not
@@ -2934,7 +2934,7 @@
 		var displayMaster = settings.aiDisplayMaster;
 		var display, invalidated, i;
 	
-		// Need to take account of custom filtering functions - always filter
+		// Need to take account of custom filtering functions - always com.mall.wx.filter
 		if ( DataTable.ext.search.length !== 0 ) {
 			force = true;
 		}
@@ -3064,7 +3064,7 @@
 						cellData = '';
 					}
 	
-					// If it looks like there is an HTML com.mall.api.entity in the string,
+					// If it looks like there is an HTML com.mall.api.com.mall.wx.entity in the string,
 					// attempt to decode it so sorting works as expected. Note that
 					// we could use a single line of jQuery to do this, but the DOM
 					// method used here is much faster http://jsperf.com/html-decode
@@ -3289,7 +3289,7 @@
 					}
 	
 					// Reset the init display for cookie saving. We've already done
-					// a filter, and therefore cleared it before. So we need to make
+					// a com.mall.wx.filter, and therefore cleared it before. So we need to make
 					// it appear 'fresh'
 					settings.iInitDisplayStart = iAjaxStart;
 	
@@ -5270,14 +5270,14 @@
 		 * return the resulting jQuery object.
 		 *  @param {string|node|jQuery} sSelector jQuery selector or node collection to act on
 		 *  @param {object} [oOpts] Optional parameters for modifying the rows to be included
-		 *  @param {string} [oOpts.filter=none] Select TR elements that meet the current filter
-		 *    criterion ("applied") or all TR elements (i.e. no filter).
+		 *  @param {string} [oOpts.com.mall.wx.filter=none] Select TR elements that meet the current com.mall.wx.filter
+		 *    criterion ("applied") or all TR elements (i.e. no com.mall.wx.filter).
 		 *  @param {string} [oOpts.order=current] Order of the TR elements in the processed array.
 		 *    Can be either 'current', whereby the current sorting of the table is used, or
 		 *    'original' whereby the original order the data was read into the table is used.
 		 *  @param {string} [oOpts.page=all] Limit the selection to the currently displayed page
 		 *    ("current") or not ("all"). If 'current' is given, then order is assumed to be
-		 *    'current' and filter is 'applied', regardless of what they might be given as.
+		 *    'current' and com.mall.wx.filter is 'applied', regardless of what they might be given as.
 		 *  @returns {object} jQuery object, filtered by the given selector.
 		 *  @dtopt API
 		 *  @deprecated Since v1.10
@@ -5295,7 +5295,7 @@
 		 *      var oTable = $('#example').dataTable();
 		 *
 		 *      // Filter to rows with 'Webkit' in them, add a background colour and then
-		 *      // remove the filter, thus highlighting the 'Webkit' rows only.
+		 *      // remove the com.mall.wx.filter, thus highlighting the 'Webkit' rows only.
 		 *      oTable.fnFilter('Webkit');
 		 *      oTable.$('tr', {"search": "applied"}).css('backgroundColor', 'blue');
 		 *      oTable.fnFilter('');
@@ -5318,14 +5318,14 @@
 		 * same parameters and the array indexes will match identically.
 		 *  @param {string|node|jQuery} sSelector jQuery selector or node collection to act on
 		 *  @param {object} [oOpts] Optional parameters for modifying the rows to be included
-		 *  @param {string} [oOpts.filter=none] Select elements that meet the current filter
-		 *    criterion ("applied") or all elements (i.e. no filter).
+		 *  @param {string} [oOpts.com.mall.wx.filter=none] Select elements that meet the current com.mall.wx.filter
+		 *    criterion ("applied") or all elements (i.e. no com.mall.wx.filter).
 		 *  @param {string} [oOpts.order=current] Order of the data in the processed array.
 		 *    Can be either 'current', whereby the current sorting of the table is used, or
 		 *    'original' whereby the original order the data was read into the table is used.
 		 *  @param {string} [oOpts.page=all] Limit the selection to the currently displayed page
 		 *    ("current") or not ("all"). If 'current' is given, then order is assumed to be
-		 *    'current' and filter is 'applied', regardless of what they might be given as.
+		 *    'current' and com.mall.wx.filter is 'applied', regardless of what they might be given as.
 		 *  @returns {array} Data for the matched elements. If any elements, as a result of the
 		 *    selector, were not TR, TD or TH elements in the DataTable, they will have a null
 		 *    entry in the array.
@@ -5587,7 +5587,7 @@
 		
 		/**
 		 * Redraw the table
-		 *  @param {bool} [complete=true] Re-filter and resort (if enabled) the table before the draw.
+		 *  @param {bool} [complete=true] Re-com.mall.wx.filter and resort (if enabled) the table before the draw.
 		 *  @dtopt API
 		 *  @deprecated Since v1.10
 		 *
@@ -5609,11 +5609,11 @@
 		
 		/**
 		 * Filter the input based on data
-		 *  @param {string} sInput String to filter the table on
+		 *  @param {string} sInput String to com.mall.wx.filter the table on
 		 *  @param {int|null} [iColumn] Column to limit filtering to
 		 *  @param {bool} [bRegex=false] Treat as regular expression or not
 		 *  @param {bool} [bSmart=true] Perform smart filtering or not
-		 *  @param {bool} [bShowGlobal=true] Show the input global filter in it's input box(es)
+		 *  @param {bool} [bShowGlobal=true] Show the input global com.mall.wx.filter in it's input box(es)
 		 *  @param {bool} [bCaseInsensitive=true] Do case-insensitive matching (true) or not (false)
 		 *  @dtopt API
 		 *  @deprecated Since v1.10
@@ -5622,7 +5622,7 @@
 		 *    $(document).ready(function() {
 		 *      var oTable = $('#example').dataTable();
 		 *
-		 *      // Sometime later - filter...
+		 *      // Sometime later - com.mall.wx.filter...
 		 *      oTable.fnFilter( 'test string' );
 		 *    } );
 		 */
@@ -7228,7 +7228,7 @@
 	 * Redraw the tables in the current context.
 	 *
 	 * @param {boolean} [reset=true] Reset (default) or hold the current paging
-	 *   position. A full re-sort and re-filter is performed when this method is
+	 *   position. A full re-sort and re-com.mall.wx.filter is performed when this method is
 	 *   called, which is why the pagination reset is the default action.
 	 * @returns {DataTables.Api} this
 	 */
@@ -7412,7 +7412,7 @@
 	 * automatically re-draw the table when the remote data has been loaded.
 	 *
 	 * @param {boolean} [reset=true] Reset (default) or hold the current paging
-	 *   position. A full re-sort and re-filter is performed when this method is
+	 *   position. A full re-sort and re-com.mall.wx.filter is performed when this method is
 	 *   called, which is why the pagination reset is the default action.
 	 * @returns {DataTables.Api} this
 	 */
@@ -7524,7 +7524,7 @@
 			opts = {};
 		}
 	
-		// Backwards compatibility for 1.9- which used the terminology filter rather
+		// Backwards compatibility for 1.9- which used the terminology com.mall.wx.filter rather
 		// than search
 		if ( opts.filter && ! opts.search ) {
 			opts.search = opts.filter;
@@ -7676,7 +7676,7 @@
 			}
 	
 			// Selector - jQuery selector string, array of nodes or jQuery object/
-			// As jQuery's .filter() allows jQuery objects to be passed in filter,
+			// As jQuery's .com.mall.wx.filter() allows jQuery objects to be passed in com.mall.wx.filter,
 			// it also allows arrays, so this will cope with all three options
 			return $(nodes)
 				.filter( sel )
@@ -9100,7 +9100,7 @@
 	
 	/**
 	 * Template object for the way in which DataTables holds information about
-	 * search information for the global filter and individual column filters.
+	 * search information for the global com.mall.wx.filter and individual column filters.
 	 *  @namespace
 	 */
 	DataTable.models.oSearch = {
@@ -9330,7 +9330,7 @@
 		 *  @param {array|object} oData The data array/object for the array
 		 *    (i.e. aoData[]._aData)
 		 *  @param {string} sSpecific The specific data type you want to get -
-		 *    'display', 'type' 'filter' 'sort'
+		 *    'display', 'type' 'com.mall.wx.filter' 'sort'
 		 *  @returns {*} The data for the cell from the given row's data
 		 *  @default null
 		 */
@@ -9846,7 +9846,7 @@
 		 *      $('#example').dataTable( {
 		 *        "searchCols": [
 		 *          null,
-		 *          { "search": "My filter" },
+		 *          { "search": "My com.mall.wx.filter" },
 		 *          null,
 		 *          { "search": "^[0-9]", "escapeRegex": false }
 		 *        ]
@@ -9940,7 +9940,7 @@
 		 *
 		 *      // Some time later....
 		 *      $('#example').dataTable( {
-		 *        "filter": false,
+		 *        "com.mall.wx.filter": false,
 		 *        "destroy": true
 		 *      } );
 		 *    } );
@@ -10624,7 +10624,7 @@
 		 *  @name DataTable.defaults.stateLoadParams
 		 *
 		 *  @example
-		 *    // Remove a saved filter, so filtering is never loaded
+		 *    // Remove a saved com.mall.wx.filter, so filtering is never loaded
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "stateSave": true,
@@ -10664,7 +10664,7 @@
 		 *      $('#example').dataTable( {
 		 *        "stateSave": true,
 		 *        "stateLoaded": function (settings, data) {
-		 *          alert( 'Saved filter was: '+data.oSearch.sSearch );
+		 *          alert( 'Saved com.mall.wx.filter was: '+data.oSearch.sSearch );
 		 *        }
 		 *      } );
 		 *    } );
@@ -10725,7 +10725,7 @@
 		 *  @name DataTable.defaults.stateSaveParams
 		 *
 		 *  @example
-		 *    // Remove a saved filter, so filtering is never saved
+		 *    // Remove a saved com.mall.wx.filter, so filtering is never saved
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "stateSave": true,
@@ -10787,7 +10787,7 @@
 		 *    } );
 		 *
 		 *  @example
-		 *    // 57 records after filtering, 100 without filtering (an initial filter applied)
+		 *    // 57 records after filtering, 100 without filtering (an initial com.mall.wx.filter applied)
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "serverSide": true,
@@ -11323,11 +11323,11 @@
 			 *    } );
 			 *
 			 *  @example
-			 *    // Specify where the filter should appear
+			 *    // Specify where the com.mall.wx.filter should appear
 			 *    $(document).ready( function() {
 			 *      $('#example').dataTable( {
 			 *        "language": {
-			 *          "search": "Apply filter _INPUT_ to table"
+			 *          "search": "Apply com.mall.wx.filter _INPUT_ to table"
 			 *        }
 			 *      } );
 			 *    } );
@@ -11946,7 +11946,7 @@
 		 *    * Parameters:
 		 *      * `{array|object}` The data source for the row
 		 *      * `{string}` The type call data requested - this will be 'set' when
-		 *        setting data or 'filter', 'display', 'type', 'sort' or undefined
+		 *        setting data or 'com.mall.wx.filter', 'display', 'type', 'sort' or undefined
 		 *        when gathering data. Note that when `undefined` is given for the
 		 *        type DataTables expects to get the raw data for the object back<
 		 *      * `{*}` Data to set when the second parameter is 'set'.
@@ -12030,7 +12030,7 @@
 		 *          "data": function ( source, type, val ) {
 		 *            if (type === 'set') {
 		 *              source.price = val;
-		 *              // Store the computed dislay and filter values for efficiency
+		 *              // Store the computed dislay and com.mall.wx.filter values for efficiency
 		 *              source.price_display = val=="" ? "" : "$"+numberFormat(val);
 		 *              source.price_filter  = val=="" ? "" : "$"+numberFormat(val)+" "+val;
 		 *              return;
@@ -12038,7 +12038,7 @@
 		 *            else if (type === 'display') {
 		 *              return source.price_display;
 		 *            }
-		 *            else if (type === 'filter') {
+		 *            else if (type === 'com.mall.wx.filter') {
 		 *              return source.price_filter;
 		 *            }
 		 *            // 'sort', 'type' and undefined all just use the integer
@@ -12106,7 +12106,7 @@
 		 *      function in a nested property or even `browser().version` to get an
 		 *      object property if the function called returns an object.
 		 * * `object` - use different data for the different data types requested by
-		 *   DataTables ('filter', 'display', 'type' or 'sort'). The property names
+		 *   DataTables ('com.mall.wx.filter', 'display', 'type' or 'sort'). The property names
 		 *   of the object is the data type the property refers to and the value can
 		 *   defined using an integer, string or function using the same rules as
 		 *   `render` normally does. Note that an `_` option _must_ be specified.
@@ -12117,7 +12117,7 @@
 		 *   takes three parameters:
 		 *    * Parameters:
 		 *      * {array|object} The data source for the row (based on `data`)
-		 *      * {string} The type call data requested - this will be 'filter',
+		 *      * {string} The type call data requested - this will be 'com.mall.wx.filter',
 		 *        'display', 'type' or 'sort'.
 		 *      * {array|object} The full data source for the row (not based on
 		 *        `data`)
@@ -12173,7 +12173,7 @@
 		 *          "data": null, // Use the full data source object for the renderer's source
 		 *          "render": {
 		 *            "_": "phone",
-		 *            "filter": "phone_filter",
+		 *            "com.mall.wx.filter": "phone_filter",
 		 *            "display": "phone_display"
 		 *          }
 		 *        } ]

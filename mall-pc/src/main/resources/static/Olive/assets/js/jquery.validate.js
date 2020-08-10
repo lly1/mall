@@ -844,7 +844,7 @@ $.extend( $.validator, {
 				element = this.findByName( element.name );
 			}
 
-			// Always apply ignore filter
+			// Always apply ignore com.mall.wx.filter
 			return $( element ).not( this.settings.ignore )[ 0 ];
 		},
 

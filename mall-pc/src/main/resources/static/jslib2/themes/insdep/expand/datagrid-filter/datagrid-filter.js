@@ -14,7 +14,7 @@
 	$.extend($.fn.datagrid.methods, {
 		autoSizeColumn: function(jq, field){
 			return jq.each(function(){
-				var fc = $(this).datagrid('getPanel').find('.datagrid-header .datagrid-filter-c');
+				var fc = $(this).datagrid('getPanel').find('.datagrid-header .datagrid-com.mall.wx.filter-c');
 				// fc.hide();
 				fc.css({
 					width:'1px',
@@ -147,7 +147,7 @@
 
 	var extendedOptions = {
 		filterMenuIconCls: 'icon-ok',
-		filterBtnIconCls: 'icon-filter',
+		filterBtnIconCls: 'icon-com.mall.wx.filter',
 		filterBtnPosition: 'right',
 		filterPosition: 'bottom',
 		remoteFilter: false,
@@ -244,7 +244,7 @@
 				if (input.data('textbox')){
 					input = input.textbox('textbox');
 				}
-				input.unbind('.filter').bind('keydown.filter', function(e){
+				input.unbind('.com.mall.wx.filter').bind('keydown.com.mall.wx.filter', function(e){
 					var t = $(this);
 					if (this.timer){
 						clearTimeout(this.timer);
@@ -281,7 +281,7 @@
 		filterStringify: function(data){
 			return JSON.stringify(data);
 		},
-		// the function to retrieve the field value of a row to match the filter rule
+		// the function to retrieve the field value of a row to match the com.mall.wx.filter rule
 		val: function(row, field, formattedValue){
 			return formattedValue || row[field];
 		},
@@ -290,7 +290,7 @@
 	$.extend($.fn.datagrid.defaults, extendedOptions);
 	$.extend($.fn.treegrid.defaults, extendedOptions);
 	
-	// filter types
+	// com.mall.wx.filter types
 	$.fn.datagrid.defaults.filters = $.extend({}, $.fn.datagrid.defaults.editors, {
 		label: {
 			init: function(container, options){
@@ -309,7 +309,7 @@
 	});
 	$.fn.treegrid.defaults.filters = $.fn.datagrid.defaults.filters;
 	
-	// filter operators
+	// com.mall.wx.filter operators
 	$.fn.datagrid.defaults.operators = {
 		nofilter: {
 			text: 'No Filter'
@@ -381,13 +381,13 @@
 		var toFixColumnSize = false;
 		var dg = $(target);
 		var header = dg.datagrid('getPanel').find('div.datagrid-header');
-		var tr = header.find('.datagrid-header-row:not(.datagrid-filter-row)');
-		var ff = field ? header.find('.datagrid-filter[name="'+field+'"]') : header.find('.datagrid-filter');
+		var tr = header.find('.datagrid-header-row:not(.datagrid-com.mall.wx.filter-row)');
+		var ff = field ? header.find('.datagrid-com.mall.wx.filter[name="'+field+'"]') : header.find('.datagrid-com.mall.wx.filter');
 		ff.each(function(){
 			var name = $(this).attr('name');
 			var col = dg.datagrid('getColumnOption', name);
-			var cc = $(this).closest('div.datagrid-filter-c');
-			var btn = cc.find('a.datagrid-filter-btn');
+			var cc = $(this).closest('div.datagrid-com.mall.wx.filter-c');
+			var btn = cc.find('a.datagrid-com.mall.wx.filter-btn');
 			var cell = tr.find('td[field="'+name+'"] .datagrid-cell');
 			var cellWidth = cell._outerWidth();
 			if (cellWidth != _getContentWidth(cc)){
@@ -414,11 +414,11 @@
 	
 	function getFilterComponent(target, field){
 		var header = $(target).datagrid('getPanel').find('div.datagrid-header');
-		return header.find('tr.datagrid-filter-row td[field="'+field+'"] .datagrid-filter');
+		return header.find('tr.datagrid-com.mall.wx.filter-row td[field="'+field+'"] .datagrid-com.mall.wx.filter');
 	}
 	
 	/**
-	 * get filter rule index, return -1 if not found.
+	 * get com.mall.wx.filter rule index, return -1 if not found.
 	 */
 	function getRuleIndex(target, field){
 		var name = getPluginName(target);
@@ -697,8 +697,8 @@
 
 		var onResizeColumn = opts.onResizeColumn;
 		opts.onResizeColumn = function(field,width){
-			var fc = $(this).datagrid('getPanel').find('.datagrid-header .datagrid-filter-c');
-			var focusOne = fc.find('.datagrid-filter:focus');
+			var fc = $(this).datagrid('getPanel').find('.datagrid-header .datagrid-com.mall.wx.filter-c');
+			var focusOne = fc.find('.datagrid-com.mall.wx.filter:focus');
 			fc.hide();
 			$(target).datagrid('fitColumns');
 			if (opts.fitColumns){
@@ -759,22 +759,22 @@
 		});
 		
 		function initCss(){
-			if (!$('#datagrid-filter-style').length){
+			if (!$('#datagrid-com.mall.wx.filter-style').length){
 				$('head').append(
-					'<style id="datagrid-filter-style">' +
-					'a.datagrid-filter-btn{display:inline-block;width:22px;height:22px;margin:0;vertical-align:top;cursor:pointer;opacity:0.6;filter:alpha(opacity=60);}' +
-					'a:hover.datagrid-filter-btn{opacity:1;filter:alpha(opacity=100);}' +
-					'.datagrid-filter-row .textbox,.datagrid-filter-row .textbox .textbox-text{-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;}' +
-					'.datagrid-filter-row input{margin:0;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;}' +
-					'.datagrid-filter-c{overflow:hidden}' +
-					'.datagrid-filter-cache{position:absolute;width:10px;height:10px;left:-99999px;}' +
+					'<style id="datagrid-com.mall.wx.filter-style">' +
+					'a.datagrid-com.mall.wx.filter-btn{display:inline-block;width:22px;height:22px;margin:0;vertical-align:top;cursor:pointer;opacity:0.6;com.mall.wx.filter:alpha(opacity=60);}' +
+					'a:hover.datagrid-com.mall.wx.filter-btn{opacity:1;com.mall.wx.filter:alpha(opacity=100);}' +
+					'.datagrid-com.mall.wx.filter-row .textbox,.datagrid-com.mall.wx.filter-row .textbox .textbox-text{-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;}' +
+					'.datagrid-com.mall.wx.filter-row input{margin:0;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;}' +
+					'.datagrid-com.mall.wx.filter-c{overflow:hidden}' +
+					'.datagrid-com.mall.wx.filter-cache{position:absolute;width:10px;height:10px;left:-99999px;}' +
 					'</style>'
 				);
 			}
 		}
 		
 		/**
-		 * create filter component
+		 * create com.mall.wx.filter component
 		 */
 		function createFilter(frozen){
 			var dc = state.dc;
@@ -784,8 +784,8 @@
 			}
 			var table = (frozen?dc.header1:dc.header2).find('table.datagrid-htable');
 			
-			// clear the old filter component
-			table.find('.datagrid-filter').each(function(){
+			// clear the old com.mall.wx.filter component
+			table.find('.datagrid-com.mall.wx.filter').each(function(){
 				if (this.filter.destroy){
 					this.filter.destroy(this);
 				}
@@ -793,9 +793,9 @@
 					$(this.menu).menu('destroy');
 				}
 			});
-			table.find('tr.datagrid-filter-row').remove();
+			table.find('tr.datagrid-com.mall.wx.filter-row').remove();
 			
-			var tr = $('<tr class="datagrid-header-row datagrid-filter-row"></tr>');
+			var tr = $('<tr class="datagrid-header-row datagrid-com.mall.wx.filter-row"></tr>');
 			if (opts.filterPosition == 'bottom'){
 				tr.appendTo(table.find('tbody'));
 			} else {
@@ -821,7 +821,7 @@
 
 				var fopts = getFilter(field);
 				if (fopts){
-					$(target)[name]('destroyFilter', field);	// destroy the old filter component
+					$(target)[name]('destroyFilter', field);	// destroy the old com.mall.wx.filter component
 				} else {
 					fopts = $.extend({}, {
 						field: field,
@@ -832,10 +832,10 @@
 
 				var div = opts.filterCache[field];
 				if (!div){
-					div = $('<div class="datagrid-filter-c"></div>').appendTo(td);
+					div = $('<div class="datagrid-com.mall.wx.filter-c"></div>').appendTo(td);
 					var filter = opts.filters[fopts.type];
 					var input = filter.init(div, $.extend({height:24},fopts.options||{}));
-					input.addClass('datagrid-filter').attr('name', field);
+					input.addClass('datagrid-com.mall.wx.filter').attr('name', field);
 					input[0].filter = filter;
 					input[0].menu = createFilterButton(div, fopts.op);
 					if (fopts.options){
@@ -856,7 +856,7 @@
 		function createFilterButton(container, operators){
 			if (!operators){return null;}
 			
-			var btn = $('<a class="datagrid-filter-btn">&nbsp;</a>').addClass(opts.filterBtnIconCls);
+			var btn = $('<a class="datagrid-com.mall.wx.filter-btn">&nbsp;</a>').addClass(opts.filterBtnIconCls);
 			if (opts.filterBtnPosition == 'right'){
 				btn.appendTo(container);
 			} else {
@@ -876,7 +876,7 @@
 					var btn = $(this).menu('options').alignTo;
 					var td = btn.closest('td[field]');
 					var field = td.attr('field');
-					var input = td.find('.datagrid-filter');
+					var input = td.find('.datagrid-com.mall.wx.filter');
 					var value = input[0].filter.getValue(input);
 					
 					if (opts.onClickMenu.call(target, item, btn, field) == false){
@@ -945,9 +945,9 @@
 					return;
 				}
 				var dc = $(this).data('datagrid').dc;
-				var div = dc.view.children('.datagrid-filter-cache');
+				var div = dc.view.children('.datagrid-com.mall.wx.filter-cache');
 				if (!div.length){
-					div = $('<div class="datagrid-filter-cache"></div>').appendTo(dc.view);
+					div = $('<div class="datagrid-com.mall.wx.filter-cache"></div>').appendTo(dc.view);
 				}
 				for(var field in opts.filterCache){
 					$(opts.filterCache[field]).appendTo(div);
@@ -959,7 +959,7 @@
 						row.children = undefined;
 					});
 				}
-				dc.header1.add(dc.header2).find('tr.datagrid-filter-row').remove();
+				dc.header1.add(dc.header2).find('tr.datagrid-com.mall.wx.filter-row').remove();
 				opts.loadFilter = opts.oldLoadFilter || undefined;
 				opts.oldLoadFilter = null;
 				$(this)[name]('resize');
@@ -983,8 +983,8 @@
 					for(var f in opts.filterCache){
 						_destroy(f);
 					}
-					$(this).datagrid('getPanel').find('.datagrid-header .datagrid-filter-row').remove();
-					$(this).data('datagrid').dc.view.children('.datagrid-filter-cache').remove();
+					$(this).datagrid('getPanel').find('.datagrid-header .datagrid-com.mall.wx.filter-row').remove();
+					$(this).data('datagrid').dc.view.children('.datagrid-com.mall.wx.filter-cache').remove();
 					opts.filterCache = {};
 					$(this)[name]('resize');
 					$(this)[name]('disableFilter');
@@ -992,14 +992,14 @@
 
 				function _destroy(field){
 					var c = $(opts.filterCache[field]);
-					var input = c.find('.datagrid-filter');
+					var input = c.find('.datagrid-com.mall.wx.filter');
 					if (input.length){
 						var filter = input[0].filter;
 						if (filter.destroy){
 							filter.destroy(input[0]);
 						}
 					}
-					c.find('.datagrid-filter-btn').each(function(){
+					c.find('.datagrid-com.mall.wx.filter-btn').each(function(){
 						$(this.menu).menu('destroy');
 					});
 					c.remove();

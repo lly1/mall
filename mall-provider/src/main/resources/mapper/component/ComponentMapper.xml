@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mall.com.mall.provider.dao.component.TComponentCategoryMapper" >
+    <resultMap id="TComponentMap" type="com.mall.api.com.mall.wx.entity.component.TComponentCategory">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="delFlag" property="delFlag"/>
+        <association property="componentList" column="id" select="findComponentById"/>
+    </resultMap>
+    <select id="getComponent" resultMap="TComponentMap">
+        select id,name from t_component_category where delFlag = '0'
+    </select>
+
+    <select id="findComponentById" resultType="com.mall.api.com.mall.wx.entity.component.TComponent" parameterType="java.lang.String">
+        select id,name,category_id from t_component a where a.category_id = #{id} and a.delFlag = '0'
+    </select>
+
+</mapper>
+
+

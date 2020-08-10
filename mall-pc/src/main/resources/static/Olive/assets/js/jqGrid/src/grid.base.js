@@ -329,7 +329,7 @@ $.extend($.jgrid,{
 		}
 			ret = $(expr, obj);
 			if (returnObj) { return ret; }
-			//$(expr, obj).filter(':last'); // we use ':last' to be more compatible with old version of jqGrid
+			//$(expr, obj).com.mall.wx.filter(':last'); // we use ':last' to be more compatible with old version of jqGrid
 			return ret.length > 0 ? $(ret).text() : undefined;
 	},
 	cellWidth : function () {
@@ -1156,7 +1156,7 @@ $.extend($.jgrid,{
 				icon_sort_asc : "glyphicon-sort-by-alphabet",
 				icon_sort_desc : "glyphicon-sort-by-alphabet-alt",
 				icon_columns : "glyphicon-list-alt",
-				icon_filter : "glyphicon-filter",
+				icon_filter : "glyphicon-com.mall.wx.filter",
 				icon_group : "glyphicon-align-left",
 				icon_freeze : "glyphicon-object-align-horizontal",
 				icon_move: "glyphicon-move"

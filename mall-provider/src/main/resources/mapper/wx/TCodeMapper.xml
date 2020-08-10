@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mall.com.mall.provider.dao.wx.TCodeMapper" >
+    <select id="getCodeByShopId" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select code from t_code where shop_id = #{shopId} and delFlag = '0'
+    </select>
+
+    <update id="updateCode">
+        UPDATE t_code set code = code +1 where code = #{code} and shop_id = #{shopId}
+    </update>
+
+</mapper>
+
+

@@ -731,7 +731,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
         },
 
         /*
-        exclude complex objects from $.data() before pass to config
+        exclude complex objects from $.data() before pass to com.mall.wx.config
         */
         getConfigData: function($element) {
             var data = {};
@@ -970,7 +970,7 @@ Applied as jQuery method.
                     }
 
                     //for some reason FF 20 generates extra event (click) in select2 widget with e.target = document
-                    //we need to filter it via construction below. See https://github.com/vitalets/x-editable/issues/199
+                    //we need to com.mall.wx.filter it via construction below. See https://github.com/vitalets/x-editable/issues/199
                     //Possibly related to http://stackoverflow.com/questions/10119793/why-does-firefox-react-differently-from-webkit-and-ie-to-click-event-on-selec
                     if($target.is(document)) {
                        return; 
@@ -2044,7 +2044,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
             @param {object} options.data additional data to submit
             @param {object} options.ajaxOptions additional ajax options
             @param {function} options.error(obj) error handler 
-            @param {function} options.success(obj,config) success handler
+            @param {function} options.success(obj,com.mall.wx.config) success handler
             @returns {Object} jQuery object
             **/
             case 'submit':  //collects value, validate and submit to server for creating new record
@@ -2537,7 +2537,7 @@ To create your own input you can inherit from this class.
         //for internal use only
         scope: null,
         
-        //need to re-declare showbuttons here to get it's value from common config (passed only options existing in defaults)
+        //need to re-declare showbuttons here to get it's value from common com.mall.wx.config (passed only options existing in defaults)
         showbuttons: true 
     };
     
@@ -3722,7 +3722,7 @@ $(function(){
             }
         } 
 
-        //overriding objects in config (as by default jQuery extend() is not recursive)
+        //overriding objects in com.mall.wx.config (as by default jQuery extend() is not recursive)
         this.options.select2 = $.extend({}, Constructor.defaults.select2, options.select2);
 
         //detect whether it is multi-valued
@@ -4487,10 +4487,10 @@ $(function(){
             this.options.viewformat = this.options.format;
         }        
         
-        //try parse combodate config defined as json string in data-combodate
+        //try parse combodate com.mall.wx.config defined as json string in data-combodate
         options.combodate = $.fn.editableutils.tryParseJson(options.combodate, true);
 
-        //overriding combodate config (as by default jQuery extend() is not recursive)
+        //overriding combodate com.mall.wx.config (as by default jQuery extend() is not recursive)
         this.options.combodate = $.extend({}, Constructor.defaults.combodate, options.combodate, {
             format: this.options.format,
             template: this.options.template
@@ -4975,10 +4975,10 @@ $(function(){
                 this.options.viewformat = this.options.format;
             }
             
-            //try parse datetimepicker config defined as json string in data-datetimepicker
+            //try parse datetimepicker com.mall.wx.config defined as json string in data-datetimepicker
             options.datetimepicker = $.fn.editableutils.tryParseJson(options.datetimepicker, true);
 
-            //overriding datetimepicker config (as by default jQuery extend() is not recursive)
+            //overriding datetimepicker com.mall.wx.config (as by default jQuery extend() is not recursive)
             //since 1.4 datetimepicker internally uses viewformat instead of format. Format is for submit only
             this.options.datetimepicker = $.extend({}, defaults.datetimepicker, options.datetimepicker, {
                 format: this.options.viewformat
@@ -5237,7 +5237,7 @@ Automatically shown in inline mode.
         **/         
         inputclass: 'input-medium',
         
-        /* datetimepicker config */
+        /* datetimepicker com.mall.wx.config */
         datetimepicker:{
             todayHighlight: false,
             autoclose: true

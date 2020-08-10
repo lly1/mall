@@ -1,11 +1,11 @@
-package com.mall.controller;
+package com.mall.pc.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mall.common.BaseController;
-import com.mall.common.FrontPage;
-import com.mall.common.RtnMessage;
-import com.mall.common.RtnPageInfo;
+import com.mall.pc.common.BaseController;
+import com.mall.api.entity.base.FrontPage;
+import com.mall.api.entity.base.RtnMessage;
+import com.mall.api.entity.base.RtnPageInfo;
 import com.mall.api.entity.menu.Menu;
 import com.mall.api.entity.menu.SidebarMenu;
 import com.mall.service.menu.MenuService;

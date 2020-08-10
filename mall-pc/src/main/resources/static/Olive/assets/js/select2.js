@@ -2131,7 +2131,7 @@ the specific language governing permissions and limitations under the Apache Lic
             this.search.on("keydown", this.bind(function (e) {
                 if (!this.isInterfaceEnabled()) return;
 
-                // filter 229 keyCodes (input method editor is processing key input)
+                // com.mall.wx.filter 229 keyCodes (input method editor is processing key input)
                 if (229 == e.keyCode) return;
 
                 if (e.which === KEY.PAGE_UP || e.which === KEY.PAGE_DOWN) {
@@ -2959,7 +2959,7 @@ the specific language governing permissions and limitations under the Apache Lic
         updateSelection: function (data) {
             var ids = [], filtered = [], self = this;
 
-            // filter out duplicates
+            // com.mall.wx.filter out duplicates
             $(data).each(function () {
                 if (indexOf(self.id(this), ids) < 0) {
                     ids.push(self.id(this));
@@ -3231,7 +3231,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 this.select.val(val);
             } else {
                 unique = [];
-                // filter out duplicates
+                // com.mall.wx.filter out duplicates
                 $(val).each(function () {
                     if (indexOf(this, unique) < 0) unique.push(this);
                 });

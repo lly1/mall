@@ -2574,11 +2574,11 @@ if(!Array.prototype.indexOf){
 					height = bb.height();
 				}
 				
-				// temporarily remove filter to avoid recursion
+				// temporarily remove com.mall.wx.filter to avoid recursion
 				var filter = element.style('filter').value;
 				element.style('filter').value = '';
 				
-				// max filter distance
+				// max com.mall.wx.filter distance
 				var extraPercent = .20;
 				var px = extraPercent * width;
 				var py = extraPercent * height;
@@ -2598,7 +2598,7 @@ if(!Array.prototype.indexOf){
 				// render on me
 				ctx.drawImage(c, 0, 0, width + 2*px, height + 2*py, x - px, y - py, width + 2*px, height + 2*py);
 				
-				// reassign filter
+				// reassign com.mall.wx.filter
 				element.style('filter', true).value = filter;	
 			}
 			
@@ -3092,7 +3092,7 @@ if (CanvasRenderingContext2D) {
 		 * gradient. Currently canvg cannot render gradients (turns out black),
 		 * see: http://code.google.com/p/canvg/issues/detail?id=104
 		 *
-		 * @param {Object} color The color or config object
+		 * @param {Object} color The color or com.mall.wx.config object
 		 */
 		color: function (color, elem, prop) {
 			if (color && color.linearGradient) {

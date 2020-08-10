@@ -178,7 +178,7 @@ win.HighchartsAdapter = {
 	},
 
 	/**
-	 * Grep or filter an array
+	 * Grep or com.mall.wx.filter an array
 	 * @param {Array} arr
 	 * @param {Function} fn
 	 */

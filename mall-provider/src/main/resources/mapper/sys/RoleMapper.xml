@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mall.com.mall.provider.dao.user.RoleMapper" >
+    <select id="getUserRoles" resultType="com.mall.api.com.mall.wx.entity.user.Role" parameterType="java.lang.String">
+        select * from sys_role a,sys_user_role b where a.role_id = b.role_id and b.user_id = #{userId} and a.delFlag = 0
+    </select>
+
+
+    <select id="getRoleNameByUserId" resultType="com.mall.api.com.mall.wx.entity.user.Role">
+        select * from sys_role sr
+            LEFT JOIN sys_user_role sur on sr.role_id = sur.role_id
+            LEFT JOIN sys_user su on su.id = sur.user_id
+        WHERE
+            su.id = #{userId} and sr.delFlag = 0
+    </select>
+
+</mapper>
+
+

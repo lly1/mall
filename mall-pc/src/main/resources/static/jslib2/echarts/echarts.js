@@ -1034,7 +1034,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        else if (opt.flush !== false && env.browser.weChat) {
 	            // In WeChat embeded browser, `requestAnimationFrame` and `setInterval`
 	            // hang when sliding page (on touch event), which cause that zr does not
-	            // refresh util user interaction finished, which is not expected.
+	            // refresh com.mall.wx.util user interaction finished, which is not expected.
 	            // But `dispatchAction` may be called too frequently when pan on touch
 	            // screen, which impacts performance if do not throttle them.
 	            this._throttledZrFlush();
@@ -2452,7 +2452,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         *        If query attribute is null/undefined or has no index/id/name,
 	         *        do not filtering by query conditions, which is convenient for
 	         *        no-payload situations or when target of action is global.
-	         * @param {Function} [condition.filter] parameter: component, return boolean.
+	         * @param {Function} [condition.com.mall.wx.filter] parameter: component, return boolean.
 	         * @return {Array.<module:echarts/model/Component>}
 	         */
 	        findComponents: function (condition) {
@@ -2974,7 +2974,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var _ctx;
 	    function getContext() {
 	        if (!_ctx) {
-	            // Use util.createCanvas instead of createCanvas
+	            // Use com.mall.wx.util.createCanvas instead of createCanvas
 	            // because createCanvas may be overwritten in different environment
 	            _ctx = util.createCanvas().getContext('2d');
 	        }
@@ -4107,7 +4107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // Avoid accuracy problem in edge, such as
 	        // 146.39 - 62.83 === 83.55999999999999.
-	        // See echarts/test/ut/spec/util/number.js#linearMap#accuracyError
+	        // See echarts/test/ut/spec/com.mall.wx.util/number.js#linearMap#accuracyError
 	        // It is a little verbose for efficiency considering this method
 	        // is a hotspot.
 	        if (clamp) {
@@ -6892,7 +6892,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * convertFromPixel:
 	     *     These two methods is also responsible for determine whether this
 	     *     coodinate system is applicable to the given `finder`.
-	     *     Each coordinate system will be tried, util one returns none
+	     *     Each coordinate system will be tried, com.mall.wx.util one returns none
 	     *     null/undefined value.
 	     *     @param {module:echarts/model/Global} ecModel
 	     *     @param {Object} finder
@@ -9852,15 +9852,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * 动画主控制器
-	 * @config target 动画对象，可以是数组，如果是数组的话会批量分发onframe等事件
-	 * @config life(1000) 动画时长
-	 * @config delay(0) 动画延迟时间
-	 * @config loop(true)
-	 * @config gap(0) 循环的间隔时间
-	 * @config onframe
-	 * @config easing(optional)
-	 * @config ondestroy(optional)
-	 * @config onrestart(optional)
+	 * @com.mall.wx.config target 动画对象，可以是数组，如果是数组的话会批量分发onframe等事件
+	 * @com.mall.wx.config life(1000) 动画时长
+	 * @com.mall.wx.config delay(0) 动画延迟时间
+	 * @com.mall.wx.config loop(true)
+	 * @com.mall.wx.config gap(0) 循环的间隔时间
+	 * @com.mall.wx.config onframe
+	 * @com.mall.wx.config easing(optional)
+	 * @com.mall.wx.config ondestroy(optional)
+	 * @com.mall.wx.config onrestart(optional)
 	 *
 	 * TODO pause
 	 */
@@ -10842,7 +10842,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    /**
 	     * config默认配置项
-	     * @exports zrender/config
+	     * @exports zrender/com.mall.wx.config
 	     * @author Kener (@Kener-林峰, kener.linfeng@gmail.com)
 	     */
 	    var config = {
@@ -12314,8 +12314,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @param {string} props.type Path type
 	     * @param {Function} props.init Initialize
 	     * @param {Function} props.buildPath Overwrite buildPath method
-	     * @param {Object} [props.style] Extended default style config
-	     * @param {Object} [props.shape] Extended default shape config
+	     * @param {Object} [props.style] Extended default style com.mall.wx.config
+	     * @param {Object} [props.shape] Extended default shape com.mall.wx.config
 	     */
 	    Path.extend = function (defaults) {
 	        var Sub = function (opts) {
@@ -16146,7 +16146,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    /**
-	     * @alias module:zrender/shape/util/smoothSpline
+	     * @alias module:zrender/shape/com.mall.wx.util/smoothSpline
 	     * @param {Array} points 线段顶点数组
 	     * @param {boolean} isLoop
 	     * @return {Array}
@@ -16218,7 +16218,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /**
 	     * 贝塞尔平滑曲线
-	     * @alias module:zrender/shape/util/smoothBezier
+	     * @alias module:zrender/shape/com.mall.wx.util/smoothBezier
 	     * @param {Array} points 线段顶点数组
 	     * @param {number} smooth 平滑等级, 0-1
 	     * @param {boolean} isLoop
@@ -22006,7 +22006,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    /**
-	     * Data filter
+	     * Data com.mall.wx.filter
 	     * @param {string|Array.<string>}
 	     * @param {Function} cb
 	     * @param {boolean} [stack=false]
@@ -22622,7 +22622,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        __webpack_require__(111), 'line'
 	    ));
 
-	    // Down sample after filter
+	    // Down sample after com.mall.wx.filter
 	    echarts.registerProcessor(PRIORITY.PROCESSOR.STATISTIC, zrUtil.curry(
 	        __webpack_require__(112), 'line'
 	    ));
@@ -33392,7 +33392,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	
 
-	    // var zrUtil = require('zrender/lib/core/util');
+	    // var zrUtil = require('zrender/lib/core/com.mall.wx.util');
 	    var graphic = __webpack_require__(43);
 
 	    var MapDraw = __webpack_require__(175);
@@ -35901,7 +35901,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _resetController: function (api) {
 	            var controller = this._controller;
 
-	            // Init controller.
+	            // Init com.mall.wx.controller.
 	            if (!controller) {
 	                controller = this._controller = new RoamController(api.getZr());
 	                controller.enable(this.seriesModel.get('roam'));
@@ -44487,7 +44487,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        /**
 	         * Init a graph data structure from data in option series
 	         *
-	         * @param  {Object} option  the object used to config echarts view
+	         * @param  {Object} option  the object used to com.mall.wx.config echarts view
 	         * @return {module:echarts/data/List} storage initial data
 	         */
 	        getInitialData: function (option) {
@@ -46506,7 +46506,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // When to show the effect, option: 'render'|'emphasis'
 	            showEffectOn: 'render',
 
-	            // Ripple effect config
+	            // Ripple effect com.mall.wx.config
 	            rippleEffect: {
 	                period: 4,
 	                // Scale of ripple
@@ -46777,7 +46777,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this._effectCfg = effectCfg;
 	        }
 	        else {
-	            // Not keep old effect config
+	            // Not keep old effect com.mall.wx.config
 	            this._effectCfg = null;
 
 	            this.stopEffectAnimation();
@@ -50748,7 +50748,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                cssText.push(
 	                    'background-Color:#' + zrColor.toHex(backgroundColor)
 	                );
-	                cssText.push('filter:alpha(opacity=70)');
+	                cssText.push('com.mall.wx.filter:alpha(opacity=70)');
 	            }
 	        }
 
@@ -54068,7 +54068,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 
 	    function updateController(brushModel, ecModel, api, payload) {
-	        // Do not update controller when drawing.
+	        // Do not update com.mall.wx.controller when drawing.
 	        (!payload || payload.$from !== brushModel.id) && this._brushController
 	            .setPanels(brushHelper.makePanelOpts(brushModel.coordInfoList))
 	            .enableBrush(brushModel.brushOption)
@@ -54565,15 +54565,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	            xAxisIndex: null,       // Default the first horizontal category axis.
 	            yAxisIndex: null,       // Default the first vertical category axis.
 
-	            filterMode: 'filter',   // Possible values: 'filter' or 'empty'.
-	                                    // 'filter': data items which are out of window will be removed.
+	            filterMode: 'filter',   // Possible values: 'com.mall.wx.filter' or 'empty'.
+	                                    // 'com.mall.wx.filter': data items which are out of window will be removed.
 	                                    //           This option is applicable when filtering outliers.
 	                                    // 'empty': data items which are out of window will be set to empty.
 	                                    //          This option is applicable when user should not neglect
 	                                    //          that there are some data items out of window.
 	                                    // Taking line chart as an example, line will be broken in
 	                                    // the filtered points when filterModel is set to 'empty', but
-	                                    // be connected when set to 'filter'.
+	                                    // be connected when set to 'com.mall.wx.filter'.
 
 	            throttle: null,         // Dispatch action by the fixed rate, avoid frequency.
 	                                    // default 100. Do not throttle when use null/undefined.
@@ -55424,7 +55424,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // Toolbox may has dataZoom injected. And if there are stacked bar chart
 	            // with NaN data, NaN will be filtered and stack will be wrong.
 	            // So we need to force the mode to be set empty.
-	            // In fect, it is not a big deal that do not support filterMode-'filter'
+	            // In fect, it is not a big deal that do not support filterMode-'com.mall.wx.filter'
 	            // when using toolbox#dataZoom, utill tooltip#dataZoom support "single axis
 	            // selection" some day, which might need "adapt to data extent on the
 	            // otherAxis", which is disabled by filterMode-'empty'.
@@ -56781,12 +56781,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * @file Roam controller manager.
+	 * @file Roam com.mall.wx.controller manager.
 	 */
 
 
-	    // Only create one roam controller for each coordinate system.
-	    // one roam controller might be refered by two inside data zoom
+	    // Only create one roam com.mall.wx.controller for each coordinate system.
+	    // one roam com.mall.wx.controller might be refered by two inside data zoom
 	    // components (for example, one for x and one for y). When user
 	    // pan or zoom, only dispatch one action for those data zoom
 	    // components.
@@ -56902,7 +56902,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    /**
-	     * Key: coordId, value: {dataZoomInfos: [], count, controller}
+	     * Key: coordId, value: {dataZoomInfos: [], count, com.mall.wx.controller}
 	     * @type {Array.<Object>}
 	     */
 	    function giveStore(api) {
@@ -57002,8 +57002,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // but should not be based on full raw data. Thus sliding
 	            // x-dataZoom will change both ranges of xAxis and yAxis,
 	            // while sliding y-dataZoom will only change the range of yAxis.
-	            // So we should filter x-axis after reset x-axis immediately,
-	            // and then reset y-axis and filter y-axis.
+	            // So we should com.mall.wx.filter x-axis after reset x-axis immediately,
+	            // and then reset y-axis and com.mall.wx.filter y-axis.
 	            dataZoomModel.eachTargetAxis(filterSingleAxis);
 	        });
 
@@ -57312,7 +57312,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    // See echarts/component/visualMap/typeDefaulter.
 	            range: null,            // selected range. In default case `range` is [min, max]
 	                                    // and can auto change along with modification of min max,
-	                                    // util use specifid a range.
+	                                    // com.mall.wx.util use specifid a range.
 	            realtime: true,         // Whether realtime update.
 	            itemHeight: null,       // The length of the range control edge.
 	            itemWidth: null,        // The length of the other side.
@@ -57542,7 +57542,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * @file controller visual map model
+	 * @file com.mall.wx.controller visual map model
 	 */
 
 
@@ -57899,7 +57899,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 
 	                // Compatible with previous logic, always give a defautl color, otherwise
-	                // simple config with no inRange and outOfRange will not work.
+	                // simple com.mall.wx.config with no inRange and outOfRange will not work.
 	                // Originally we use visualMap.color as the default color, but setOption at
 	                // the second time the default color will be erased. So we change to use
 	                // constant DEFAULT_COLOR.
@@ -57966,7 +57966,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    var itemSize = this.itemSize;
 	                    var visuals = controller[state];
 
-	                    // Set inactive color for controller if no other color
+	                    // Set inactive color for com.mall.wx.controller if no other color
 	                    // attr (like colorAlpha) specified.
 	                    if (!visuals) {
 	                        visuals = controller[state] = {
@@ -58044,7 +58044,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        /**
 	         * FIXME
 	         * Do not publish to thirt-part-dev temporarily
-	         * util the interface is stable. (Should it return
+	         * com.mall.wx.util the interface is stable. (Should it return
 	         * a function but not visual meta?)
 	         *
 	         * @pubilc
@@ -59061,7 +59061,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         * @param {string=} visualCluster Only can be 'color' 'opacity' 'symbol' 'symbolSize'
 	         * @param {Object} [opts]
 	         * @param {string=} [opts.forceState] Specify state, instead of using getValueState method.
-	         * @param {string=} [opts.convertOpacityToAlpha=false] For color gradient in controller widget.
+	         * @param {string=} [opts.convertOpacityToAlpha=false] For color gradient in com.mall.wx.controller widget.
 	         * @return {*} Visual value.
 	         */
 	        getControllerVisual: function (targetValue, visualCluster, opts) {
@@ -59303,9 +59303,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            maxOpen: false,             // Whether include values that bigger than `max`.
 
 	            align: 'auto',              // 'auto', 'left', 'right'
-	            itemWidth: 20,              // When put the controller vertically, it is the length of
+	            itemWidth: 20,              // When put the com.mall.wx.controller vertically, it is the length of
 	                                        // horizontal side of each item. Otherwise, vertical side.
-	            itemHeight: 14,             // When put the controller vertically, it is the length of
+	            itemHeight: 14,             // When put the com.mall.wx.controller vertically, it is the length of
 	                                        // vertical side of each item. Otherwise, horizontal side.
 	            itemSymbol: 'roundRect',
 	            pieceList: null,            // Each item is Object, with some of those attrs:
@@ -62614,8 +62614,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 
-	    // var zrUtil = require('zrender/lib/core/util');
-	    // var graphic = require('../../util/graphic');
+	    // var zrUtil = require('zrender/lib/core/com.mall.wx.util');
+	    // var graphic = require('../../com.mall.wx.util/graphic');
 	    var ComponentView = __webpack_require__(29);
 
 	    module.exports = ComponentView.extend({

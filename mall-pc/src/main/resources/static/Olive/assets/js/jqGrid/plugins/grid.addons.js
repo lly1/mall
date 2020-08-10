@@ -78,11 +78,11 @@ $.jgrid.extend({
                 What we need from gridDOMobj:
                 gridDOMobj.SearchFilter is the pointer to the Search box, once it's created.
                 gridDOMobj.p.postData - dictionary of post settings. These can be overriden at grid creation to
-                contain default filter settings. We will parse these and will populate the search with defaults.
+                contain default com.mall.wx.filter settings. We will parse these and will populate the search with defaults.
                 filterSettings - same settings object you (would) pass to $().jqGrid('searchGrid', filterSettings);
                 */
 
-                // Pulling default filter settings out of postData property of grid's properties.:
+                // Pulling default com.mall.wx.filter settings out of postData property of grid's properties.:
                 var defaultFilters = gridDOMobj.p.postData[filterSettings.sFilter];
                 // example of what we might get: {"groupOp":"and","rules":[{"field":"amount","op":"eq","data":"100"}]}
 				// suppose we have imported this with grid import, the this is a string.
@@ -97,7 +97,7 @@ $.jgrid.extend({
                         var f, i = 0, li = defaultFilters.rules.length, success = false;
                         for (; i < li; i++) {
                             f = defaultFilters.rules[i];
-                            // we are not trying to counter all issues with filter declaration here. Just the basics to avoid lookup exceptions.
+                            // we are not trying to counter all issues with com.mall.wx.filter declaration here. Just the basics to avoid lookup exceptions.
                             if (f.field !== undefined && f.op !== undefined && f.data !== undefined) {
                                 success = gridDOMobj.SearchFilter.setFilter({
                                     'sfref':gridDOMobj.SearchFilter.$.find(".sf:last"),
@@ -380,7 +380,7 @@ $.jgrid.extend({
 		return this.each(function(){
 			var self = this;
 			this.p = p;
-			if(this.p.filterModel.length === 0 && this.p.gridModel===false) { alert("No filter is set"); return;}
+			if(this.p.filterModel.length === 0 && this.p.gridModel===false) { alert("No com.mall.wx.filter is set"); return;}
 			if( !gridid) {alert("No target grid is set!"); return;}
 			this.p.gridid = gridid.indexOf("#") != -1 ? gridid : "#"+gridid;
 			var gcolMod = $(this.p.gridid).jqGrid("getGridParam",'colModel');

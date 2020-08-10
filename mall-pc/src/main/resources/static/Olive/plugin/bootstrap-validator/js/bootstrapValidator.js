@@ -1628,8 +1628,8 @@
         // - invisible
         //
         // The setting consists of jQuery filters. Accept 3 formats:
-        // - A string. Use a comma to separate filter
-        // - An array. Each element is a filter
+        // - A string. Use a comma to separate com.mall.wx.filter
+        // - An array. Each element is a com.mall.wx.filter
         // - An array. Each element can be a callback function
         //      function($field, validator) {
         //          $field is jQuery object representing the field element
@@ -6293,7 +6293,7 @@
                 i,
                 length = value.length;
             if (first > 3) {
-                // Legal com.mall.api.entity
+                // Legal com.mall.api.com.mall.wx.entity
                 sum    = 0;
                 weight = [9, 1, 4, 8, 3, 10, 2, 5, 7, 6, 1];
                 for (i = 0; i < length; i++) {

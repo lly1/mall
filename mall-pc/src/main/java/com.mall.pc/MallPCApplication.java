@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @SpringBootApplication
 @EnableTransactionManagement
-@MapperScan(value = "com.mall.dao")
+@MapperScan(value = "com.mall.com.mall.provider.dao")
 public class MallPCApplication extends SpringBootServletInitializer {
 
     @Override

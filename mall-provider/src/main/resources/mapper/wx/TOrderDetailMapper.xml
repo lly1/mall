@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mall.com.mall.provider.dao.wx.TOrderDetailMapper" >
+    <resultMap id="TOrderDetailMap" type="com.mall.wxshop.com.mall.api.com.mall.wx.entity.order.TOrderDetail">
+        <id column="id" property="id"/>
+        <result column="order_id" property="orderId"/>
+        <result column="product_id" property="productId"/>
+        <result column="buy_num" property="buyNum"/>
+        <result column="delFlag" property="delFlag"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_by" property="createBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_by" property="updateBy"/>
+        <association property="product" column="product_id" select="findProductById"/>
+    </resultMap>
+
+    <select id="findDetailByOrderId" resultMap="TOrderDetailMap">
+        select * from t_order_detail a where a.order_id = #{id} and delFlag = '0'
+    </select>
+
+    <select id="findShopDetailByOrderId" resultMap="TOrderDetailMap">
+        select * from t_order_detail a where a.order_id = #{id}
+    </select>
+
+    <select id="findProductById" resultType="com.mall.wxshop.com.mall.api.com.mall.wx.entity.shop.TShopProduct" parameterType="java.lang.String">
+        select * from t_shop_product a where a.id = #{id} and delFlag = '0'
+    </select>
+</mapper>
+
+

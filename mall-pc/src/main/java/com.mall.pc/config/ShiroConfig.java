@@ -1,6 +1,6 @@
 package com.mall.config;
 
-import com.mall.filter.WxAuthenticationFilter;
+import com.mall.wx.filter.WxAuthenticationFilter;
 import com.mall.shiro.realm.WebShiroRealm;
 import com.mall.shiro.realm.WxShiroRealm;
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;

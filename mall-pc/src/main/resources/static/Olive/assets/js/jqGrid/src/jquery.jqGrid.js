@@ -324,7 +324,7 @@ $.extend($.jgrid,{
 		}
 			ret = $(expr, obj);
 			if (returnObj) { return ret; }
-			//$(expr, obj).filter(':last'); // we use ':last' to be more compatible with old version of jqGrid
+			//$(expr, obj).com.mall.wx.filter(':last'); // we use ':last' to be more compatible with old version of jqGrid
 			return ret.length > 0 ? $(ret).text() : undefined;
 	},
 	cellWidth : function () {
@@ -1151,7 +1151,7 @@ $.extend($.jgrid,{
 				icon_sort_asc : "glyphicon-sort-by-alphabet",
 				icon_sort_desc : "glyphicon-sort-by-alphabet-alt",
 				icon_columns : "glyphicon-list-alt",
-				icon_filter : "glyphicon-filter",
+				icon_filter : "glyphicon-com.mall.wx.filter",
 				icon_group : "glyphicon-align-left",
 				icon_freeze : "glyphicon-object-align-horizontal",
 				icon_move: "glyphicon-move"
@@ -6831,7 +6831,7 @@ $.fn.jqFilter = function( arg ) {
 	return this.each( function() {
 		if (this.filter) {return;}
 		this.p = p;
-		// setup filter in case if they is not defined
+		// setup com.mall.wx.filter in case if they is not defined
 		if (this.p.filter === null || this.p.filter === undefined) {
 			this.p.filter = {
 				groupOp: this.p.groupOps[0].op,
@@ -6932,7 +6932,7 @@ $.fn.jqFilter = function( arg ) {
 			return $.isFunction(this.p.onChange) ? this.p.onChange.call( this, this.p ) : false;
 		};
 		/*
-		 * Redraw the filter every time when new field is added/deleted
+		 * Redraw the com.mall.wx.filter every time when new field is added/deleted
 		 * and field is  changed
 		 */
 		this.reDraw = function() {
@@ -6944,7 +6944,7 @@ $.fn.jqFilter = function( arg ) {
 			}
 		};
 		/*
-		 * Creates a grouping data for the filter
+		 * Creates a grouping data for the com.mall.wx.filter
 		 * @param group - object
 		 * @param parentgroup - object
 		 */
@@ -6984,7 +6984,7 @@ $.fn.jqFilter = function( arg ) {
 			.append(str)
 			.on('change',function() {
 				group.groupOp = $(groupOpSelect).val();
-				that.onchange(); // signals that the filter has changed
+				that.onchange(); // signals that the com.mall.wx.filter has changed
 			});
 			}
 			// button for adding a new subgroup
@@ -7004,7 +7004,7 @@ $.fn.jqFilter = function( arg ) {
 
 					that.reDraw(); // the html has changed, force reDraw
 
-					that.onchange(); // signals that the filter has changed
+					that.onchange(); // signals that the com.mall.wx.filter has changed
 					return false;
 				});
 			}
@@ -7065,7 +7065,7 @@ $.fn.jqFilter = function( arg ) {
 
 					that.reDraw(); // the html has changed, force reDraw
 
-					that.onchange(); // signals that the filter has changed
+					that.onchange(); // signals that the com.mall.wx.filter has changed
 					return false;
 				});
 			}
@@ -7116,10 +7116,10 @@ $.fn.jqFilter = function( arg ) {
 			return table;
 		};
 		/*
-		 * Create the rule data for the filter
+		 * Create the rule data for the com.mall.wx.filter
 		 */
 		this.createTableRowForRule = function(rule, group ) {
-			// save current com.mall.api.entity in a variable so that it could
+			// save current com.mall.api.com.mall.wx.entity in a variable so that it could
 			// be referenced in anonimous method calls
 
 			var that=this, $t = getGrid(), tr = $("<tr></tr>"),
@@ -7207,11 +7207,11 @@ $.fn.jqFilter = function( arg ) {
 					var elem = e.target;
 					rule.data = elem.nodeName.toUpperCase() === "SPAN" && cm.searchoptions && $.isFunction(cm.searchoptions.custom_value) ?
 						cm.searchoptions.custom_value.call($t, $(elem).children(".customelement:first"), 'get') : elem.value;
-					that.onchange(); // signals that the filter has changed
+					that.onchange(); // signals that the com.mall.wx.filter has changed
 				});
 				setTimeout(function(){ //IE, Opera, Chrome
 				rule.data = $(elm).val();
-				that.onchange();  // signals that the filter has changed
+				that.onchange();  // signals that the com.mall.wx.filter has changed
 				}, 0);
 			});
 
@@ -7272,7 +7272,7 @@ $.fn.jqFilter = function( arg ) {
 					rd.removeAttribute("disabled");
 				}
 
-				that.onchange();  // signals that the filter has changed
+				that.onchange();  // signals that the com.mall.wx.filter has changed
 			});
 
 			// populate drop down with all available operators
@@ -7303,7 +7303,7 @@ $.fn.jqFilter = function( arg ) {
 			.addClass("input-elm " + classes.srInput )
 			.on('change', function() {
 				rule.data = cm.inputtype === 'custom' ? cm.searchoptions.custom_value.call($t, $(this).children(".customelement:first"),'get') : $(this).val();
-				that.onchange(); // signals that the filter has changed
+				that.onchange(); // signals that the com.mall.wx.filter has changed
 			});
 
 			// create action container
@@ -7326,7 +7326,7 @@ $.fn.jqFilter = function( arg ) {
 
 				that.reDraw(); // the html has changed, force reDraw
 
-				that.onchange(); // signals that the filter has changed
+				that.onchange(); // signals that the com.mall.wx.filter has changed
 				return false;
 			});
 			}
@@ -7466,7 +7466,7 @@ $.fn.jqFilter = function( arg ) {
 			return getStringForGroup(this.p.filter);
 		};
 
-		// Here we init the filter
+		// Here we init the com.mall.wx.filter
 		this.reDraw();
 
 		if(this.p.showQuery) {
@@ -7489,7 +7489,7 @@ $.extend($.fn.jqFilter,{
 		return s;
 	},
 	/*
-	 * Return filter data as object.
+	 * Return com.mall.wx.filter data as object.
 	 */
 	filterData : function()
 	{
@@ -8209,7 +8209,7 @@ $.jgrid.extend({
 						if(!n.label) {
 							n.label = $t.p.colNames[i];
 						}
-						// find first searchable column and set it if no default filter
+						// find first searchable column and set it if no default com.mall.wx.filter
 						if(!found) {
 							var searchable = (n.search === undefined) ?  true: n.search ,
 							hidden = (n.hidden === true),
