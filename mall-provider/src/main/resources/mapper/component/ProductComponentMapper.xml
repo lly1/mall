@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mall.com.mall.provider.dao.component.TProductComponentMapper" >
 
-    <select id="findByProductId" resultType="com.mall.api.com.mall.wx.entity.component.TProductComponent" parameterType="java.lang.String">
+    <select id="findByProductId" resultType="com.mall.api.com.mall.api.entity.wx.entity.component.TProductComponent" parameterType="java.lang.String">
         select
         a.*,
         b.name as "componentName"

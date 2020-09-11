@@ -5,45 +5,6 @@ server:
   servlet-path: /
 # druid 配置：
 spring:
-  datasource:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://wakakaljh.mysql.rds.aliyuncs.com/mall?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai&useSSL=false
-      username: wakakaljh
-      password: 954291079Ljh
-      type: com.alibaba.druid.pool.DruidDataSource
-      druid:
-        # 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
-        initial-size: 10
-        # 最小连接池数量
-        min-idle: 10
-        # 最大连接池数量
-        max-active: 10
-        # 配置一个连接在池中最小生存的时间，单位是毫秒
-        min-evictable-idle-time-millis: 180000
-        #  申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
-        test-on-borrow: false
-        #  归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
-        test-On-Return: false
-        #  建议配置为true，不影响性能，并且保证安全性。
-        #  申请连接的时候检测，如果空闲时间大于
-        #  timeBetweenEvictionRunsMillis，
-        #  执行validationQuery检测连接是否有效。
-        validation-query: SELECT 1
-        test-while-idle: true
-        #  属性类型是字符串，通过别名的方式配置扩展插件，
-        #  常用的插件有：
-        #  监控统计用的filter:stat
-        #  日志用的filter:log4j
-        #  防御sql注入的filter:wall
-        filters: stat
-        #  是否缓存preparedStatement，也就是PSCache。
-        #  PSCache对支持游标的数据库性能提升巨大，比如说oracle。
-        #  在mysql5.5以下的版本中没有PSCache功能，建议关闭掉。
-        #  作者在5.5版本中使用PSCache，通过监控界面发现PSCache有缓存命中率记录，
-        #  该应该是支持PSCache。
-        #  打开PSCache，并且指定每个连接上PSCache的大小
-        pool-prepared-statements: true
-        max-pool-prepared-statement-per-connection-size: 20
   redis:
     database: 1
     host: 127.0.0.1
@@ -65,26 +26,20 @@ spring:
     cache: false
     mode: LEGACYHTML5
     suffix: .html
-#mybatis
-mybatis-plus:
-  mapper-locations: classpath:/mapper/*/*Mapper.xml
-  #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.mall.api.com.mall.wx.entity
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    map-underscore-to-camel-case: true
-    cache-enabled: false
-    default-statement-timeout: 60000
-  global-config:
-    db-config:
-      #表名下划线命名默认true
-      table-underline: true
-      #id类型
-      id-type: auto
-      #全局逻辑删除字段值
-      logic-delete-field: delFlag
-      #sql查询时忽略空字符串条件
-      select-strategy: not_empty
+#dubbo
+dubbo:
+  #应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
+  application:
+    name: pc
+  #注册中心配置，用于配置连接注册中心相关信息。
+  registry:
+    address: zookeeper://127.0.0.1:2181
+  #协议配置，用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受。
+  protocol:
+    name: dubbo
+    port: 20880
+    #服务暴露与发现消费所在的package
+    scan: com.mall.api.dubbo
 
 
 

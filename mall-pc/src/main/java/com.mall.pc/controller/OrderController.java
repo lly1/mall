@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mall.common.BaseController;
 import com.mall.common.FrontPage;
 import com.mall.common.RtnPageInfo;
-import com.mall.wx.entity.order.TOrder;
+import com.mall.api.entity.wx.order.TOrder;
 import com.mall.provider.service.wx.service.order.TOrderDetailService;
 import com.mall.provider.service.wx.service.order.TOrderService;
 import org.springframework.beans.factory.annotation.Autowired;

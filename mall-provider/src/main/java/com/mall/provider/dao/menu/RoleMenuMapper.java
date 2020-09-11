@@ -1,7 +1,7 @@
 package com.mall.provider.dao.menu;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mall.api.entity.menu.RoleMenu;
+import com.mall.api.entity.pc.menu.RoleMenu;
 
 /**
  * @Author liangjunhao

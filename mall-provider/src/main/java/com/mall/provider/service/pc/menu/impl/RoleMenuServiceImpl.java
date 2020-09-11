@@ -2,7 +2,7 @@ package com.mall.provider.service.pc.menu.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mall.dao.menu.RoleMenuMapper;
-import com.mall.api.entity.menu.RoleMenu;
+import com.mall.api.entity.pc.menu.RoleMenu;
 import com.mall.provider.service.pc.menu.RoleMenuService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mall.dao.wx.TOrderMapper;
 import com.mall.api.utils.cache.RedisUtils;
 import com.mall.provider.service.wx.order.TOrderService;
-import com.mall.wx.entity.order.TOrder;
+import com.mall.api.entity.wx.order.TOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

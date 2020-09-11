@@ -1,8 +1,8 @@
 package com.mall.api.utils;
 
-import com.mall.api.entity.menu.Menu;
-import com.mall.api.entity.menu.SidebarMenu;
-import com.mall.api.entity.menu.TreeNode;
+import com.mall.api.entity.pc.menu.Menu;
+import com.mall.api.entity.pc.menu.SidebarMenu;
+import com.mall.api.entity.pc.menu.TreeNode;
 
 import java.util.*;
 

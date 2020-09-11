@@ -1,7 +1,7 @@
 package com.mall.provider.service.wx.order;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.mall.wx.entity.order.TOrderDetail;
+import com.mall.api.entity.wx.order.TOrderDetail;
 
 import java.util.List;
 

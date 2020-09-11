@@ -2,10 +2,10 @@ package com.mall.provider.service.wx.order.impl;
 
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mall.dao.wx.TOrderDetailMapper;
 import com.mall.api.utils.cache.RedisUtils;
+import com.mall.provider.dao.wx.TOrderDetailMapper;
 import com.mall.provider.service.wx.order.TOrderDetailService;
-import com.mall.wx.entity.order.TOrderDetail;
+import com.mall.api.entity.wx.order.TOrderDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

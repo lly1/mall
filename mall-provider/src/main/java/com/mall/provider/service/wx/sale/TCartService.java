@@ -1,7 +1,7 @@
 package com.mall.provider.service.wx.sale;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.mall.wx.entity.sale.TCart;
+import com.mall.api.entity.wx.sale.TCart;
 
 import java.util.List;
 

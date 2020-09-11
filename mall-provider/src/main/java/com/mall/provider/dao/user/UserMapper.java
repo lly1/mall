@@ -1,7 +1,7 @@
 package com.mall.provider.dao.user;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mall.api.entity.user.User;
+import com.mall.api.entity.pc.user.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

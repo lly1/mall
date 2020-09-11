@@ -365,7 +365,7 @@ $.fn.jqFilter = function( arg ) {
 		 * Create the rule data for the com.mall.wx.filter
 		 */
 		this.createTableRowForRule = function(rule, group ) {
-			// save current com.mall.api.com.mall.wx.entity in a variable so that it could
+			// save current com.mall.api.com.mall.api.entity.wx.entity in a variable so that it could
 			// be referenced in anonimous method calls
 
 			var that=this, $t = getGrid(), tr = $("<tr></tr>"),

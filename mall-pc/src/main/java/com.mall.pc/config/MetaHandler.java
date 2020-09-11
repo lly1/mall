@@ -1,7 +1,6 @@
 package com.mall.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.mall.api.entity.user.User;
 import com.mall.service.user.UserService;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.beans.factory.annotation.Autowired;

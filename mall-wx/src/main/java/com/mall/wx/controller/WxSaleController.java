@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mall.common.BaseController;
 import com.mall.common.RtnMessage;
 import com.mall.api.utils.RtnMessageUtils;
-import com.mall.wx.entity.shop.TShop;
+import com.mall.api.entity.wx.shop.TShop;
 import com.mall.provider.service.wx.service.shop.TShopService;
 import com.mall.wx.util.DistanceUtil;
 import org.springframework.stereotype.Controller;

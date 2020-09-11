@@ -3,7 +3,7 @@ package com.mall.shiro.realm;
 import com.mall.api.constant.Constants;
 import com.mall.shiro.WxToken;
 import com.mall.api.utils.cache.SpringContextUtil;
-import com.mall.wx.entity.user.WxUserInfo;
+import com.mall.api.entity.wx.user.WxUserInfo;
 import com.mall.provider.service.wx.service.user.WxUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;

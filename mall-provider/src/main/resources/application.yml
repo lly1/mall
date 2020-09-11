@@ -65,11 +65,25 @@ spring:
     cache: false
     mode: LEGACYHTML5
     suffix: .html
+#dubbo
+dubbo:
+  #应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
+  application:
+    name: provider
+  #注册中心配置，用于配置连接注册中心相关信息。
+  registry:
+    address: zookeeper://127.0.0.1:2181
+  #协议配置，用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受。
+  protocol:
+    name: dubbo
+    port: 20880
+    #服务暴露与发现消费所在的package
+    scan: com.mall.provider.dubbo
 #mybatis
 mybatis-plus:
   mapper-locations: classpath:/mapper/*/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.mall.api.com.mall.wx.entity
+  typeAliasesPackage: com.mall.api.com.mall.api.entity.wx.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true

@@ -1,7 +1,7 @@
 package com.mall.provider.service.pc.menu;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.mall.api.entity.menu.RoleMenu;
+import com.mall.api.entity.pc.menu.RoleMenu;
 
 /**
  * @Author liangjunhao

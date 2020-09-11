@@ -2,7 +2,7 @@ package com.mall.provider.dao.wx;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mall.wx.entity.sale.TComment;
+import com.mall.api.entity.wx.sale.TComment;
 import org.apache.ibatis.annotations.Param;
 
 

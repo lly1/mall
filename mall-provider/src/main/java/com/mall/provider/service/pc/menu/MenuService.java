@@ -1,7 +1,7 @@
 package com.mall.provider.service.pc.menu;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.mall.api.entity.menu.Menu;
+import com.mall.api.entity.pc.menu.Menu;
 
 import java.util.List;
 

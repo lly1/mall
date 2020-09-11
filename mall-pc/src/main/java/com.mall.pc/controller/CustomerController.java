@@ -1,9 +1,9 @@
 package com.mall.controller;
 
-import com.mall.common.BaseController;
-import com.mall.common.RtnMessage;
-import com.mall.api.entity.user.User;
-import com.mall.service.user.UserService;
+import com.mall.pc.common.BaseController;
+import com.mall.api.entity.base.RtnMessage;
+import com.mall.api.entity.pc.user.User;
+import com.mall.provider.service.pc.user.UserService;
 import com.mall.api.utils.RtnMessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -4,7 +4,7 @@ import com.mall.common.RtnMessage;
 import com.mall.wx.filter.WxAuthenticationFilter;
 import com.mall.api.utils.RtnMessageUtils;
 import com.mall.wx.config.WxConfig;
-import com.mall.wx.entity.user.WeixinOauthToken;
+import com.mall.api.entity.wx.user.WeixinOauthToken;
 import com.mall.wx.util.AdvancedUtil;
 import com.mall.common.BaseController;
 import org.apache.shiro.SecurityUtils;

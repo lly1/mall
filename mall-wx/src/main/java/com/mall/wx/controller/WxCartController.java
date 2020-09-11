@@ -2,12 +2,13 @@ package com.mall.wx.controller;
 
 import com.mall.common.BaseController;
 import com.mall.common.RtnMessage;
-import com.mall.api.entity.user.User;
+import com.mall.api.entity.pc.user.User;
 import com.mall.api.utils.RtnMessageUtils;
 import com.mall.api.utils.StringUtilsEx;
-import com.mall.wx.entity.sale.TCart;
+import com.mall.api.entity.wx.sale.TCart;
 import com.mall.provider.service.wx.service.sale.TCartService;
 import com.mall.provider.service.wx.service.user.WxUserService;
+import com.mall.wx.common.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

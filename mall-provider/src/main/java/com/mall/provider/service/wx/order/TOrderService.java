@@ -2,7 +2,7 @@ package com.mall.provider.service.wx.order;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.mall.wx.entity.order.TOrder;
+import com.mall.api.entity.wx.order.TOrder;
 
 import java.util.List;
 

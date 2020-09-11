@@ -1,7 +1,7 @@
 package com.mall.provider.service.pc.user;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.mall.api.entity.user.User;
+import com.mall.api.entity.pc.user.User;
 
 import java.util.List;
 

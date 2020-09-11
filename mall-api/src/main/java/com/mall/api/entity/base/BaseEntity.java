@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mall.api.entity.user.User;
+import com.mall.api.entity.pc.user.User;
 import com.mall.api.utils.UUIDGenerator;
 import lombok.Data;
 

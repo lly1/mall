@@ -6293,7 +6293,7 @@
                 i,
                 length = value.length;
             if (first > 3) {
-                // Legal com.mall.api.com.mall.wx.entity
+                // Legal com.mall.api.com.mall.api.entity.wx.entity
                 sum    = 0;
                 weight = [9, 1, 4, 8, 3, 10, 2, 5, 7, 6, 1];
                 for (i = 0; i < length; i++) {

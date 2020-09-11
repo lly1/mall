@@ -3,9 +3,9 @@ package com.mall.provider.service.wx.sale.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mall.dao.wx.TCommentMapper;
 import com.mall.api.utils.cache.RedisUtils;
-import com.mall.wx.entity.sale.TComment;
+import com.mall.api.entity.wx.sale.TComment;
+import com.mall.provider.dao.wx.TCommentMapper;
 import com.mall.provider.service.wx.sale.TCommentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,11 +1,11 @@
 package com.mall.shiro.realm;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.mall.api.entity.user.Role;
+import com.mall.api.entity.pc.user.Role;
 import com.mall.service.role.RoleService;
 import com.mall.shiro.WebToken;
 import com.mall.api.constant.Constants;
-import com.mall.api.entity.user.User;
+import com.mall.api.entity.pc.user.User;
 import com.mall.service.user.UserService;
 import com.mall.api.utils.CommonUtil;
 import com.mall.api.utils.cache.SpringContextUtil;

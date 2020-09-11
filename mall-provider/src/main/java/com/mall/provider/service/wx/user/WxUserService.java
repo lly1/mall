@@ -1,7 +1,7 @@
 package com.mall.provider.service.wx.user;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.mall.wx.entity.user.WxUserInfo;
+import com.mall.api.entity.wx.user.WxUserInfo;
 
 /**
  * @author lly

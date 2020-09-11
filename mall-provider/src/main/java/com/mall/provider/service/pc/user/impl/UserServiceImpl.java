@@ -2,8 +2,8 @@ package com.mall.provider.service.pc.user.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mall.dao.user.UserMapper;
-import com.mall.api.entity.user.User;
+import com.mall.api.entity.pc.user.User;
+import com.mall.provider.dao.user.UserMapper;
 import com.mall.provider.service.pc.user.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;

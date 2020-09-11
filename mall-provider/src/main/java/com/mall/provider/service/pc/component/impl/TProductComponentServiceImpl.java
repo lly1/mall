@@ -1,8 +1,8 @@
 package com.mall.provider.service.pc.component.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mall.dao.component.TProductComponentMapper;
-import com.mall.api.entity.component.TProductComponent;
+import com.mall.api.entity.wx.component.TProductComponent;
+import com.mall.provider.dao.component.TProductComponentMapper;
 import com.mall.provider.service.pc.component.TProductComponentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

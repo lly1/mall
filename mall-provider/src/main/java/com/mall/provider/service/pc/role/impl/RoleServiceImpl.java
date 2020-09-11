@@ -3,7 +3,7 @@ package com.mall.provider.service.pc.role.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mall.dao.user.RoleMapper;
-import com.mall.api.entity.user.Role;
+import com.mall.api.entity.pc.user.Role;
 import com.mall.provider.service.pc.role.RoleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

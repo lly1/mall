@@ -3064,7 +3064,7 @@
 						cellData = '';
 					}
 	
-					// If it looks like there is an HTML com.mall.api.com.mall.wx.entity in the string,
+					// If it looks like there is an HTML com.mall.api.com.mall.api.entity.wx.entity in the string,
 					// attempt to decode it so sorting works as expected. Note that
 					// we could use a single line of jQuery to do this, but the DOM
 					// method used here is much faster http://jsperf.com/html-decode

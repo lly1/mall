@@ -1,7 +1,7 @@
 package com.mall.provider.dao.wx;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mall.wx.entity.shop.TShopProduct;
+import com.mall.api.entity.wx.shop.TShopProduct;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

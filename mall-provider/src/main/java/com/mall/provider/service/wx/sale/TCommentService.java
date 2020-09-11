@@ -2,7 +2,7 @@ package com.mall.provider.service.wx.sale;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.mall.wx.entity.sale.TComment;
+import com.mall.api.entity.wx.sale.TComment;
 
 
 /**

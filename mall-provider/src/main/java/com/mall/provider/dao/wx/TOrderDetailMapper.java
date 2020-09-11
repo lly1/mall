@@ -1,7 +1,7 @@
 package com.mall.provider.dao.wx;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mall.wx.entity.order.TOrderDetail;
+import com.mall.api.entity.wx.order.TOrderDetail;
 
 import java.util.List;
 

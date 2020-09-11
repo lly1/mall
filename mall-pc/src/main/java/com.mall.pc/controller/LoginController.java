@@ -3,7 +3,7 @@ package com.mall.controller;
 import com.mall.shiro.WebToken;
 import com.mall.api.constant.Constants;
 import com.mall.common.BaseController;
-import com.mall.api.entity.user.User;
+import com.mall.api.entity.pc.user.User;
 import com.mall.service.user.UserService;
 import com.mall.api.utils.CommonUtil;
 import org.apache.shiro.SecurityUtils;

@@ -1,7 +1,7 @@
 package com.mall.provider.service.wx.shop;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.mall.wx.entity.shop.TCode;
+import com.mall.api.entity.wx.shop.TCode;
 
 /**
  * @author lly
