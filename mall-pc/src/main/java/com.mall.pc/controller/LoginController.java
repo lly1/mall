@@ -1,16 +1,16 @@
-package com.mall.controller;
+package com.mall.pc.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.mall.api.dubbo.pc.DubboUserService;
+import com.mall.pc.common.BaseController;
 import com.mall.shiro.WebToken;
 import com.mall.api.constant.Constants;
-import com.mall.common.BaseController;
 import com.mall.api.entity.pc.user.User;
-import com.mall.service.user.UserService;
 import com.mall.api.utils.CommonUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
-    @Autowired
-    private UserService userService;
+    @Reference
+    private DubboUserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String submitLogin(HttpServletRequest request,Model model) {

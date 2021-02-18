@@ -1,10 +1,11 @@
-package com.mall.config;
+package com.mall.pc.config;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.mall.service.user.UserService;
+import com.mall.api.dubbo.pc.DubboUserService;
 import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 
 /**
  * @Author liangjunhao
@@ -14,8 +15,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class MetaHandler implements MetaObjectHandler {
 
-    @Autowired
-    private UserService userService;
+    @Reference
+    private DubboUserService userService;
 
     @Override
     public void insertFill(MetaObject metaObject) {

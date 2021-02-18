@@ -1,4 +1,4 @@
-package com.mall.config;
+package com.mall.pc.config;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;

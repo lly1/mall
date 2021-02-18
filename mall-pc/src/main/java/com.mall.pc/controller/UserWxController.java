@@ -1,13 +1,14 @@
-package com.mall.controller;
+package com.mall.pc.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mall.common.BaseController;
-import com.mall.common.FrontPage;
-import com.mall.common.RtnPageInfo;
+import com.mall.api.dubbo.Wx.DubboWxUserService;
+import com.mall.api.dubbo.pc.DubboRoleService;
+import com.mall.api.entity.base.FrontPage;
+import com.mall.api.entity.base.RtnPageInfo;
 import com.mall.api.entity.pc.user.Role;
-import com.mall.service.role.RoleService;
+import com.mall.pc.common.BaseController;
 import com.mall.api.entity.wx.user.WxUserInfo;
-import com.mall.provider.service.wx.service.user.WxUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +22,10 @@ import java.util.List;
 @RequestMapping("/sys/wxUser")
 public class UserWxController extends BaseController {
 
-    @Autowired
-    private WxUserService wxUserService;
-    @Autowired
-    private RoleService roleService;
+    @Reference
+    private DubboWxUserService wxUserService;
+    @Reference
+    private DubboRoleService roleService;
 
     @RequestMapping("/index.WS")
     public String index() {

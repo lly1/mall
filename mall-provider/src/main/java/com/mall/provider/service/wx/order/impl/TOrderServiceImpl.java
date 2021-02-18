@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mall.dao.wx.TOrderMapper;
 import com.mall.api.utils.cache.RedisUtils;
+import com.mall.provider.dao.wx.TOrderMapper;
 import com.mall.provider.service.wx.order.TOrderService;
 import com.mall.api.entity.wx.order.TOrder;
 import org.slf4j.Logger;

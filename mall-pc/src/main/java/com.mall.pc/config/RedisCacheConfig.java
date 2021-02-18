@@ -1,4 +1,4 @@
-package com.mall.config;
+package com.mall.pc.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

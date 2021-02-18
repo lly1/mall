@@ -1,6 +1,5 @@
-package com.mall.config;
+package com.mall.pc.config;
 
-import com.mall.wx.filter.WxAuthenticationFilter;
 import com.mall.shiro.realm.WebShiroRealm;
 import com.mall.shiro.realm.WxShiroRealm;
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
@@ -41,7 +40,6 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSuccessUrl("/auth/index");
         //自定义拦截器
         Map<String, Filter> filtersMap = new LinkedHashMap<String, Filter>();
-        filtersMap.put("user", new WxAuthenticationFilter());
         shiroFilterFactoryBean.setFilters(filtersMap);
         // 权限控制map.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
@@ -59,11 +57,6 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
-    }
-
-    @Bean
-    public WxAuthenticationFilter WxAuthenticationFilter() {
-        return new WxAuthenticationFilter();
     }
 
     @Bean

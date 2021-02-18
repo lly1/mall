@@ -1,30 +1,29 @@
 package com.mall.pc.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mall.api.dubbo.pc.DubboMenuService;
 import com.mall.pc.common.BaseController;
 import com.mall.api.entity.base.FrontPage;
 import com.mall.api.entity.base.RtnMessage;
 import com.mall.api.entity.base.RtnPageInfo;
 import com.mall.api.entity.pc.menu.Menu;
 import com.mall.api.entity.pc.menu.SidebarMenu;
-import com.mall.service.menu.MenuService;
 import com.mall.api.utils.CommonUtil;
 import com.mall.api.utils.ResourceUtil;
 import com.mall.api.utils.RtnMessageUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.util.LinkedList;
 import java.util.List;
 
 @Controller
 public class MenuController extends BaseController {
-    @Autowired
-    private MenuService menuService;
+    @Reference
+    private DubboMenuService menuService;
     /**
      * 通过角色ID获取权限
      *
@@ -63,7 +62,7 @@ public class MenuController extends BaseController {
 
     @RequestMapping("/sys/menu/save")
     @ResponseBody
-    public RtnMessage save(Menu menu, String pageType, HttpSession session){
+    public RtnMessage save(Menu menu, String pageType){
         QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("mName", menu.getMName());
         Menu m = this.menuService.getOne(queryWrapper);

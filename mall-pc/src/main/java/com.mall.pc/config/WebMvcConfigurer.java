@@ -1,9 +1,9 @@
-package com.mall.config;
+package com.mall.pc.config;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.mall.wx.filter.MyHandlerInterceptor;
+import com.mall.pc.filter.MyHandlerInterceptor;
 import com.mall.api.utils.UploadUtils;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -22,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import javax.servlet.MultipartConfigElement;
 import java.io.File;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +32,6 @@ import java.util.List;
  */
 @Configuration
 public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
-
-
 
     //访问静态资源
     @Override
@@ -88,7 +87,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     @Bean
     public HttpMessageConverter<String> responseBodyConverter() {
         StringHttpMessageConverter converter = new StringHttpMessageConverter(
-                Charset.forName("UTF-8"));
+                StandardCharsets.UTF_8);
         return converter;
     }
 

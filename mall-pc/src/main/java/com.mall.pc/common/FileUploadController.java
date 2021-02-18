@@ -1,4 +1,4 @@
-package com.mall.common;
+package com.mall.pc.common;
 
 import com.mall.api.utils.UploadUtils;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.mall.config;
+package com.mall.pc.config;
 
 
 import com.baomidou.mybatisplus.core.config.GlobalConfig;

@@ -1,4 +1,4 @@
-package com.mall.wx.filter;
+package com.mall.pc.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
